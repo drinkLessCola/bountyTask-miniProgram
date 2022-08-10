@@ -1,7 +1,8 @@
 {
   "description": "项目配置文件",
   "packOptions": {
-    "ignore": []
+    "ignore": [],
+    "include": []
   },
   "miniprogramRoot": "miniprogram/",
   "compileType": "miniprogram",
@@ -50,5 +51,11 @@
   "simulatorType": "wechat",
   "simulatorPluginLibVersion": {},
   "appid": "wxff4e4c4a669de16c",
-  "condition": {}
+  "condition": {},
+  "libVersion": "2.23.0",
+  "srcMiniprogramRoot": "miniprogram/",
+  "editorSetting": {
+    "tabIndent": "insertSpaces",
+    "tabSize": 2
+  }
 }

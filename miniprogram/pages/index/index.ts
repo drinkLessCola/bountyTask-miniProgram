@@ -24,6 +24,24 @@ Page({
         canIUseGetUserProfile: true
       })
     }
+    wx.login({ //发起请求
+      success:(res)=>{ //请求成功赋值给变量
+        if(res.code){ //变量获取code
+          wx.request({
+            url: 'http://localhost:8080/login',  //这里是请求地址
+            method:'POST', 
+            data: {
+              code: res.code, // 请求参数，login请求到的code
+            }
+          })
+        } else {
+          console.log('登录失败！' + res.errMsg)
+        }
+       },
+      fall:(res:Error)=>{
+        console.log('失败',res)
+      }
+  })
   },
   getUserProfile() {
     // 推荐使用wx.getUserProfile获取用户信息，开发者每次通过该接口获取用户个人信息均需用户确认，开发者妥善保管用户快速填写的头像昵称，避免重复弹窗
