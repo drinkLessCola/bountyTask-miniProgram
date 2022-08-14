@@ -2558,6 +2558,8 @@ backgroundAudioManager.src = 'http://ws.stream.qqmusic.qq.com/M500001VfvsJ21xFqb
         success?: GetUserProfileSuccessCallback
     }
     interface GetUserProfileSuccessCallbackResult {
+        encryptedData: any
+        iv: any
         /** [UserInfo](https://developers.weixin.qq.com/miniprogram/dev/api/open-api/user-info/UserInfo.html)
          *
          * 用户信息对象 */

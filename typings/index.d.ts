@@ -6,3 +6,11 @@ interface IAppOption {
   }
   userInfoReadyCallback?: WechatMiniprogram.GetUserInfoSuccessCallback,
 }
+
+interface TimeInfo {
+  month:number,
+  date:number,
+  isAm:boolean,
+  hour:number,
+  min:number
+}

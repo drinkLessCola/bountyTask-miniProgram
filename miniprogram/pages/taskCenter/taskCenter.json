@@ -1,0 +1,5 @@
+{
+  "usingComponents": {
+    "task":"/component/task/task"
+  }
+}

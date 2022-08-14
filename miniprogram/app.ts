@@ -1,4 +1,6 @@
 // app.ts
+// 获取应用实例
+const app = getApp<IAppOption>()
 App<IAppOption>({
   globalData: {},
   onLaunch() {
@@ -15,4 +17,6 @@ App<IAppOption>({
       },
     })
   },
+  
 })
+

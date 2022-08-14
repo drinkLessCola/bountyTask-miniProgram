@@ -1,0 +1,18 @@
+<!--miniprogram.wxml-->
+<view class="task">
+  <header class="task-header">
+    <span>{{title}}</span>
+    <span class="bounty">¥{{bounty}}</span>
+  </header>
+  <main class="task-main">
+    <ul class="task-info">
+      <li class="info">
+        <span class="icon icon-address"></span>{{area}}
+      </li>
+      <li class="info">
+      <span class="icon icon_time"></span>
+      {{deadline}}</li>
+    </ul>
+    <span>{{publishTime}}</span>
+  </main>
+</view>

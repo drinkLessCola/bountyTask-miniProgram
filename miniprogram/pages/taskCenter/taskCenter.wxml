@@ -1,0 +1,9 @@
+<header></header>
+<view class="main">
+  <!-- 使用自定义组件（component） -->
+  <!-- 要先在对应的 json 文件中定义要使用的 component 引用的标签名及所在的文件路径 -->
+  <task title="帮我拿一个快递" bounty="3" timestamp="1660477120324" area="泰山区" deadline="1668477455200"></task>
+</view>
+
+
+
