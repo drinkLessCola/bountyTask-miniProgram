@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages/page1/page1", 
     "pages/taskCenter/taskCenter",
+    "pages/page1/page1", 
     "pages/logs/logs",
     "pages/message/message",
     "pages/taskDetail/taskDetail",
