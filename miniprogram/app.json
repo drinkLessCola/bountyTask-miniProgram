@@ -1,6 +1,6 @@
 {
   "pages": [
-    "pages/home/home", 
+    "pages/page1/page1", 
     "pages/taskCenter/taskCenter",
     "pages/logs/logs",
     "pages/message/message",
