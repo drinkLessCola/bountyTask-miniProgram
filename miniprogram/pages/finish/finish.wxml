@@ -1,4 +1,3 @@
-<!--pages/confirmCompleted/confirmCompleted.wxml-->
 <nav-bar navbar-data='{{navbarData}}'></nav-bar>
 <!-- 自定义导航栏，抄来的,看上去有点抽象 -->
 <view class="taskTitle" style="margin-top:{{height}}px;">{{task.title}}</view>
@@ -6,21 +5,23 @@
 <view><title><view class="title">任务要求</view></title></view>
 <view class="taskRequire">{{task.requirement}}</view>
 
-<view><title><view class="title">帮手信息</view></title></view>
-<view>这个东西正在想怎么写</view>
-
-<view><title><view class="title">证明信息</view></title></view>
+<view><title><view class="title">提交证明</view></title></view>
 <view  class="confirmBox">
-  <p class="p">证明信息只有图片吗，我按照朋友圈的样子写，蓝湖上的图片大小为110pt，这里为了放3x3 改成了105pt ，蓝湖没给界面的右margin，此处整个界面的右margin与左边一样 abababababababababababababababaabababababa</p>
+  <textarea type="text" class="input" placeholder="请输入" auto-height="true" bindinput="textInput"></textarea>
   <view class="imgBox" wx:for="{{imgArray}}">
     <image wx:if="{{index%3 != 2}}" src='{{item}}' mode="aspectFill" class="img"></image>
     <!-- 每行的最后一个没有右margin -->
     <image wx:else="" src='{{item}}'  mode="aspectFill" class="img imglast"></image>
+    
   </view>
+  <view class="add addLast" wx:if="{{(imgArray.length)%3 == 2}}" bindtap="addImg"> 
+      <image src='/images/finish/addImg.png' mode="aspectFill" class="addImg"></image>
+    </view>
+    <view class="add" wx:if="{{(imgArray.length)%3 != 2}}" bindtap="addImg"> 
+      <image src='/images/finish/addImg.png' mode="aspectFill" class="addImg"></image>
+    </view>
 </view>
 
 <view class="buttonBox">
-  <button class="btnNo" bindtap="refuse">认定无效</button>
-  <button class="btnYes" bindtap="confirm">确认完成</button>
+  <button  bindtap="submit">提交</button>
 </view>
-

@@ -1,0 +1,100 @@
+/* pages/finish/finish.wxss */
+page {
+  // font-family: "PingFang SC";
+  padding-left: 50rpx;
+}
+
+
+.taskTitle {
+  position: relative;
+  font-size: 48rpx;
+  padding-top: 22rpx;
+  
+}
+
+.title {
+  margin-top: 40rpx;
+  font-size: 36rpx;
+  font-weight: bold;
+}
+
+.taskRequire {
+  font-size: 28rpx;
+  color: rgb(85,85,85);
+  margin-left: 20rpx;
+  margin-top: 26rpx;
+}
+
+.confirmBox {
+  width: 650rpx;
+  .input{
+    width: 650rpx;
+    margin-top: 20rpx;
+    word-wrap: break-all;
+    margin-bottom: 20rpx;
+    
+  }
+  .img{
+    float: left;
+    // display: flex;
+    width: 210rpx;
+    height: 210rpx;
+    margin-right: 10rpx;
+    margin-bottom: 10rpx;
+  }
+  .imglast {
+    margin-right: 0;
+  }
+  
+  .add {
+    float: left;
+    // display: flex;
+    width: 210rpx;
+    height: 210rpx;
+    margin-right: 10rpx;
+    margin-bottom: 10rpx;
+    border: 1rpx dashed rgb(170,170,170);
+    box-sizing: border-box;
+    .addImg {
+      margin-top: 80rpx;
+      margin-left: 80rpx;
+      width: 50rpx;
+      height: 50rpx;
+    }
+  }
+
+  .addLast {
+    margin-right: 0;
+  }
+}
+
+.confirmBox::after {
+  content: "";
+  display: block;
+  height: 188rpx;
+  clear: both;
+
+}
+
+.buttonBox {
+  position: fixed;
+  bottom: 0rpx;
+  left: 0rpx;
+  height: 188rpx;
+  width: 100%;
+  background-color: #fff;
+  border-radius: 20rpx 20rpx 0 0;
+  button{
+    // display: inline-block;
+    width: 612rpx;
+    height: 100rpx;
+    border-radius: 20rpx;
+    padding: 26rpx 74rpx 24rpx 74rpx ;
+    font-size: 36rpx;
+    font-weight: bold;
+    margin-top: 20rpx;
+    background-color: rgb(255, 207, 86);
+    color: #fff;
+  }
+
+}
