@@ -1,0 +1,11 @@
+<!--component/title/title.wxml-->
+<view class="titleView">
+  <header class="title-header" >
+    <!-- <span>{{title}}</span> -->
+    <slot ></slot>
+  </header>
+  <view class="decorateBox">
+    <view class="decorate" style = "border-color:{{underlineColor}};"></view>
+  </view>
+</view>
+

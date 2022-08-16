@@ -1,0 +1,40 @@
+/* component/title/title.wxss */
+@font-face {
+  font-family: 'Gilroy Bold';
+  src: url("https://gitee.com/zirina/font-family/raw/master/gilroy-bold-4.otf");
+}
+
+.titleView {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: fit-content;
+  height: fit-content;
+  box-sizing: border-box;
+  background-color: #fff;
+  color: #333;
+  font-family: "PingFang SC Regular";
+
+  font-size: 12px;
+
+  .title-header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 18px;
+    font-family: "PingFang SC SemiBold";
+  }
+
+  .decorateBox{
+    width: 100%;
+    padding-left: 15rpx;
+    padding-right: 15rpx;
+    box-sizing: border-box;
+
+    .decorate {
+      border: 6rpx solid ;
+      border-color: rgb(255,207,87);
+      border-radius: 6rpx;
+    }
+  }
+  
+}
