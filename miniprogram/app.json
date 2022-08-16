@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/taskCollection/taskCollection",
     "pages/taskCenter/taskCenter",
     "pages/page1/page1", 
     "pages/logs/logs",

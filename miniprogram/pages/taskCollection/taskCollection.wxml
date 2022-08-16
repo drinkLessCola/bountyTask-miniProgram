@@ -1,0 +1,24 @@
+<!--pages/taskCollection/taskCollection.wxml-->
+
+<!-- 使用自定义组件（component） -->
+<!-- 要先在对应的 json 文件中定义要使用的 component 引用的标签名及所在的文件路径 -->
+<nav-bar navbar-data='{{navbarData}}'></nav-bar>
+<!-- 自定义导航栏，抄来的,看上去有点抽象 -->
+<view class="titleBox" style="margin-top:{{height}}px;">
+  <!-- <view class="title">任务收藏夹</view> -->
+  <!-- 擦，这个在导航栏上 -->
+  <text class="taskNumber" space="nbsp">共 {{taskArray.length}} 个任务</text>
+  <button class='clearButton' bindtap="btnTap">清除过期任务</button>
+</view>
+
+
+<!-- task为任务object,后端似乎返回的是一个task对象的数组 -->
+<view class="missions" wx:for="{{taskArray}}" >
+  <task title='{{item.task.title}}' bounty='{{item.task.bounty}}' timestamp='{{item.task.timestamp}}' area='{{item.task.area}}' deadline='{{item.task.timestamp}}' bindtap="taskTap" data-task="{{item.task}}" ></task>
+
+  <!-- <task title='{{item.task.title}}' bounty='{{item.task.bounty}}' timestamp='{{item.task.timestamp}}' area='{{item.task.area}}' deadline='{{item.task.timestamp}}' bindtap="taskTap" data-task="{{item.task}}" wx:if="{{item.task.bounty == '已过期'}}" class='task-overdue'></task> -->
+
+  <!-- '已过期'还是交给task处理吧，外部去改变组件样式有点难搞 -->
+  <!-- task不是我的不方便改 -->
+</view>
+<!-- 感觉把这个列表解耦出来会好一点，但是 好像没办法把这个列表单独列在后台与后端通信，用的时候放进页面 吧。。  -->
