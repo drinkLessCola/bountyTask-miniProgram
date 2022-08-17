@@ -51,7 +51,7 @@ Component({
       return `${month}月${date}日 ${isAm? '上午':'下午'} ${hour}:${min}` 
     },
     handlePublishTime(timestamp:number):string{
-      const past = Math.ceil(Date.now() - new Date(+timestamp).getTime() / 1000)
+      const past = Math.ceil((Date.now() - new Date(+timestamp).getTime()) / 1000)
       const {month, date} = this.getTimeInfo(timestamp)
 
       let res = ''

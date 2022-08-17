@@ -10,6 +10,13 @@
           "query": "",
           "launchMode": "default",
           "scene": null
+        },
+        {
+          "name": "完成情况",
+          "pathName": "pages/finish/finish",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
         }
       ]
     }
