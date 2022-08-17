@@ -3,9 +3,9 @@
 const app = getApp<IAppOption>()
 App<IAppOption>({
   globalData: {
-    //自定义导航栏用于设置高度的
-    statusBarHeight : 0,
-    navBarHeight :0,
+    //自定义导航栏坐标信息
+    titleCoord:null,
+    navBarHeight:0,
   },
   onLaunch() {
     // 展示本地存储能力
@@ -23,9 +23,20 @@ App<IAppOption>({
 
     wx.getSystemInfo({
       success:(res)=>{
-        let custom = wx.getMenuButtonBoundingClientRect()
-        this.globalData.statusBarHeight = res.statusBarHeight
-        this.globalData.navBarHeight = custom.height + (custom.top - res.statusBarHeight) * 2
+        // 这个整的挺好的👍
+        const menuBtnCoord = wx.getMenuButtonBoundingClientRect()
+        console.log(menuBtnCoord) 
+        // 胶囊按钮的水平方向 margin
+        const marginLeft = (res.screenWidth - menuBtnCoord.right) * 2  
+        // 胶囊按钮的垂直方向的 margin
+        const marginBottom = menuBtnCoord.top - res.statusBarHeight
+        // 导航栏的高度
+        this.globalData.navBarHeight = menuBtnCoord.height + menuBtnCoord.top * 2 - res.statusBarHeight
+        // 可以整合在对象里面：
+        this.globalData.titleCoord = {
+          left:marginLeft,
+          bottom:marginBottom,
+        }  
       }
     })
   },

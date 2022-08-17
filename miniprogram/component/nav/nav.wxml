@@ -1,8 +1,10 @@
 <!-- 默认为黑色的返回键-->
-<view class="nav" style='height: {{statusBarHeight + navBarHeight}}px;'>
-  <view class="title-container">
-    <!--  左上角的返回按钮 其中wx:if='{{navbarData.showCapsule}}' 是控制左上角按钮的显示隐藏，1为显示，0为隐藏 -->
-    <view class='arrow' wx:if='{{navbarData.showCapsule}}' bindtap='_navback'></view>
+<view class="nav" style='height: {{navBarHeight}}px;'>
+  <view class="title-container" 
+        style="margin-left:{{titleCoord.left}}px; margin-bottom: {{titleCoord.bottom}}px;"
+  >
+    <!--  左上角的返回按钮 我感觉可以做成两个组件（两种 nav 的字体大小不太一样，位置也是 -->
+    <view class='arrow' wx:if='{{navbarData.showCapsule}}'  bindtap='_navback'></view>
      <!--  中间的标题 -->
     <view class='title'>{{navbarData.title}}</view>
   </view>

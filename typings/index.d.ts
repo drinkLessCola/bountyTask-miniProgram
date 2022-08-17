@@ -3,8 +3,8 @@
 interface IAppOption {
   globalData: {
     userInfo?: WechatMiniprogram.UserInfo,
-    statusBarHeight :number,
-    navBarHeight:number
+    titleCoord: Coord | null,
+    navBarHeight:number,
   }
   userInfoReadyCallback?: WechatMiniprogram.GetUserInfoSuccessCallback,
 }
@@ -15,4 +15,9 @@ interface TimeInfo {
   isAm:boolean,
   hour:number,
   min:number
+}
+
+interface Coord {
+  left:number,
+  bottom:number
 }

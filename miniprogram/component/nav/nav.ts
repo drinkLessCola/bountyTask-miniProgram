@@ -19,7 +19,7 @@ Component({
   // 组件用来储存内部私有数据
   data: {
     // 自定义导航栏的高度
-    statusBarHeight: apps.globalData.statusBarHeight,
+    titleCoord: apps.globalData.titleCoord,
     navBarHeight: apps.globalData.navBarHeight,
   },
   // attached函数 当组件进入页面节点树时触发，可以使用setData，绝大多数初始化工作在这个时机进行

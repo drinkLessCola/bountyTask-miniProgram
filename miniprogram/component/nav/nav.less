@@ -1,10 +1,10 @@
 /* 顶部固定定位   标题要居中   自定义按钮和标题要和右边微信原生的胶囊上下对齐 */
+/* 这个真的整的很不错，学到了🤓 */
 .nav {
   position: fixed;
   width: 100vw; // 可以改成 100vw 表示页面总宽度
   top: 0;
   left: 0;
-  background: #fff;
   z-index: 1000;
 }
 // 调试的时候如果看不出来，可以加一个大红大绿的 background-color 来观察
@@ -15,12 +15,11 @@
    // 然后再通过 margin 调整外边距，左边和下边都隔开一定距离。
   position: absolute;
   bottom:0; 
-  margin: 10px 25px;
   // 可以不用修改字体了，我统一引入吧（突然发现 PingFang 文件有点大，还是算了
   // 微信小程序可以使用网络字体，只要把字体上传到 gitee 然后获取一个下载的 url 就可以引入了，见 task 的 less 文件
   // 虽然但是不同手机的字体是不一样的，其实不用改字体的hhh
   font-family: 'PingFang SC Medium';
-  font-size: 20px;
+  font-size: 40rpx;
   // flex 超级好用，可以看看这个教程： https://www.bilibili.com/video/BV1qJ411N7TA?spm_id_from=333.999.0.0
   // 方向默认是横向排布，justify-content 即横轴上默认是 flex-start 靠左
   // align-items:center 使容器内的元素垂直居中
