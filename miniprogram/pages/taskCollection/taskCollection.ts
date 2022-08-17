@@ -8,7 +8,7 @@ Page({
       showCapsule: 1, //是否显示左上角图标   1表示显示    0表示不显示
       title: '任务收藏夹', //导航栏 中间的标题
     },
-    height: apptc.globalData.statusBarHeight + apptc.globalData.navBarHeight,
+    height:apptc.globalData.navBarHeight,
 
     //task的数组，以后应该是后端给一个task数组，直接把给来的数组setData就好
 

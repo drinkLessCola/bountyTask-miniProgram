@@ -102,7 +102,7 @@ Page({
       selectParameter: parameterList
     })
   },
-  //这三个抄来的
+  //这抄来的
   
   onLoad() {
     // console.log(icon_address ,icon_time)

@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/publishTask/publishTask",
     "pages/finish/finish",
     "pages/confirmCompleted/confirmCompleted",
     "pages/taskCollection/taskCollection",

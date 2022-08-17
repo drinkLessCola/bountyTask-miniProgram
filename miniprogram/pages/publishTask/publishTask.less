@@ -1,1 +1,192 @@
 /* miniprogram.wxss */
+page {
+  padding-left: 50rpx;
+  padding-right: 50rpx;
+}
+
+input {
+  background-color: rgb(246,246,246);
+  font-size: 32rpx;
+  border-radius: 20rpx;
+  color: rgb(51,51,51);
+  margin-bottom: 20rpx;
+  width: 650rpx;
+  height: 80rpx;
+  box-sizing: border-box;
+  padding: 20rpx 18rpx 20rpx 18rpx;
+}
+
+textarea {
+  background-color: rgb(246,246,246);
+  font-size: 32rpx;
+  border-radius: 20rpx;
+  color: rgb(51,51,51);
+  margin-bottom: 20rpx;
+  width: 650rpx;
+  min-height: 180rpx;
+  box-sizing: border-box;
+  padding: 20rpx 18rpx 20rpx 18rpx;
+}
+
+picker {
+  height: 80rpx;
+  background-color: rgb(246,246,246);
+  width: 272rpx;
+  border-radius: 20rpx;
+  margin-bottom: 20rpx;
+}
+
+// 这界面只有一个image
+// 以后要加别的图片样式直接层叠覆盖就好
+image {
+  width: 25.5rpx;
+  height: 16rpx;
+  float: right;
+  margin-top: 14rpx;
+  margin-right: 0rpx;
+}
+
+.generalTitle {
+  font-size: 28rpx;
+  color: rgb(136,136,136);
+  // width: 56rpx;
+  height: 40rpx;
+  margin-bottom: 10rpx;
+}
+//这界面就一个玩意要浮动。。
+.floatContentBox{
+  .bountyAndnNumber {
+    float: left;
+    .perBounty +.inputBounty  {
+      width: 272rpx;
+    }
+    // 这两东西不在同一个框里所以分开写
+    .taskNum+.inputNumber {
+      width: 272rpx;
+    }
+  
+  }
+  
+  .BAleft {
+    //上面那玩意的左边盒子，用来margin而
+    margin-right: 54rpx;
+    // float: unset;
+  }
+
+} 
+
+.floatContentBox::after {
+  clear: both;
+  content: "";
+  display: block;
+}
+
+.inputDate {
+  width: fit-content;
+  display: inline-block;
+  input {
+    width: 272rpx;
+  }
+}
+
+.inputTime {
+  width: fit-content;
+  display: inline-block;
+  margin-left: 20rpx;
+  input {
+    width: 120rpx;
+    height: 80rpx;
+  }
+}
+
+.picker {
+  width: 272rpx;
+  box-sizing: border-box;
+  font-size: 32rpx;
+  border-radius: 20rpx;
+  color: rgb(51,51,51);
+  // margin-bottom: 20rpx;
+  padding: 18rpx 18rpx 18rpx 20rpx;
+  
+}
+
+.labelBox {
+  height: fit-content;
+  .label {
+    float: left;
+    box-sizing: border-box;
+    border-radius: 20rpx;
+    border: 2rpx solid rgb(170,170,170);
+    width: fit-content;
+    height: 60rpx;
+    font-size: 24rpx;
+    padding: 12rpx 30rpx 12rpx 30rpx;
+    color: rgb(170,170,170);
+    margin: 5rpx;
+  }
+  .labelChecked {
+    border-color: rgb(255,151,30);
+    color: rgb(255,151,30);
+  }
+  .labelDefine {
+    border-style:  dashed;
+    // border-radius: 0;
+    // border-radius: 0rpx;
+    // border: 1px solid transparent;
+    // background: linear-gradient(to right, #fff 50%, #fff 100%, transparent 100%) padding-box,
+    // repeating-linear-gradient(45deg,rgb(170,170,170) 0rpx, rgb(170,170,170) 6rpx,white 0rpx,white 14rpx);
+    // 虚线边框不会 ,要不截个图放上去算了。。。
+    
+  }
+}
+
+.endEmptyArea::after {
+  content: "";
+  display: block;
+  height: 188rpx;// 这玩意的高度和下面的一样
+  clear: both;
+}
+
+.submitBox {
+  position: fixed;
+  bottom: 0rpx;
+  left: 0rpx;
+  height: 188rpx;
+  width: 100%;
+  background-color: #fff;
+  border-radius: 20rpx 20rpx 0 0;
+  view {
+    position: relative;
+    display: inline-block;
+    width: fit-content;
+    font-size: 32rpx;
+    margin-left: 50rpx;
+    color: rgb(136,136,136);
+    top: -16rpx;
+    
+  }
+  .totalBounty {
+    margin-left: 0rpx;
+    width: 158rpx;
+    font-size: 48rpx;
+    color: rgb(51,51,51);
+    font-weight: bold
+  }
+
+  button {
+    display:inline-block;
+    width: 396rpx;
+    height: 80rpx;
+    color: #fff;
+    background-color: rgb(255,207,86);
+    border-radius: 20rpx;
+    margin-top: 20rpx;
+    margin-right: 50rpx;
+  }
+}
+
+
+
+
+ 
+
