@@ -10,3 +10,5 @@
     <view class='title'>{{navbarData.title}}</view>
   </view>
 </view>
+<!-- 填补 fixed 导致的空位 -->
+<view style="height:{{navBarHeight}}px"></view>
