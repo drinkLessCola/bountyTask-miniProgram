@@ -26,12 +26,12 @@ App<IAppOption>({
         // 这个整的挺好的👍
         const menuBtnCoord = wx.getMenuButtonBoundingClientRect()
         console.log(menuBtnCoord) 
-        // 胶囊按钮的水平方向 margin
+        // 计算标题的 margin-left = 胶囊按钮的margin-right * 2
         const marginLeft = (res.screenWidth - menuBtnCoord.right) * 2  
-        // 胶囊按钮的垂直方向的 margin
+        // 计算标题的 margin-bottom = 胶囊按钮的 margin-top
         const marginBottom = menuBtnCoord.top - res.statusBarHeight
         // 导航栏的高度
-        this.globalData.navBarHeight = menuBtnCoord.height + menuBtnCoord.top * 2 - res.statusBarHeight
+        this.globalData.navBarHeight = menuBtnCoord.height + menuBtnCoord.top + marginBottom
         // 可以整合在对象里面：
         this.globalData.titleCoord = {
           left:marginLeft,

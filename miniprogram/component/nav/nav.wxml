@@ -1,11 +1,12 @@
-<!-- 默认为黑色的返回键-->
+<!-- 默认为黑色的返回键 -->
+<!-- 这个真的整的很不错，学到了🤓 -->
 <view class="nav" style='height: {{navBarHeight}}px;'>
   <view class="title-container" 
         style="margin-left:{{titleCoord.left}}px; margin-bottom: {{titleCoord.bottom}}px;"
   >
-    <!--  左上角的返回按钮 我感觉可以做成两个组件（两种 nav 的字体大小不太一样，位置也是 -->
+    <!--  左上角的返回按钮  -->
     <view class='arrow' wx:if='{{navbarData.showCapsule}}'  bindtap='_navback'></view>
-     <!--  中间的标题 -->
+     <!--  中间的标题  -->
     <view class='title'>{{navbarData.title}}</view>
   </view>
 </view>
