@@ -3,25 +3,28 @@
 <!-- 自定义导航栏，抄来的,看上去有点抽象 -->
 <view class="formBox" style="margin-top:30rpx;">
   <form action="">
-    <view class="generalTitle">标题</view>
-    <input type="text" name="taskTitle" id="" class="inputTitle" />
+  <!-- 理想很丰满 现实很骨感。。一大堆不在form范围里的数据。。只能手动打包提交了 -->
+    <view class="generalTitle" >标题</view>
+    <input type="text" name="title" id="" class="inputTitle" bindinput="bindTitle"/>
 
     <view class="generalTitle">任务说明</view>
-    <textarea name="taskContent" id="" auto-height="true"></textarea>
+    <textarea name="taskContent" id="" auto-height="true" bindinput="bindContentInput"></textarea>
 
     <view class="floatContentBox">
 
       <view class="bountyAndnNumber BAleft">
         <view class="generalTitle perBounty">悬赏金额（每份）</view>
-        <input type="number" name="bounty" class="inputBounty" />
+        <view class="inputBounty" style="float: left;">
+          <view class='yuan'>￥</view>
+          <input type="number" name="bounty"  style="width: 200rpx; padding-left: 10rpx;" bindinput="bindPerBounty" />
+        </view>
       </view>
 
       <view class="bountyAndnNumber">
         <view class="generalTitle taskNum">任务份数</view>
-        <input type="number" name="taskNumber" class="inputNumber" />
-        <!-- 没有检验最终输入是不是数字 -->
+        <input type="number" name="taskNumber" class="inputNumber" bindinput="bindTaskNumber" />
+        <!-- 没有强制要求输入数字,但不是数字的情况已被处理 -->
       </view>
-
     </view>
 
     <view class="generalTitle">截止时间</view>
@@ -43,7 +46,7 @@
     </picker>
 
     <view class="generalTitle">联系方式</view>
-    <input type="text" name="contact" id="" class="inputTitle" />
+    <input type="text" name="contact" id="" class="inputTitle"  bindinput="bindContact"/>
 
     <view class="generalTitle">添加标签</view>
 
@@ -57,9 +60,9 @@
 
     <view class="submitBox">
       <view>合计：</view>
-      <view class="totalBounty" style="font-size:{{fontSize}}rpx">￥{{totalBounty}}</view>
+      <view class="totalBounty" style="font-size:{{fontSize}}rpx">￥{{taskInfo.total}}</view>
       <!-- 字体自适应大小，避免>=1000的数字或者带小数的数字放不下 -->
-      <button form-type="submit" >发布任务</button>
+      <button form-type="submit" bindtap="submit" >发布任务</button>
     </view>
 
   </form>
