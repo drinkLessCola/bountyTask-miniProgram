@@ -22,3 +22,15 @@ interface Coord {
   left:number,
   bottom:number
 }
+
+interface BindTapEvent{
+  type:string,
+  currentTarget:{
+    dataset: {
+      [propName:string]:any
+    }
+    [propName: string]: any
+  }
+  [propName: string]: any
+  // dataset:object,
+}

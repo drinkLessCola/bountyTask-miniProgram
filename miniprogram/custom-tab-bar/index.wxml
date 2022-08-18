@@ -2,12 +2,12 @@
 <view class="tabbar">
   <view class="tab">
     <ul class="tab-group">
-      <li class="icon home-icon"></li>
-      <li class="icon task-icon"></li>
+      <li class="icon {{selected === 1? 'home-icon-active' : 'home-icon'}}" bindtap="switchTab" data-idx="1" ></li>
+      <li class="icon {{selected === 2? 'task-icon-active' : 'task-icon'}}" bindtap="switchTab" data-idx="2"></li>
     </ul>
     <ul class="tab-group">
-      <li class="icon msg-icon"></li>
-      <li class="icon user-icon"></li>
+      <li class="icon {{selected === 3? 'msg-icon-active' : 'msg-icon'}}" bindtap="switchTab" data-idx="3"></li>
+      <li class="icon {{selected === 4? 'user-icon-active' : 'user-icon'}}" bindtap="switchTab" data-idx="4"></li>
     </ul>
     <button class="btn" type="primary">
       <view class="add-icon"></view>

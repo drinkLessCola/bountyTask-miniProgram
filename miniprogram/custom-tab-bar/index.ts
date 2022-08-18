@@ -1,4 +1,10 @@
 // miniprogram.ts
+const tabList = [
+  "/pages/home/home",
+  "/pages/taskCenter/taskCenter",
+  "/pages/message/message",
+  "/pages/userCenter/userCenter",
+]
 const app = getApp()
 Page({
 
@@ -6,9 +12,20 @@ Page({
    * 页面的初始数据
    */
   data: {
-    tabBarBottom:app.globalData.tabBarBottom,
+    tabBarBottom: app.globalData.tabBarBottom,
+    selected: 1,
   },
 
+  switchTab(e:BindTapEvent) {
+    const { dataset } = e.currentTarget
+    const idx = +dataset.idx - 1
+    console.log(tabList[idx])
+    wx.switchTab({
+      url:tabList[idx],
+    })
+    .then((res) => console.log(res))
+    .catch((err) => console.log(err))
+  },
   /**
    * 生命周期函数--监听页面加载
    */
@@ -66,4 +83,4 @@ Page({
   }
 })
 
-export {}
+export { }

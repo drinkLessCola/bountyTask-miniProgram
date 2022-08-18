@@ -34,7 +34,16 @@
 
 
 <!-- task为任务object,后端似乎返回的是一个task对象的数组 -->
-<view class="missions" wx:for="{{taskArray}}">
-  <task title='{{item.task.title}}' bounty='{{item.task.bounty}}' timestamp='{{item.task.timestamp}}' area='{{item.task.area}}' deadline='{{item.task.timestamp}}' bindtap="taskTap" data-task="{{item.task}}"></task>
+<view class="missions" wx:for="{{taskArray}}" wx:key="id">
+  <task 
+    title='{{item.task.title}}' 
+    bounty='{{item.task.bounty}}' 
+    startTime='{{item.task.startTime}}' 
+    area='{{item.task.area}}' 
+    deadline='{{item.task.startTime}}' 
+
+    bindtap="taskTap" 
+    data-task="{{item.task}}"
+  ></task>
 </view>
-<!-- 感觉把这个列表解耦出来会好一点，但是 好像没办法把这个列表单独列在后台与后端通信，用的时候放进页面 吧。。  -->
+<!-- 感觉把这个列表解耦出来会好一点，但是 好像没办法把这个列表单独列在后台与后端通信，用的时候放进页面 吧。。 可以👍 -->

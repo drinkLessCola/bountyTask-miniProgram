@@ -5,7 +5,7 @@ Component({
   properties: {
     title: String,        // 标题
     bounty: Number,       // 赏金
-    timestamp: Number,   // 发布时间
+    startTime: Number,   // 发布时间
     area: String,         // 校区
     deadline: String,    // 截止时间
     // myProperty: { // 属性名
@@ -25,7 +25,7 @@ Component({
     attached: function () {
       this.setData({
         deadline:this.handleDeadline(this.properties.deadline),
-        publishTime: this.handlePublishTime(this.properties.timestamp)
+        publishTime: this.handlePublishTime(this.properties.startTime)
       })
      },
     moved: function () { },
