@@ -1,7 +1,7 @@
 <!--pages/confirmCompleted/confirmCompleted.wxml-->
 <nav-bar navbar-data='{{navbarData}}'></nav-bar>
 <!-- 自定义导航栏，抄来的,看上去有点抽象 -->
-<view class="taskTitle" style="margin-top:{{height}}px;">{{task.title}}</view>
+<view class="taskTitle" style="margin-top:0;">{{task.title}}</view>
 
 <view><title><view class="title">任务要求</view></title></view>
 <view class="taskRequire">{{task.requirement}}</view>

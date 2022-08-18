@@ -3,10 +3,9 @@
     "task":"/component/task/task",
     "nav-bar":"/component/nav/nav"
   },
-  "backgroundColor": "#F6F6F6",
+  "backgroundColor": "#fff",
   "navigationBarBackgroundColor": "#fff",
   "enablePullDownRefresh": true,
-  "navigationBarTitleText": "任务收藏夹",
   "navigationStyle": "custom"
   
 }

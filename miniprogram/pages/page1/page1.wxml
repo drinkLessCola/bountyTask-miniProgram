@@ -2,6 +2,8 @@
 <!-- 这个page1234按照“小程序.pdf”下方tabbar从左到右顺序 -->
 <!-- 我也不知道他该叫什么名字 home 还是首页。。算了 -->
 <!-- 没有监听 -->
+<nav-bar navbar-data='{{navbarData}}'></nav-bar>
+
 <view class="topBlock" >
 <!-- 搜索框 -->
   <view class="search">

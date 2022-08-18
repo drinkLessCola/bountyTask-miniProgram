@@ -5,6 +5,5 @@
     "title":"/component/title/title"
   },
   "backgroundColor": "#F6F6F6",
-  "enablePullDownRefresh": true,
   "navigationStyle": "custom"
 }
