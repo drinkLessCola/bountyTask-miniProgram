@@ -6,6 +6,7 @@ App<IAppOption>({
     //自定义导航栏坐标信息
     titleCoord:null,
     navBarHeight:0,
+    tabBarBottom:0,
   },
   onLaunch() {
     // 展示本地存储能力
@@ -37,9 +38,13 @@ App<IAppOption>({
           left:marginLeft,
           bottom:marginBottom,
         }  
+        
+        const tabBarBottom = res.screenHeight - res.safeArea.bottom
+        this.globalData.tabBarBottom = tabBarBottom
       }
     })
   },
   
 })
 
+export {}

@@ -5,6 +5,7 @@ interface IAppOption {
     userInfo?: WechatMiniprogram.UserInfo,
     titleCoord: Coord | null,
     navBarHeight:number,
+    tabBarBottom:number,
   }
   userInfoReadyCallback?: WechatMiniprogram.GetUserInfoSuccessCallback,
 }

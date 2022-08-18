@@ -1,0 +1,18 @@
+<!--miniprogram.wxml-->
+<view class="tabbar">
+  <view class="tab">
+    <ul class="tab-group">
+      <li class="icon home-icon"></li>
+      <li class="icon task-icon"></li>
+  </ul>
+  <ul class="tab-group">
+    <li class="icon msg-icon"></li>
+    <li class="icon user-icon"></li>
+  </ul>
+  </view>
+
+  <!-- 占位 -->
+  <view class="danger-zone" style="height:{{tabBarBottom}}px">
+    <view class="bg"></view>
+  </view>
+</view>
