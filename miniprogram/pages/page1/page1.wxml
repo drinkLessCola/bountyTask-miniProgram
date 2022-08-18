@@ -30,7 +30,7 @@
 <view class="titleText">推荐任务</view>
 <!-- 这个1rpx的view是用于不让他们的margin重合的，懒得写多一层view了 -->
 <view style="height: 1rpx;"></view> 
-<view class="missions" wx:for="{{missionsArray}}">
+<view class="missions" wx:for="{{missionsArray}}" wx:key="id">
   <task title='{{item.task.title}}' bounty='{{item.task.bounty}}' timestamp='{{item.task.timestamp}}' area='{{item.task.area}}' deadline='{{item.task.timestamp}}'></task>
 </view>
      

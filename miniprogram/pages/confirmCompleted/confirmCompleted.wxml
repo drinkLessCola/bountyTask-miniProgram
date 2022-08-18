@@ -11,7 +11,7 @@
 
 <view><title><view class="title">证明信息</view></title></view>
 <view  class="confirmBox">
-  <p class="p">证明信息只有图片吗，我按照朋友圈的样子写，蓝湖上的图片大小为110pt，这里为了放3x3 改成了105pt ，蓝湖没给界面的右margin，此处整个界面的右margin与左边一样 abababababababababababababababaabababababa</p>
+  <p class="p">证明信息真的只有图片,加留言后端就爆炸了</p>
   <view class="imgBox" wx:for="{{imgArray}}">
     <image wx:if="{{index%3 != 2}}" src='{{item}}' mode="aspectFill" class="img"></image>
     <!-- 每行的最后一个没有右margin -->

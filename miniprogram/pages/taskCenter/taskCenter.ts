@@ -1,5 +1,5 @@
 // index.ts
-import { icon_time, icon_address } from '../../utils/icon'
+// import { icon_time, icon_address } from '../../utils/icon'
 Page({
   data: {
 
