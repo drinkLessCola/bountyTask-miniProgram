@@ -50,7 +50,7 @@ Page({
     // ----------------------------注意：这个taskInfo   符合   后端接口要求------------------
     taskInfo: {
       userid:0,
-      // userid额，小程序接口应该有吧。。？
+      // userid额，小程序接口应该有吧。。？ 有的
       title: '',
       illustrate: '',
       bounty: 0,

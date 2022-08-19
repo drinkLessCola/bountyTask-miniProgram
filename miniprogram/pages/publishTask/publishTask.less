@@ -9,14 +9,17 @@ page {
   // IE 怪异盒子模型，宽度为 content + padding + border
   // 只用设置整个页面，其他自动被框在 content 的宽度里，就无需设置了
 }
-
+.formBox {
+  margin-top:12rpx;
+  height:100%;
+  overflow: auto;
+}
 input {
   background-color:#f6f6f6;
   font-size: 32rpx;
   border-radius: 20rpx;
   color: #333;
   margin-bottom: 20rpx;
-  width:100%;
   padding:20rpx;
 }
 
@@ -26,8 +29,8 @@ textarea {
   border-radius: 20rpx;
   color: #333;
   margin-bottom: 20rpx;
-  width: 100%;
   // height 是 content 的高度，需要减去 2 个 padding
+  // textarea 居然有默认的宽度，我看看怎么改🙇‍♂️
   min-height: 140rpx;
   padding: 20rpx;
 }
@@ -59,28 +62,32 @@ image {
 }
 //这界面就一个玩意要浮动。。
 .floatContentBox{
-  .bountyAndnNumber {
+  // 可以使用逗号，表示两个类都应用这段 css
+  .bountyAndNumber {
     float: left;
-    .perBounty +.inputBounty  {
+    .inputBounty, .inputNumber {
       width: 272rpx;
     }
     // 这两东西不在同一个框里所以分开写
-    .taskNum+.inputNumber {
-      width: 272rpx;
-    }
-    
     .inputBounty {
       background-color: rgb(246,246,246);
-      height: 80rpx;
       border-radius: 20rpx;
-      font-size:36rpx ;
+      font-family: "Gilroy Bold";
+      font-size:36rpx;
       color: rgb(136,136,136);
-      line-height: 80rpx;
-      padding-left:  20rpx;
-      box-sizing: border-box;
+      padding:20rpx;
+      display: flex;
+      align-items: center;
+      margin-bottom:20rpx;
+      input {
+        margin:0;
+        padding:0;
+      }
     }
   }
   
+
+
   
   .BAleft {
     //上面那玩意的左边盒子，用来margin而
@@ -92,8 +99,8 @@ image {
 
 
 .yuan {
-  float: left;
-  display: inline;
+  display: inline-block;
+  margin-right:10rpx;
 }
 
 .floatContentBox::after {
@@ -107,16 +114,18 @@ image {
   display: inline-block;
   input {
     width: 272rpx;
+    text-align: center;
   }
 }
 
 .inputTime {
+  font-family:"Gilroy Bold";
   width: fit-content;
   display: inline-block;
   margin-left: 20rpx;
   input {
     width: 120rpx;
-    height: 80rpx;
+    text-align: center;
   }
 }
 
@@ -127,7 +136,7 @@ image {
   border-radius: 20rpx;
   color: rgb(51,51,51);
   // margin-bottom: 20rpx;
-  padding: 18rpx 18rpx 18rpx 20rpx;
+  padding: 20rpx;
   
 }
 
