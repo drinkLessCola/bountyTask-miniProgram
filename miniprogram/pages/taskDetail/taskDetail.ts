@@ -1,13 +1,30 @@
 // miniprogram.ts
+
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    // avatarUrl: getApp().globalData.defaultAvatarUrl,
+    avatarUrl:'http://tmp/ny1Hd2Fgrql4d21c915c93b7255357d06571d729118e.jpeg',
+    // lzh的头像
+    nickname:'昵称'
+
+    
+
 
   },
+  
+  // onChooseAvatar(e:any) {
+  //   const   { avatarUrl }  = e.detail
+  //   this.setData({
+  //     avatarUrl,
+  //   })
+  //   console.log(avatarUrl);
 
+  // },
   /**
    * 生命周期函数--监听页面加载
    */

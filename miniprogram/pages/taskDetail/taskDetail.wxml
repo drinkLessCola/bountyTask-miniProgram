@@ -1,2 +1,50 @@
 <!--miniprogram.wxml-->
-<text>miniprogram.wxml</text>
+<!-- 由于执行方和发布方 查看 任务详情 界面有不少一样的 于是打算通过条件渲染来区分-->
+
+<image> </image>
+<!-- 这里使用wx:if 执行方可见 -->
+<view class="titleBox">
+<!-- titleBox两者都可见 -->
+  <view class="taskTitle"></view>
+  <view class="bounty"></view>
+  <view class="username">
+    <!-- 任务发布者 -->
+    <userinfo avatarUrl="{{avatarUrl}}" nickname="{{nickname}}"></userinfo>
+  </view>
+  <view class="remainTaskNum"></view>
+  <view class="labelBox">
+    <view class="label"></view>
+    <!-- wx:for遍历 任务标签数组 -->
+  </view>
+</view>
+<view class="illstration">
+  <title>任务说明</title>
+  <view></view>
+</view>
+<!-- 任务说明 执行方可见 -->
+<view class="ddl">
+  <!-- ddl盒子 两者可见 -->
+  <title>截止时间</title>
+  <view class="time"></view>
+</view>
+<view class="getCondition">
+  <!-- 这个有wx:if 发布方可见-->
+  <view class="perCondition">
+    <userinfo avatarUrl="{{avatarUrl}}" nickname="{{nickname}}"></userinfo>
+    <view class="status">{{}}</view>
+    <!-- 这里使用wx:for  遍历 领取任务的人-->
+  </view>
+</view>
+<view class="request">
+<!-- 任务要求 执行方可见 -->
+  <title>任务要求</title>
+  <view>{{}}</view>
+</view>
+
+
+
+<!-- <button class="avatar-wrapper" open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar">
+  <image class="avatar" src="{{avatarUrl}}"></image>
+</button> 
+<input type="nickname" class="weui-input" placeholder="请输入昵称"/> -->
+<!-- api文档最新的获取头像昵称方法 -->

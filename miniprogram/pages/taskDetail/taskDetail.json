@@ -1,3 +1,10 @@
 {
-  "usingComponents": {}
+  "usingComponents": {
+    "task":"/component/task/task",
+    "nav-bar":"/component/nav/nav",
+    "title":"/component/title/title",
+    "userinfo":"/component/userinfoBox/userinfoBox"
+  },
+  "backgroundColor": "#FAF3DD",
+  "navigationStyle": "custom"
 }

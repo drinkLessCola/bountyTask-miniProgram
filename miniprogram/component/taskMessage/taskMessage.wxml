@@ -1,2 +1,7 @@
 <!--component/taskMessage/taskMessage.wxml-->
-<text>component/taskMessage/taskMessage.wxml</text>
+<view class="message">
+  <view class="title">1</view>
+  <view class="time">1</view>
+  <view class="status">1</view>
+</view>
+<!-- 不保证后端无法实现目前返回数据的要求，暂时搁置 bylzh -->
