@@ -1,6 +1,6 @@
 /* miniprogram.wxss */
 page {
-  background: none;
+  background: #f6f6f6;
   .bg {
     position: absolute;
     top:0;
@@ -18,6 +18,7 @@ page {
   padding:0 50rpx;
   box-sizing: border-box;
   
+  
 
   // 头像
   .avatar {
@@ -30,6 +31,9 @@ page {
 
 header {
   margin-top:40rpx;
+  padding:10rpx;
+  width:100%;
+  box-sizing: border-box;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -66,4 +70,68 @@ header {
   font-size: 40rpx;
   font-family: "PingFang SC SemiBold";
   color:#555;
+}
+
+.tabbar {
+  width:100%;
+  background-color: #fff;
+  display: flex;
+  justify-content: space-between;
+  padding:30rpx 50rpx 70rpx 50rpx;
+  border-radius: 20rpx;
+  box-sizing: border-box;
+  margin:40rpx 0;
+  color:#515151;
+  .tabbar-item {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items:center;
+    &:active {
+      background-color: rgb(255, 237, 188);
+    }
+    &:active .title {
+      color:goldenrod;
+    }
+  }
+  .title {
+    word-break:keep-all;
+    position: absolute;
+    bottom:0;
+    transform: translateY(calc(100% + 10rpx));
+    overflow: visible;
+    font-size: 24rpx;
+    font-family: "PingFang SC Medium";
+  }
+  .icon {
+    width:60rpx;
+    height:60rpx;
+    background-size:auto 60rpx; 
+  }
+}
+
+.menubar {
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  color:#515151;
+  border-radius: 10rpx;
+  .menubar-item{
+    display: flex;
+    align-items: center;
+    padding:20rpx 40rpx;
+    &:active{
+      background-color: #f5f5f5;
+    }
+  }
+  .title {
+    margin-left: 20rpx;
+    font-size: 32rpx;
+    font-family: "PingFang SC Medium";
+  }
+  .icon {
+    width:34rpx;
+    height:32rpx;
+    background-size:auto 32rpx; 
+  }
 }

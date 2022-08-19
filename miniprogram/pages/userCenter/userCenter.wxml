@@ -18,16 +18,44 @@
     </ul>
   </header>
   <view class="nickname">孜然</view>
-  <ul>
-    <li>
-      <view class="icon"></view>
-      <span>进行中</span>
+
+  <!-- 中间的那一栏 -->
+  <ul class="tabbar">
+    <li class="tabbar-item">
+      <view class="icon processing-icon"></view>
+      <span class="title">进行中</span>
+    </li>
+    <li class="tabbar-item">
+      <view class="icon finished-icon"></view>
+      <span class="title">已完成</span>
+    </li>
+    <li class="tabbar-item">
+      <view class="icon received-task-icon"></view>
+      <span class="title">领取的任务</span>
+    </li>
+    <li class="tabbar-item">
+      <view class="icon finished-task-icon"></view>
+      <span class="title">完成的任务</span>
     </li>
   </ul>
-  <ul>
-    <li>
-      <view class="icon"/>
-      <span>任务收藏夹</span>
+
+  <!-- 下面的一栏 -->
+  <ul class="menubar">
+    <li class="menubar-item">
+      <view class="icon star-icon"/>
+      <span class="title">任务收藏夹</span>
+    </li>
+    <li class="menubar-item">
+      <view class="icon service-icon"/>
+      <span class="title">联系客服</span>
+    </li>
+    <li class="menubar-item">
+      <view class="icon feedback-icon"/>
+      <span class="title">意见反馈</span>
+    </li>
+    <li class="menubar-item">
+      <view class="icon info-icon"/>
+      <span class="title">版本信息</span>
     </li>
   </ul>
 </view>

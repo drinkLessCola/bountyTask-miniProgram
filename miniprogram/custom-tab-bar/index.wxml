@@ -1,5 +1,5 @@
 <!--miniprogram.wxml-->
-<view class="tabbar">
+<view class="TabBar">
   <view class="tab">
     <ul class="tab-group">
       <li class="icon {{selected === 1? 'home-icon-active' : 'home-icon'}}" bindtap="switchTab" data-idx="1" ></li>
