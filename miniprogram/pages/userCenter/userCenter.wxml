@@ -5,9 +5,19 @@
   <header>
     <view class="avatar">
     </view>
-    <view class="user-data"></view>
+    <ul class="user-data">
+      <li class="user-data-item">
+        <span class="title">发布任务</span>
+        <view class="data">10</view>
+      </li>
+      <li class="line"></li>
+      <li class="user-data-item">
+        <span class="title">任务通过率</span>
+        <view class="data">100%</view>
+      </li>
+    </ul>
   </header>
-  <view class="nickname"></view>
+  <view class="nickname">孜然</view>
   <ul>
     <li>
       <view class="icon"></view>

@@ -14,5 +14,56 @@ page {
 }
 
 .user-center {
+  width:100vw;
+  padding:0 50rpx;
+  box-sizing: border-box;
   
+
+  // 头像
+  .avatar {
+    width:200rpx;
+    height:200rpx;
+    border-radius: 50%;
+    background-color: black;
+  }
+}
+
+header {
+  margin-top:40rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .user-data {
+    display: flex;
+    color: #555;
+    .user-data-item {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      margin:0 40rpx;
+    }
+    .line {
+      height:90rpx;
+      width:2rpx;
+      background-color: #d5d5d5;
+      mix-blend-mode: multiply;
+    }
+    .data {
+      font-size: 50rpx;
+      font-family: "Gilroy Medium";
+    }
+    .title {
+      font-size: 24rpx;
+      font-family: "PingFang SC Medium";
+      margin-bottom: 18rpx;
+    }
+  }
+}
+
+.nickname {
+  margin:10rpx 20rpx;
+  font-size: 40rpx;
+  font-family: "PingFang SC SemiBold";
+  color:#555;
 }
