@@ -5,34 +5,22 @@ Page({
    * 页面的初始数据
    */
   data: {
-
-    navbarData: {
-      showCapsule: 0, //是否显示左上角图标   1表示显示    0表示不显示
-      title: '', //导航栏标题
-    },
-
     timestamp: 1660566722638,
     // 暂时使用时间戳以及其number类型代替ddl和提交时间
     missionsArray: [{
-      task: {
         id: 0,
         title: '测试',
         area: '泰山区',
         deadline: 1660566722638,
         timestamp: 1660566722638,
         bounty: 5
-      },
-
     }, {
-      task: {
         id: 2,
         title: '测试2',
         area: '华山区',
         deadline: 1660566722638,
         timestamp: 1660566722638,
         bounty: 20
-      }
-
     }]
   },
 
