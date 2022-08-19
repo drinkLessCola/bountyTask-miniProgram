@@ -1,11 +1,7 @@
-<!-- <view class="main"> -->
-<!-- 使用自定义组件（component） -->
-<!-- 要先在对应的 json 文件中定义要使用的 component 引用的标签名及所在的文件路径 -->
-<!-- </view> -->
 <nav-bar 
   showCapsule="{{false}}" 
   title="" 
-  nav-bgc-class='whiteBgc'
+  bgColor="white"
 ></nav-bar>
 
 

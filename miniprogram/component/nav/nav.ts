@@ -1,5 +1,6 @@
 // component/nav.ts
 const app = getApp()
+const {titleCoord, navBarHeight, statusBarHeight} = app.globalData
 Component({
   // multipleSlots 为组件开启多插槽模式
   options: {
@@ -12,7 +13,7 @@ Component({
     // 这些常量可以直接写，不用定义在 data 里面，编译过程携带的 data 太大会影响性能
     showCapsule:Boolean,
     title:String,
-
+    bgColor:String,
     // navbarData: { //navbarData   由父页面传递的数据，变量名字自命名
     //   type: Object,
     //   value: {
@@ -24,8 +25,9 @@ Component({
   // 组件用来储存内部私有数据
   data: {
     // 自定义导航栏的高度
-    titleCoord: app.globalData.titleCoord,
-    navBarHeight: app.globalData.navBarHeight,
+    titleCoord: titleCoord,
+    navBarHeight: navBarHeight,
+    fillHeight: navBarHeight - statusBarHeight,
   },
   // attached函数 当组件进入页面节点树时触发，可以使用setData，绝大多数初始化工作在这个时机进行
   attached: function () { },

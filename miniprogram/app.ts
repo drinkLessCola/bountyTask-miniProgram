@@ -7,6 +7,7 @@ App<IAppOption>({
     titleCoord:null,
     navBarHeight:0,
     tabBarBottom:0,
+    statusBarHeight:0,
   },
   onLaunch() {
     // 展示本地存储能力
@@ -33,6 +34,7 @@ App<IAppOption>({
         const marginBottom = menuBtnCoord.top - res.statusBarHeight
         // 导航栏的高度
         this.globalData.navBarHeight = menuBtnCoord.height + menuBtnCoord.top + marginBottom
+        this.globalData.statusBarHeight = res.statusBarHeight
         // 可以整合在对象里面：
         this.globalData.titleCoord = {
           left:marginLeft,
