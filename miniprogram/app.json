@@ -1,29 +1,18 @@
 {
   "pages": [
-<<<<<<< Updated upstream
+    "pages/taskDetail/taskDetail",
     "pages/home/home",
     "pages/taskCenter/taskCenter",
     "pages/message/message",
     "pages/userCenter/userCenter",
-
-=======
-    "pages/taskDetail/taskDetail",
-    "pages/page1/page1",
->>>>>>> Stashed changes
     "pages/taskCollection/taskCollection",
     "pages/finish/finish",
     "pages/confirmCompleted/confirmCompleted",
     "pages/publishTask/publishTask",
-<<<<<<< Updated upstream
-    "pages/logs/logs",
-    "pages/taskDetail/taskDetail"
-=======
-    "pages/home/home",
-    "pages/message/message",
-    "pages/userCenter/userCenter",
     "pages/logs/logs"
     
->>>>>>> Stashed changes
+
+
   ],
   "window": {
     "navigationStyle": "custom",
