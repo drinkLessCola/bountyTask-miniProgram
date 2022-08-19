@@ -13,14 +13,14 @@ Page({
         title: '测试',
         area: '泰山区',
         deadline: 1660566722638,
-        timestamp: 1660566722638,
+        startTime: 1660566722638,
         bounty: 5
     }, {
         id: 2,
         title: '测试2',
         area: '华山区',
         deadline: 1660566722638,
-        timestamp: 1660566722638,
+        startTime: 1660566722638,
         bounty: 20
     }]
     

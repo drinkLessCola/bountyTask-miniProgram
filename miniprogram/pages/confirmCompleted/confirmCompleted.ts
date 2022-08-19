@@ -7,10 +7,6 @@ Page({
    */
   
   data: {
-    navbarData: {
-      showCapsule: 1, //是否显示左上角图标   1表示显示    0表示不显示
-      title: '完成情况', //导航栏 中间的标题
-    },
     height:  appcC.globalData.navBarHeight,
 
     //---------------警告，测试用的task属性和后端不一样
@@ -19,7 +15,7 @@ Page({
       title: '测试',
       area: '泰山区',
       deadline: 1660566722638,
-      timestamp: 1660566722638,
+      startTime: 1660566722638,
       bounty: 5,
       requirement:'完成后截图'
     },

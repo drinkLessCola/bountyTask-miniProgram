@@ -1,6 +1,6 @@
 <!-- 默认为黑色的返回键 -->
 <!-- 这个真的整的很不错，学到了🤓 -->
-<view class="nav nav-bgc-class" style='height: {{navBarHeight}}px;'>
+<view class="nav" style='height: {{navBarHeight}}px;'>
   <view class="title-container" 
         style="margin-left:{{titleCoord.left}}px; margin-bottom: {{titleCoord.bottom}}px;"
   >
@@ -11,8 +11,6 @@
   </view>
 </view>
 <!-- 填补 fixed 导致的空位 -->
-<view style="height:{{navBarHeight}}px" class='nav-bgc-class'></view>
+<view style="height:{{navBarHeight}}px; background-color:{{bgColor}};"></view>
 <!-- 导航栏多了一块东西突了出来把界面往下顶了,-25px暴力适配--bylzh -->
 <!-- 有些界面导航栏背景颜色和页面背景颜色不一样故使用外部样式处理--bylzh -->
-
-<!-- hhhh 我们的样式打架了 -->

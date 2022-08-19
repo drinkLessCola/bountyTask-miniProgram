@@ -29,6 +29,7 @@ Component({
   lifetimes: {
     
     attached: function () {
+      console.log(this.properties.taskData.deadline)
       this.setData({
         deadline:this.handleDeadline(this.properties.taskData.deadline),
         publishTime: this.handlePublishTime(this.properties.taskData.startTime)
@@ -52,7 +53,7 @@ Component({
         min = time.getMinutes()
       return { month, date, isAm, hour, min }
     },
-    handleDeadline(deadline: string): string { 
+    handleDeadline(deadline: string | number): string { 
       const {month, date, isAm, hour, min} = this.getTimeInfo(deadline)
       return `${month}月${date}日 ${isAm? '上午':'下午'} ${hour}:${min}` 
     },
