@@ -1,6 +1,6 @@
 // miniprogram.ts
 const tabList = [
-  "/pages/page1/page1",
+  "/pages/home/home",
   "/pages/taskCenter/taskCenter",
   "/pages/message/message",
   "/pages/userCenter/userCenter",

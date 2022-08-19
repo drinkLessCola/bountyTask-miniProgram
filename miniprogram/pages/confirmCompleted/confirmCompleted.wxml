@@ -1,5 +1,8 @@
 <!--pages/confirmCompleted/confirmCompleted.wxml-->
-<nav-bar navbar-data='{{navbarData}}'></nav-bar>
+<nav-bar 
+  showCapsule="{{true}}" 
+  title="完成情况" 
+></nav-bar>
 <!-- 自定义导航栏，抄来的,看上去有点抽象 -->
 <view class="taskTitle" style="margin-top:0;">{{task.title}}</view>
 

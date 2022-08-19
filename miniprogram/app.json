@@ -1,14 +1,14 @@
 {
   "pages": [
-    "pages/page1/page1",
+    "pages/home/home",
+    "pages/taskCenter/taskCenter",
+    "pages/message/message",
+    "pages/userCenter/userCenter",
+
     "pages/taskCollection/taskCollection",
     "pages/finish/finish",
     "pages/confirmCompleted/confirmCompleted",
-    "pages/taskCenter/taskCenter",
     "pages/publishTask/publishTask",
-    "pages/home/home",
-    "pages/message/message",
-    "pages/userCenter/userCenter",
     "pages/logs/logs",
     "pages/taskDetail/taskDetail"
   ],
@@ -25,7 +25,7 @@
     "selectedColor": "#000",
     "backgroundColor": "#000",
     "list": [{
-      "pagePath": "pages/page1/page1",
+      "pagePath": "pages/home/home",
       "text":"主页"
     },{
       "pagePath": "pages/taskCenter/taskCenter",

@@ -1,1 +1,4 @@
-<nav-bar navbar-data='{{navbarData}}'></nav-bar>
+<nav-bar 
+  showCapsule="{{false}}"
+  title="" 
+></nav-bar>

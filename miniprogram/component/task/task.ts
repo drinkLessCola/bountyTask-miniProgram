@@ -3,11 +3,17 @@ Component({
   behaviors: [],
   // 使用模板时传入的数据在这里定义
   properties: {
-    title: String,        // 标题
-    bounty: Number,       // 赏金
-    startTime: Number,   // 发布时间
-    area: String,         // 校区
-    deadline: String,    // 截止时间
+    taskData: {
+      type:Object,
+      value:{
+        title: String,        // 标题
+        bounty: Number,       // 赏金
+        startTime: Number,   // 发布时间
+        area: String,         // 校区
+        deadline: String,    // 截止时间
+      }
+    }
+    
     // myProperty: { // 属性名
     //   type: String, // 类型（必填），目前接受的类型包括：String, Number, Boolean, Object, Array, null（表示任意类型）
     //   value: '', // 属性初始值（可选），如果未指定则会根据类型选择一个
@@ -24,8 +30,8 @@ Component({
     
     attached: function () {
       this.setData({
-        deadline:this.handleDeadline(this.properties.deadline),
-        publishTime: this.handlePublishTime(this.properties.startTime)
+        deadline:this.handleDeadline(this.properties.taskData.deadline),
+        publishTime: this.handlePublishTime(this.properties.taskData.startTime)
       })
      },
     moved: function () { },

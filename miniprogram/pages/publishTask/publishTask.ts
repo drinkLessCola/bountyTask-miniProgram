@@ -6,10 +6,6 @@ Page({
    * 页面的初始数据
    */
   data: {
-    navbarData: {
-      showCapsule: 1, //是否显示左上角图标   1表示显示    0表示不显示
-      title: '发布任务', //导航栏标题
-    },
     //height:  apppT.globalData.navBarHeight,
     array: ['截图 / 拍照', '无'],
     index: 0,

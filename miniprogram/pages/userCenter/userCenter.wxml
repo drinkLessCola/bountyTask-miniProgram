@@ -1,2 +1,23 @@
-<!--miniprogram.wxml-->
-<text>miniprogram.wxml</text>
+<nav-bar showCapsule="{{false}}" title=""></nav-bar>
+<view class="bg"></view>
+<view class="user-center">
+  <view class="primary-title">个人中心</view>
+  <header>
+    <view class="avatar">
+    </view>
+    <view class="user-data"></view>
+  </header>
+  <view class="nickname"></view>
+  <ul>
+    <li>
+      <view class="icon"></view>
+      <span>进行中</span>
+    </li>
+  </ul>
+  <ul>
+    <li>
+      <view class="icon"/>
+      <span>任务收藏夹</span>
+    </li>
+  </ul>
+</view>

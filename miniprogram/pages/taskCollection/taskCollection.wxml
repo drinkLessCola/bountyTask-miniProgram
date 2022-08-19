@@ -2,7 +2,11 @@
 
 <!-- 使用自定义组件（component） -->
 <!-- 要先在对应的 json 文件中定义要使用的 component 引用的标签名及所在的文件路径 -->
-<nav-bar navbar-data='{{navbarData}}' nav-bgc-class='whiteBgc'></nav-bar>
+<nav-bar 
+  showCapsule="{{true}}" 
+  title="任务收藏夹" 
+  nav-bgc-class='whiteBgc'
+></nav-bar>
 <!-- 自定义导航栏，抄来的,看上去有点抽象 -->
 <view class="titleBox" style="margin-top:0;">
   <!-- <view class="title">任务收藏夹</view> -->

@@ -1,17 +1,17 @@
 <!--miniprogram.wxml-->
 <view class="task">
   <header class="task-header">
-    <span>{{title}}</span>
-    <span class="bounty">¥{{bounty}}</span>
+    <span>{{taskData.title}}</span>
+    <span class="bounty">¥{{taskData.bounty}}</span>
   </header>
   <main class="task-main">
     <ul class="task-info">
       <li class="info">
-        <span class="icon icon-address"></span>{{area}}
+        <span class="icon icon-address"></span>{{taskData.area}}
       </li>
       <li class="info">
       <span class="icon icon_time"></span>
-      {{deadline}}</li>
+      {{taskData.deadline}}</li>
     </ul>
     <span>{{publishTime}}</span>
   </main>

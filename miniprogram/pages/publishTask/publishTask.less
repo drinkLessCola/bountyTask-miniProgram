@@ -1,36 +1,40 @@
 /* miniprogram.wxss */
 page {
-  padding-left: 50rpx;
-  padding-right: 50rpx;
+  // 这两个可以合并，两个值时第一个是 上下的，第二个是左右的。
+  // padding-left: 50rpx;
+  // padding-right: 50rpx;
+  padding: 0 50rpx;
+  width:100vw;
+  box-sizing: border-box;
+  // IE 怪异盒子模型，宽度为 content + padding + border
+  // 只用设置整个页面，其他自动被框在 content 的宽度里，就无需设置了
 }
 
 input {
-  background-color: rgb(246,246,246);
+  background-color:#f6f6f6;
   font-size: 32rpx;
   border-radius: 20rpx;
-  color: rgb(51,51,51);
+  color: #333;
   margin-bottom: 20rpx;
-  width: 650rpx;
-  height: 80rpx;
-  box-sizing: border-box;
-  padding: 20rpx 18rpx 20rpx 18rpx;
+  width:100%;
+  padding:20rpx;
 }
 
 textarea {
-  background-color: rgb(246,246,246);
+  background-color: #f6f6f6;
   font-size: 32rpx;
   border-radius: 20rpx;
-  color: rgb(51,51,51);
+  color: #333;
   margin-bottom: 20rpx;
-  width: 650rpx;
-  min-height: 180rpx;
-  box-sizing: border-box;
-  padding: 20rpx 18rpx 20rpx 18rpx;
+  width: 100%;
+  // height 是 content 的高度，需要减去 2 个 padding
+  min-height: 140rpx;
+  padding: 20rpx;
 }
 
 picker {
   height: 80rpx;
-  background-color: rgb(246,246,246);
+  background-color: #f6f6f6;
   width: 272rpx;
   border-radius: 20rpx;
   margin-bottom: 20rpx;
@@ -75,8 +79,6 @@ image {
       padding-left:  20rpx;
       box-sizing: border-box;
     }
-  
-  
   }
   
   

@@ -9,11 +9,17 @@ Component({
   externalClasses: ['nav-bgc-class', 'nav-title-class', 'ex-back-pre'],
   // properties 组件用来储存外部数据
   properties: {
-    navbarData: { //navbarData   由父页面传递的数据，变量名字自命名
-      type: Object,
-      value: {},
-      observer: function (newVal, oldVal) { }
-    },
+    // 这些常量可以直接写，不用定义在 data 里面，编译过程携带的 data 太大会影响性能
+    showCapsule:Boolean,
+    title:String,
+
+    // navbarData: { //navbarData   由父页面传递的数据，变量名字自命名
+    //   type: Object,
+    //   value: {
+
+    //   },
+    //   // observer: function (newVal, oldVal) { }
+    // },
   },
   // 组件用来储存内部私有数据
   data: {

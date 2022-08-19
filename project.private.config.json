@@ -17,6 +17,27 @@
           "query": "",
           "launchMode": "default",
           "scene": null
+        },
+        {
+          "name": "发布任务",
+          "pathName": "pages/publishTask/publishTask",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "个人中心",
+          "pathName": "pages/userCenter/userCenter",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "任务收藏夹",
+          "pathName": "pages/taskCollection/taskCollection",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
         }
       ]
     }

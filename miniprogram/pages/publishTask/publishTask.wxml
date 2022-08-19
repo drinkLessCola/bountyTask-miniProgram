@@ -1,6 +1,9 @@
 <!--miniprogram.wxml-->
-<nav-bar navbar-data='{{navbarData}}'></nav-bar>
-<!-- 自定义导航栏，抄来的,看上去有点抽象 -->
+<nav-bar 
+  showCapsule="{{true}}"
+  title="发布任务" 
+  nav-bgc-class='whiteBgc'
+></nav-bar>
 <view class="formBox" style="margin-top:30rpx;">
   <form action="">
   <!-- 理想很丰满 现实很骨感。。一大堆不在form范围里的数据。。只能手动打包提交了 -->
