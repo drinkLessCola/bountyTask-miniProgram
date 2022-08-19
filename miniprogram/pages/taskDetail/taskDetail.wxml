@@ -1,48 +1,73 @@
 <!--miniprogram.wxml-->
 <!-- 由于执行方和发布方 查看 任务详情 界面有不少一样的 于是打算通过条件渲染来区分-->
+<nav-bar showCapsule="{{true}}" title="任务详情"></nav-bar>
+<!-- 胶囊颜色和蓝湖不符,差不多的,暂时不管-->
 
-<image> </image>
+<image wx:if="{{isPublisher}}"> </image>
 <!-- 这里使用wx:if 执行方可见 -->
-<view class="titleBox">
-<!-- titleBox两者都可见 -->
-  <view class="taskTitle"></view>
-  <view class="bounty"></view>
-  <view class="username">
-    <!-- 任务发布者 -->
-    <userinfo avatarUrl="{{avatarUrl}}" nickname="{{nickname}}"></userinfo>
-  </view>
-  <view class="remainTaskNum"></view>
-  <view class="labelBox">
-    <view class="label"></view>
-    <!-- wx:for遍历 任务标签数组 -->
-  </view>
-</view>
-<view class="illstration">
-  <title>任务说明</title>
-  <view></view>
-</view>
-<!-- 任务说明 执行方可见 -->
-<view class="ddl">
-  <!-- ddl盒子 两者可见 -->
-  <title>截止时间</title>
-  <view class="time"></view>
-</view>
-<view class="getCondition">
-  <!-- 这个有wx:if 发布方可见-->
-  <view class="perCondition">
-    <userinfo avatarUrl="{{avatarUrl}}" nickname="{{nickname}}"></userinfo>
-    <view class="status">{{}}</view>
-    <!-- 这里使用wx:for  遍历 领取任务的人-->
-  </view>
-</view>
-<view class="request">
-<!-- 任务要求 执行方可见 -->
-  <title>任务要求</title>
-  <view>{{}}</view>
-</view>
+<!-- 0发布 1执行 -->
 
+<view class="{{isPublisher? 'background-execute' :'background-publisher'}}" style="background-color: white;">
+  <view style="height: {{isPublisher?  0 :318}}rpx;"></view>
+  <!-- 这个是白色的背景,发布方状态时暴力位移到手机屏幕顶端 -->
+  <view class="titleBox">
+    <!-- titleBox两者都可见 -->
+    <view class="bounty">￥{{task.bounty}}</view>
+    <view class="taskTitle">{{task.title}}</view>
+    
+    
+    <view class="username">
+      <!-- 任务发布者 -->
+      <view class="remainTaskNum">剩余{{task.number}}份</view>
+      <userinfo  avatarUrl="{{avatarUrl}}" nickname="{{nickname}}" size="66" ></userinfo>
+    </view>
+    <view class="labelBox" wx:for="{{task.labels}}" wx:key="index">
+      <view class="label {{itme=='紧急' ? 'redlabel' : ''}}">{{item}}</view>
+      <!-- wx:for遍历 任务标签数组 -->
+      <!-- 额，我不想看到警告 -->
+    </view>
+  </view>
+  <view class="illstrate" wx:if="{{isPublisher}}">
+    <title>任务说明</title>
+    <view>
+    </view>
+  </view>
+  <!-- 任务说明 执行方可见 -->
+  <view class="ddl">
+    <!-- ddl盒子 两者可见 -->
+    <title>截止时间</title>
+    <view class="timeBox">
+      <image src='/images/taskDetail/clock.svg' class="clockImg"></image>
+      <view class="time">{{task.deadline}}</view>
+    </view>
+  </view>
+  <view class="getCondition" wx:if="{{!isPublisher}}">
+    <!-- 这个有wx:if 发布方可见-->
+    <title>领取情况</title>
+    <view class="perCondition" wx:for="{{task.getCondition}}" wx:key="index">
+      <view class='userinfo'> 
+        <userinfo avatarUrl="{{item.avatarUrl}}" nickname="{{item.nickname}}"></userinfo>
+      </view>
+      <view class="status">{{item.status}}</view>
+      <!-- 这里使用wx:for  遍历 领取任务的人-->
+    </view>
+  </view>
+  <view class="request" wx:if="{{isPublisher}}">
+    <!-- 任务要求 执行方可见 -->
+    <title>任务要求</title>
+    <view>{{}}</view>
+  </view>
 
-
+  <!-- 底部按钮 -->
+  <view class="bottomButtons">
+    <!--下线任务 发布方可见  -->
+    <button wx:if="{{!isPublisher}}">下线任务</button>
+    <!-- 收藏和接任务 接收方可见 -->
+    <image class="star" src="" bindtap="" wx:if="{{isPublisher}}"></image>
+    <!-- 星星是个图 -->
+    <button class="getToDoTask" bindtap="" wx:if="{{isPublisher}}">接任务</button>
+  </view>
+</view>
 <!-- <button class="avatar-wrapper" open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar">
   <image class="avatar" src="{{avatarUrl}}"></image>
 </button> 
