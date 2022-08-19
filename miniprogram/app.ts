@@ -6,7 +6,8 @@ App<IAppOption>({
     //自定义导航栏坐标信息
     titleCoord:null,
     navBarHeight:0,
-    tabBarBottom:0,
+    tabBarBottom:0
+    // 默认的头像
   },
   onLaunch() {
     // 展示本地存储能力
