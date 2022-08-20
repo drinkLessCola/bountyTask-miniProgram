@@ -178,15 +178,19 @@
     color: rgba(255, 183, 0, 1);
     background-color: rgba(255, 240, 201, 1);
     border-radius: 20rpx;
+    font-size: 36rpx;
+    line-height: 66rpx;
   }
 
   image {
-    margin-top: 40rpx;
-
+    position: relative;
+    top : -12rpx;
+    margin-top: 46rpx;
     width: 50rpx;
     height: 50rpx;
   }
   .getToDoTask {
+    
     display: inline-block;
     margin-left: 236rpx;
     background-color: rgba(255, 207, 86, 1);
@@ -195,5 +199,58 @@
     font-size: 36rpx;
     width: 360rpx;
     height: 80rpx;
+  }
+}
+
+
+.dialogBackground {
+  position: fixed;
+  bottom: 0;
+  height: 100%;
+  z-index: 9000;
+  background-color: rgba(0,0,0,0.1);
+  // opacity: 0.9;
+  
+  .dialog {
+   
+    position: relative;
+    top: 59%;
+    background-color: #fff;
+    border-radius: 60rpx 60rpx 0 0 ;
+    height: 602rpx;
+    z-index: 9999;
+    padding-top: 60rpx;
+    padding-left:  70rpx;
+    padding-right:  70rpx;
+    .title {
+      font-size: 48rpx;
+      font-weight: bold;
+    }
+    .text {
+      font-size: 32rpx;
+      margin-top: 34rpx;
+      color: rgba(85, 85, 85, 1);
+      height: 320rpx;
+    }
+    .buttons {
+      button {
+        font-size: 40rpx;
+        border-radius: 20rpx;
+        width: 280rpx;
+        height: 100rpx;
+        display: inline-block;
+      }
+      .btnNO {
+        margin-right: 50rpx;
+        background-color: rgba(230, 230, 230, 1);
+        color: rgba(85, 85, 85, 1);
+      }
+      .btnYes {
+        background-color:rgba(255, 207, 86, 1);
+        color: #fff;
+      }
+    }
+    
+
   }
 }

@@ -80,6 +80,20 @@
     <button class="getToDoTask" bindtap="" wx:if="{{isPublisher}}">接任务</button>
   </view>
 </view>
+
+<view  class="dialogBackground" wx:if="{{isPublisher}}" wx:if="{{hidden}}">
+  <view class="dialog">
+      <View class='title'>确定接受任务？</View>
+      <View class='text'>请在规定时间内完成任务，可在个人中心中放弃任务，此操作将释放任务资格。</View>
+      <view class="buttons">
+        <button class='btnNO' bindtap="btnNo">取消</button>
+        <button  class='btnYes' bindtap="btnYes">确定</button>
+      </view>
+  </view>
+</view>
+
+
+
 <!-- <button class="avatar-wrapper" open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar">
   <image class="avatar" src="{{avatarUrl}}"></image>
 </button> 

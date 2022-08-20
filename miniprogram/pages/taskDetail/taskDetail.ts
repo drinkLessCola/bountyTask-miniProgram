@@ -17,8 +17,9 @@ Page({
     // color:'#FFF3DD',
     color:"#000000",
 
-    isPublisher:0,
+    isPublisher:1,
     // 0是发布者 1不是
+    hidden:1,
 
     publish:{
       Id:0,
