@@ -2,3 +2,16 @@
   showCapsule="{{false}}"
   title="" 
 ></nav-bar>
+
+<view class="navbackground"></view>
+<view class="topBox"> 
+  <view class="title">消息</view>
+  <view class="label {{item.checked ? 'sel' : ''}}" data-id='{{index}}' bindtap="change" wx:for='{{select}}' wx:key='index'> 
+    <view class="labelTitle">{{item.name}}</view>
+    <view class="decorate" wx:if='{{select}}'></view>
+  </view>
+  <!-- <view class="label {{select ? 'sel' : ''}}" data-id='0' bindtap="change">
+    <view class="labelTitle">领取的任务</view>
+    <view class="decorate" wx:if='{{!select}}'></view>
+  </view> -->
+</view>
