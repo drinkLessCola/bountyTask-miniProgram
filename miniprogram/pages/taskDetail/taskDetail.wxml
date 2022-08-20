@@ -6,7 +6,7 @@
 
 <nav-bar showCapsule="{{true}}" title="任务详情"></nav-bar>
 <!-- 胶囊颜色和蓝湖不符,差不多的,暂时不管-->
-<view class="navBackGround"></view>
+<view class="navBackGround" wx:if="{{isPublisher}}" ></view>
 <!-- 暴力操作,反正导航栏是透明的 -->
 <image class="topImg" wx:if="{{isPublisher}}" mode="aspectFill"> </image>
 <!-- 这里使用wx:if 执行方可见 -->
