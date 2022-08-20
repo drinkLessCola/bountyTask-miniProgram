@@ -1,12 +1,14 @@
 <!--miniprogram.wxml-->
 <!-- 由于执行方和发布方 查看 任务详情 界面有不少一样的 于是打算通过条件渲染来区分-->
-<page-meta page-style="background-color:{{isPublisher? 'rgba(250, 243, 221, 1)':'white'}};"></page-meta>
-<!-- 页面颜色设置 -->
+
+<!-- <page-meta page-style="background-color:{{isPublisher? 'rgba(250, 243, 221, 1)':'white'}};"></page-meta> -->
+<!-- 页面颜色设置 --><!-- 额，想了一下这不太妙 -->
 
 <nav-bar showCapsule="{{true}}" title="任务详情"></nav-bar>
 <!-- 胶囊颜色和蓝湖不符,差不多的,暂时不管-->
-<view class="whiteBackGround"></view>
-<image wx:if="{{isPublisher}}"> </image>
+<view class="navBackGround"></view>
+<!-- 暴力操作,反正导航栏是透明的 -->
+<image class="topImg" wx:if="{{isPublisher}}" mode="aspectFill"> </image>
 <!-- 这里使用wx:if 执行方可见 -->
 <!-- 0发布 1执行 -->
 
@@ -32,7 +34,8 @@
   </view>
   <view class="illstrate" wx:if="{{isPublisher}}">
     <title>任务说明</title>
-    <view>
+    <view class="illstrateText">
+      {{task.illstrate}}
     </view>
   </view>
   <!-- 任务说明 执行方可见 -->
@@ -61,7 +64,7 @@
   <view class="request" wx:if="{{isPublisher}}">
     <!-- 任务要求 执行方可见 -->
     <title>任务要求</title>
-    <view>{{}}</view>
+    <view class="requestText">{{task.request=='无' ? '无':'完成后'+task.request}}</view>
   </view>
 
   
@@ -71,7 +74,8 @@
     <!--下线任务 发布方可见  -->
     <button class="putDownTask" wx:if="{{!isPublisher}}">下线任务</button>
     <!-- 收藏和接任务 接收方可见 -->
-    <image class="star" src="" bindtap="" wx:if="{{isPublisher}}"></image>
+    
+    <image class="" src="/images/star.svg" bindtap="" wx:if="{{isPublisher}}"></image>
     <!-- 星星是个图 -->
     <button class="getToDoTask" bindtap="" wx:if="{{isPublisher}}">接任务</button>
   </view>

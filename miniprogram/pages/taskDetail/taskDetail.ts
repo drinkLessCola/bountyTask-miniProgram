@@ -17,7 +17,7 @@ Page({
     // color:'#FFF3DD',
     color:"#000000",
 
-    isPublisher:0,
+    isPublisher:1,
     // 0是发布者 1不是
 
     publish:{
@@ -50,7 +50,7 @@ Page({
         avatarUrl:'http://tmp/ny1Hd2Fgrql4d21c915c93b7255357d06571d729118e.jpeg',
         status:"进行中",
       }],//这个需要二次请求才会处理好放进来
-      illstrate:'你猜',
+      illstrate:'你猜11111111111111111111111111111111111111111111111111111111111111111122222222222222222222',
       request:'截图 / 拍照',
       number:1,//这个是剩余n份任务
       labels:['泰山区','紧急','校外',1],

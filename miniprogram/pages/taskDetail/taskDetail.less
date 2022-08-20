@@ -3,7 +3,19 @@
 //   background-color: rgba(250, 243, 221, 1);
 // }
 
+.navBackGround {
+  z-index: -1000;
+  background-color: rgba(250, 243, 221, 1);
+  position: absolute;
+  height: 600rpx;
+  width: 100vw;
+  top: 0rpx;
+}
 
+.topImg {
+  height: 260rpx;
+  width: 100vw;
+}
 
 .background-publisher {
   position: relative;
@@ -21,7 +33,10 @@
 }
 
 .background-execute {
-  border-radius: 40rpx;
+  border-radius: 40rpx 40rpx 0 0 ;
+  padding-top: 40rpx;
+  padding-left: 50rpx;
+  padding-right: 50rpx;
 }
 
 
@@ -75,6 +90,19 @@
   clear: both;
 }
 
+.illstrate {
+  margin-top: 20rpx;
+  .illstrateText {
+    color: rgba(85, 85, 85, 1);
+    font-size: 28rpx;
+    margin-left: 20rpx;
+    margin-top: 18rpx;
+    width: 610rpx;
+    height: fit-content;
+    word-break: break-all;
+  }
+}
+
 .ddl {
   margin-top: 34rpx;
 
@@ -121,6 +149,19 @@
   }
 }
 
+.request {
+  margin-top: 40rpx;
+  .requestText {
+    color: rgba(85, 85, 85, 1);
+    font-size: 28rpx;
+    margin-left: 20rpx;
+    margin-top: 18rpx;
+    width: 610rpx;
+    height: fit-content;
+    word-break: break-all;
+  }
+}
+
 .bottomButtons {
   position: fixed;
   bottom: 0rpx;
@@ -128,12 +169,31 @@
   height: 188rpx;
   width: 100%;
   background-color: #fff;
-
+  padding-left: 50rpx;
+  padding-right: 50rpx;
+  box-sizing: border-box;
   .putDownTask {
     height: 100rpx;
     width: 612rpx;
     color: rgba(255, 183, 0, 1);
     background-color: rgba(255, 240, 201, 1);
     border-radius: 20rpx;
+  }
+
+  image {
+    margin-top: 40rpx;
+
+    width: 50rpx;
+    height: 50rpx;
+  }
+  .getToDoTask {
+    display: inline-block;
+    margin-left: 236rpx;
+    background-color: rgba(255, 207, 86, 1);
+    color: #fff;
+    border-radius: 20rpx;
+    font-size: 36rpx;
+    width: 360rpx;
+    height: 80rpx;
   }
 }
