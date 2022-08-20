@@ -11,8 +11,11 @@ Page({
     avatarUrl:'http://tmp/ny1Hd2Fgrql4d21c915c93b7255357d06571d729118e.jpeg',
     // lzh的头像
     //当前用户的
-    nickname:'昵称',
+    nickname:'一昵称',
     userid:0,
+
+    // color:'#FFF3DD',
+    color:"#000000",
 
     isPublisher:0,
     // 0是发布者 1不是
@@ -35,7 +38,7 @@ Page({
       id:0,
       title:'任务标题',
       getCondition:[{
-        nickname:'1号',
+        nickname:'一号',
         avatarUrl:'http://tmp/ny1Hd2Fgrql4d21c915c93b7255357d06571d729118e.jpeg',
         status:"已完成",
       },{
@@ -50,8 +53,8 @@ Page({
       illstrate:'你猜',
       request:'截图 / 拍照',
       number:1,//这个是剩余n份任务
-      labels:['泰山区','紧急','校外'],
-      deadline:'2022年8月16日 上午 08:00',//yyyy年MM月dd日 上/下午 hh:mm 这里月份的十位若是0则不显示
+      labels:['泰山区','紧急','校外',1],
+      deadline:'2022年8月16日 上午 08 : 00',//yyyy年MM月dd日 上/下午 hh:mm 这里月份的十位若是0则不显示
       bounty:'2',//这个是每份的 
 
     },
@@ -76,7 +79,9 @@ Page({
     
 
   },
-  
+
+ 
+
   // onChooseAvatar(e:any) {
   //   const   { avatarUrl }  = e.detail
   //   this.setData({

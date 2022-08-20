@@ -1,14 +1,17 @@
 <!--miniprogram.wxml-->
 <!-- 由于执行方和发布方 查看 任务详情 界面有不少一样的 于是打算通过条件渲染来区分-->
+<page-meta page-style="background-color:{{isPublisher? 'rgba(250, 243, 221, 1)':'white'}};"></page-meta>
+<!-- 页面颜色设置 -->
+
 <nav-bar showCapsule="{{true}}" title="任务详情"></nav-bar>
 <!-- 胶囊颜色和蓝湖不符,差不多的,暂时不管-->
-
+<view class="whiteBackGround"></view>
 <image wx:if="{{isPublisher}}"> </image>
 <!-- 这里使用wx:if 执行方可见 -->
 <!-- 0发布 1执行 -->
 
 <view class="{{isPublisher? 'background-execute' :'background-publisher'}}" style="background-color: white;">
-  <view style="height: {{isPublisher?  0 :318}}rpx;"></view>
+  <view style="height: {{isPublisher?  0 :0}}rpx;"></view>
   <!-- 这个是白色的背景,发布方状态时暴力位移到手机屏幕顶端 -->
   <view class="titleBox">
     <!-- titleBox两者都可见 -->
@@ -21,8 +24,8 @@
       <view class="remainTaskNum">剩余{{task.number}}份</view>
       <userinfo  avatarUrl="{{avatarUrl}}" nickname="{{nickname}}" size="66" ></userinfo>
     </view>
-    <view class="labelBox" wx:for="{{task.labels}}" wx:key="index">
-      <view class="label {{itme=='紧急' ? 'redlabel' : ''}}">{{item}}</view>
+    <view class="labelBox" >
+      <view  wx:for="{{task.labels}}" wx:key="index" class="label  {{item == '紧急' ? 'redlabel' : ''}}" >{{item}}</view>
       <!-- wx:for遍历 任务标签数组 -->
       <!-- 额，我不想看到警告 -->
     </view>
@@ -44,11 +47,14 @@
   <view class="getCondition" wx:if="{{!isPublisher}}">
     <!-- 这个有wx:if 发布方可见-->
     <title>领取情况</title>
+    <view style="margin-top: 25rpx;"></view>
+    <!-- 这空盒子用来调整空隙因为上下两个都不方便处理 -->
     <view class="perCondition" wx:for="{{task.getCondition}}" wx:key="index">
+      <view class="status">{{item.status}}</view>
       <view class='userinfo'> 
         <userinfo avatarUrl="{{item.avatarUrl}}" nickname="{{item.nickname}}"></userinfo>
       </view>
-      <view class="status">{{item.status}}</view>
+      
       <!-- 这里使用wx:for  遍历 领取任务的人-->
     </view>
   </view>
@@ -58,10 +64,12 @@
     <view>{{}}</view>
   </view>
 
+  
+
   <!-- 底部按钮 -->
   <view class="bottomButtons">
     <!--下线任务 发布方可见  -->
-    <button wx:if="{{!isPublisher}}">下线任务</button>
+    <button class="putDownTask" wx:if="{{!isPublisher}}">下线任务</button>
     <!-- 收藏和接任务 接收方可见 -->
     <image class="star" src="" bindtap="" wx:if="{{isPublisher}}"></image>
     <!-- 星星是个图 -->

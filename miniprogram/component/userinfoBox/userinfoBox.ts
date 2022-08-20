@@ -31,8 +31,8 @@ Component({
       if(size==null ||size==0){
         size=50
       }
-      let top = -size/2+14
-      //位移为框高一半 - 字体大小的一半
+      let top = -size/2+14-5
+      //位移为框高一半 - 字体大小的一半 - 5
       this.setData({
         avatarUrl: this.properties.avatarUrl,
         nickname: this.properties.nickname,
