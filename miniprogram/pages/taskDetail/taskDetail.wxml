@@ -24,7 +24,7 @@
     <view class="username">
       <!-- 任务发布者 -->
       <view class="remainTaskNum">剩余{{task.number}}份</view>
-      <userinfo  avatarUrl="{{avatarUrl}}" nickname="{{nickname}}" size="66" ></userinfo>
+      <userinfo  avatarUrl="{{publish.avatarUrl}}" nickname="{{publish.nickname}}" size="66" ></userinfo>
     </view>
     <view class="labelBox" >
       <view  wx:for="{{task.labels}}" wx:key="index" class="label  {{item == '紧急' ? 'redlabel' : ''}}" >{{item}}</view>
@@ -55,7 +55,7 @@
     <view class="perCondition" wx:for="{{task.getCondition}}" wx:key="index">
       <view class="status">{{item.status}}</view>
       <view class='userinfo'> 
-        <userinfo avatarUrl="{{item.avatarUrl}}" nickname="{{item.nickname}}"></userinfo>
+        <userinfo avatarUrl="{{item.avatarUrl}}" nickname="{{item.nickname}}" data-info='{{item}}' bindtap="comfirmTask"></userinfo>
       </view>
       
       <!-- 这里使用wx:for  遍历 领取任务的人-->
@@ -72,12 +72,12 @@
   <!-- 底部按钮 -->
   <view class="bottomButtons">
     <!--下线任务 发布方可见  -->
-    <button class="putDownTask" wx:if="{{!isPublisher}}">下线任务</button>
+    <button class="putDownTask" wx:if="{{!isPublisher}}" bindtap="btnPutDown">下线任务</button>
     <!-- 收藏和接任务 接收方可见 -->
     
-    <image class="" src="/images/star.svg" bindtap="" wx:if="{{isPublisher}}"></image>
+    <image class="" src="/images/star.svg" bindtap="{{isCollect? 'taskCollect' : 'delCollect'}}" wx:if="{{isPublisher}}"></image>
     <!-- 星星是个图 -->
-    <button class="getToDoTask" bindtap="" wx:if="{{isPublisher}}">接任务</button>
+    <button class="getToDoTask" bindtap="btnGetTask" wx:if="{{isPublisher}}">接任务</button>
   </view>
 </view>
 
