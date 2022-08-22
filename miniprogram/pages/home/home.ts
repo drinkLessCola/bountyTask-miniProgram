@@ -7,6 +7,9 @@ Page({
   data: {
     timestamp: 1660566722638,
     // 暂时使用时间戳以及其number类型代替ddl和提交时间
+
+    search:'',
+
     missionsArray: [{
         id: 0,
         title: '测试',
@@ -28,6 +31,43 @@ Page({
     return Date.now()
   },
 
+  search(){
+    //调用接口 按关键字搜索 标签为最新 泰山区 取物？
+    //需要进一步决定
+  },
+
+  inputSearch(e:any) {
+    let string = e.currentTarget.detail
+    this.setData({
+      search:string
+    })
+  },
+
+  toMsg() {
+    wx.switchTab({
+      url:'/pages/message/message'
+    })
+  },
+
+  btnPublishTask(e:any) {
+    const category = e.currentTarget.dataset.name
+    // console.log(category);
+    let url = '/pages/publishTask/publishTask?category='+category
+    wx.navigateTo({
+      url:url
+    })
+  },
+
+  toTaskDetail(e:any) {
+    const userid = 0 //这玩意从哪搞来？
+    const id = e.currentTarget.dataset.id
+    let url =  "/pages/taskDetail/taskDetail?taskid="+id +"&userid=" +userid
+    wx.navigateTo({
+      url:url
+    })
+    // console.log(id);
+    
+  },
   /**
    * 生命周期函数--监听页面加载
    */

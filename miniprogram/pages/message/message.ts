@@ -34,7 +34,11 @@ Page({
   },
 
   onLoad() {
-    
+    let sel = this.data.select
+    sel[0].checked=true
+    this.setData({
+      select:sel
+    })
   },
   onShow() {
     //自定义的tabbar

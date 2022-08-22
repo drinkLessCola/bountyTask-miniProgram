@@ -10,8 +10,8 @@
   <view class="topBlock" >
   <!-- 搜索框,topBlock就只装着搜索框 -->
     <view class="search">
-      <image src="/images/taskCenter/search.png" mode="aspectFill"></image>
-      <input type="text" placeholder="something" />
+      <image src="/images/taskCenter/search.png" mode="aspectFill" bindtap="search"></image>
+      <input type="text" placeholder="something" bindinput="inputSearch"/>
     </view>
   </view>
   
@@ -41,7 +41,7 @@
   <task 
     taskData="{{item}}"
     bindtap="taskTap" 
-    data-task="{{item.task}}"
+    data-id="{{item.id}}"
   ></task>
 </view>
 <!-- 感觉把这个列表解耦出来会好一点，但是 好像没办法把这个列表单独列在后台与后端通信，用的时候放进页面 吧。。 可以👍 -->

@@ -61,7 +61,7 @@ Page({
       labels: '',
       // 后端要求拼接字符串
       total: 0,
-      category:''
+      category:'',
       // 分类到时候跳转页面的时候赋值
     }
   },
@@ -276,9 +276,11 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad() {
+  onLoad(option) {
     // console.log(this.data.height);
-
+    let taskinfo = this.data.taskInfo
+    let category = option.category
+    taskinfo.category = String(category)
   },
 
   /**

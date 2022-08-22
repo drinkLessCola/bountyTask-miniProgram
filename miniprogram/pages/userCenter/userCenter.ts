@@ -6,7 +6,12 @@ Page({
    */
   data: {
   },
-
+  toTaskCollect() {
+    const userid = 0 //额...
+    wx.navigateTo({
+      url:"/pages/taskCollection/taskCollection?userid="+userid
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */

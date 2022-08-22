@@ -13,7 +13,7 @@
 
 
 <!-- task为任务object,后端似乎返回的是一个task对象的数组 -->
-<view class="missions" wx:for="{{taskArray}}" wx:key="id">
+<view class="missions" wx:for="{{taskArray}}" wx:key="id" bindtap="toTaskDetail" data-id="{{item.id}}">
   <task taskData="{{item}}" ></task>
 
   <!-- <task title='{{item.task.title}}' bounty='{{item.task.bounty}}' timestamp='{{item.task.timestamp}}' area='{{item.task.area}}' deadline='{{item.task.timestamp}}' bindtap="taskTap" data-task="{{item.task}}" wx:if="{{item.task.bounty == '已过期'}}" class='task-overdue'></task> -->

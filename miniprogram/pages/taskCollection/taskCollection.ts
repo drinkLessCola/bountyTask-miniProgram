@@ -5,6 +5,8 @@ Page({
   data: {
     height:apptc.globalData.navBarHeight,
 
+    userid:0,
+
     //task的数组，以后应该是后端给一个task数组，直接把给来的数组setData就好
 
     // -------------------------------警告，现在写在前端测试用的task对象的属性和后端不一样-------------------------------------
@@ -32,17 +34,27 @@ Page({
     })
   },/*没调用这个*/ 
 
-  taskTap(e:any) {
-    var data = e.currentTarget
-    console.log(data)
+  toTaskDetail(e:any) {
+    const userid = 0 //这玩意从哪搞来？
+    const id = e.currentTarget.dataset.id
+    let url =  "/pages/taskDetail/taskDetail?taskid="+id +"&userid=" +userid
     wx.navigateTo({
-      url: '',
-    })
-  },//跳转到任务详情
+      url:url
+    })//跳转到任务详情
+  },
+  
 
   btnTap() {
     //清除过期任务
-    // 这功能得后端搞啊，前端搞这个掩耳盗铃。。。。。。
+   let clearIdArray = []
+   const now = new Date(Date.now()).getTime()
+
+   this.data.taskArray.forEach(element => {
+      if(element.deadline < now){
+        clearIdArray.push(element.id)
+      }
+   })
+   //调用对应接口
     
   },
 

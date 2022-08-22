@@ -10,30 +10,30 @@
 <view class="topBlock" >
 <!-- 搜索框 -->
   <view class="search">
-    <image src="/images/home/search.png" mode="aspectFill" style="width:40rpx;height:40rpx"></image>
-    <input type="titleText" placeholder="something" />
+    <image src="/images/home/search.png" mode="aspectFill" style="width:40rpx;height:40rpx" bindtap="search"></image>
+    <input type="titleText" placeholder="something" bindinput="inputSearch" />
   </view>
 <!-- 铃铛 -->
-  <image src="/images/home/tips.png" class="tips" mode="aspectFill"></image>
+  <image src="/images/home/tips.png" class="tips" mode="aspectFill" bindtap="toMsg"></image>
 </view>
 <!-- 这两个黑字标题样式一样 -->
 <view class="titleText">寻求帮助</view>
 <!-- bigBox “口”-》两个typeBox “日” 把右边的浮起来 最后变成 “田” 然后-->
 <view class="bigBox">
   <view class="typeBox">
-    <button id="fetch"><text>取物</text></button>
-    <button id="helpBuy">代购</button>
+    <button id="fetch" data-name="取物" bindtap="btnPublishTask"><text>取物</text></button>
+    <button id="helpBuy" data-name="代购" bindtap="btnPublishTask">代购</button>
   </view>
   <view class="typeBox">
-    <button id="vote">投票</button>
-    <button id="other">其他</button>
+    <button id="vote" data-name="投票" bindtap="btnPublishTask">投票</button>
+    <button id="other" data-name="其他" bindtap="btnPublishTask">其他</button>
   </view>
 </view>
 
 <view class="titleText">推荐任务</view>
 <!-- 这个1rpx的view是用于不让他们的margin重合的，懒得写多一层view了 -->
 <view style="height: 1rpx;"></view> 
-<view class="missions" wx:for="{{missionsArray}}" wx:key="id">
+<view class="missions" wx:for="{{missionsArray}}" wx:key="id"  data-id="{{item.id}}" bindtap="toTaskDetail">
   <task taskData="{{item}}"></task>
 </view>
      

@@ -34,7 +34,8 @@ Page({
       status:0,//2：待确认；1：进行中；0：已完成
     },
     // 领取者获取回来时的对象结构，仅用作展示
-
+    taskid:0,
+    //方便onload写入
     task:{
       id:0,
       title:'任务标题',
@@ -97,7 +98,9 @@ Page({
   //   console.log(avatarUrl);
   // },
 
-
+  getTask(taskid:number) {
+    //调用 根据任务id查询 根据任务id返回发布者id
+  },  
 
   isPublisher:function(nowid:number , taskPublisherId:number){
     this.setData({
@@ -127,8 +130,20 @@ Page({
 
   comfirmTask:function(e:any) {
     const t = e.currentTarget.dataset
-    console.log(t.info);
+    // console.log(t.info);
     // 跳转：确认完成界面 参数t.info.id(头像应该传不过去吧，太长了)
+    let emitData = {
+      finisherId : t.info.id,
+      taskId : this.data.task.id,
+      taskTitle : this.data.task.title,
+      taskRequest : this.data.task.request
+    }
+    wx.navigateTo({
+      url:"/pages/confirmCompleted/confirmCompleted",
+      success:function(res) {
+        res.eventChannel.emit('handleEvent' , emitData)
+      }
+    })
   },
 
   btnPutDown:function() {
@@ -168,11 +183,21 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad() {
+  onLoad(option) {
     this.setData({
-      hidden:0
+      hidden:0,
+      taskid:Number(option.taskid),
+      userid:Number(option.userid)
     })
+    console.log(
+      this.data.taskid+' '+this.data.userid
+    );
+    
     // console.log(new Date('2022-08-01 00:00:00'));
+    // console.log(option.taskid);
+    // 似乎可以用eventChannel把整个task发过来。。以后优化
+
+    
     
   },
 

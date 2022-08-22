@@ -41,7 +41,7 @@
 
   <!-- 下面的一栏 -->
   <ul class="menubar">
-    <li class="menubar-item">
+    <li class="menubar-item" bindtap="toTaskCollect">
       <view class="icon star-icon"/>
       <span class="title">任务收藏夹</span>
     </li>

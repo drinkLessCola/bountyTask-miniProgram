@@ -8,6 +8,8 @@ Page({
       title: '', //导航栏标题
     },
 
+    search:'',
+
     // 选择按钮组的数据
     selectParameter: [{
       id: 0,
@@ -72,11 +74,31 @@ Page({
     })
   },/*没调用这个*/
 
+  search(){
+    let condition
+    this.data.selectParameter.forEach(element => {
+      if(element.checked){
+        condition = element.name //反正这个能改
+      }
+    });
+    let campus = this.data.objectArray[this.data.index].name
+    //调用接口 按关键字搜索 标签为最新 泰山区 取物？
+    //需要进一步决定
+  },
+
+  inputSearch(e:any) {
+    let string = e.currentTarget.detail
+    this.setData({
+      search:string
+    })
+  },
+
   taskTap(e: any) {
-    var data = e.currentTarget
-    console.log(data)
+    const userid = 0 //这玩意从哪搞来？
+    const id = e.currentTarget.dataset.id
+    let url =  "/pages/taskDetail/taskDetail?taskid="+id +"&userid=" +userid
     wx.navigateTo({
-      url: '',
+      url:url
     })
   },//跳转到任务详情(接收方)
 

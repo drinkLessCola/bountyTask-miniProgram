@@ -7,7 +7,7 @@
 <view class="taskTitle" style="margin-top:0;">{{task.title}}</view>
 
 <view><title><view class="title">任务要求</view></title></view>
-<view class="taskRequire">{{task.requirement}}</view>
+<view class="taskRequire">{{task.request}}</view>
 
 <view><title><view class="title">帮手信息</view></title></view>
 <view>这个东西正在想怎么写</view>
