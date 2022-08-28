@@ -1,5 +1,9 @@
 {
   "pages": [
+    "pages/confirmCompleted/confirmCompleted",
+    "pages/guide/guide",
+    "pages/version/version",
+    "pages/opinion/opinion",
     "pages/home/home",
     "pages/publishTask/publishTask",
     "pages/message/message",
@@ -9,7 +13,7 @@
     "pages/userCenter/userCenter",
     "pages/taskCollection/taskCollection",
     "pages/finish/finish",
-    "pages/confirmCompleted/confirmCompleted",
+    
    
     "pages/logs/logs"
     
