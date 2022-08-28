@@ -9,6 +9,8 @@
 <view><title><view class="title">任务要求</view></title></view>
 <view class="taskRequire">{{task.request}}</view>
 
+<!-- 发布者和执行者两种界面！ -->
+
 <view  wx:if="{{!isPublisher}}"><title><view class="title">帮手信息</view></title></view>
 <view class="helperinfo" wx:if="{{!isPublisher}}">
   <userinfo avatarUrl="{{userinfos.avatarUrl}}" nickname="{{userinfos.nickname}}" size="60">  </userinfo>
@@ -23,6 +25,8 @@
     <image wx:else="" src='{{item}}'  mode="aspectFill" class="img imglast"></image>
   </view>
 </view>
+
+<!-- 发布者和执行者两种界面！ -->
 
 <view class="submitStatus" wx:if="{{isPublisher}}">
   <view><title><view class="title">提交状态</view></title></view>

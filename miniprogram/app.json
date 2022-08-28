@@ -1,12 +1,13 @@
 {
   "pages": [
+    "pages/message/message",
     "pages/confirmCompleted/confirmCompleted",
     "pages/guide/guide",
     "pages/version/version",
     "pages/opinion/opinion",
     "pages/home/home",
     "pages/publishTask/publishTask",
-    "pages/message/message",
+    
     "pages/taskDetail/taskDetail",
     
     "pages/taskCenter/taskCenter",

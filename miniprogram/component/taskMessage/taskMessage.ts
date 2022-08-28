@@ -37,7 +37,17 @@ Component({
   },
 
   methods: {
-    statusTransform(s:number|string):string {
+    statusTransform(s:number):string {
+      if(s != 0 ) {
+        // if( s%2 == 0){}
+        if(s == 1 || s == 4 ) {
+
+        }
+        else {
+
+        }
+      }
+      
       return ''
     },
     timeTransform(t:string):string {

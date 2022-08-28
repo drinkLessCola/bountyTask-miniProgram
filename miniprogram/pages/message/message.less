@@ -5,7 +5,7 @@ page {
 .navbackground {
   z-index: -1000;
   background-color: #fff;
-  position: fixed;
+  position: absolute;
   width: 100vw;
   height: 164rpx;
   top: 0rpx;
@@ -53,5 +53,16 @@ page {
     border-radius: 4rpx;
     margin-left: 20rpx;
   }
+}
+
+.shift {
+  position: relative;
+  height: 200rpx;
+}
+
+.msg {
+  margin-top: 20rpx;
+  margin-left: 50rpx;
+  position: relative;
 }
 // 空隙不知道怎么处理才看起来不诡异 直接在sel上加margin-right很诡异。。
