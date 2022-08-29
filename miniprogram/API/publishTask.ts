@@ -1,7 +1,9 @@
 import {getRequest, putRequest, postRequest } from '../utils/request' 
-// 发布任务
-export async function publishTask(title:string, illustrate:string,bounty:number,tasknumber:number,deadline:string,request:string,contact:string,label:string,total:number,userid:number,category:string) {
-  const data = JSON.stringify({title,illustrate,bounty,tasknumber,deadline,request,contact,label,total,userid,category})
-  const res = await postRequest(`/task/selectsort`, data,'POST')
+
+// 我觉得噢，你可以直接传一个对象过来😂，不需要声明这么多参数
+// 在发布任务的 ts 文件中打包成一个对象就可以了
+
+export async function publishTask(data:Object) {
+  const res = await postRequest(`/task/selectsort`, JSON.stringify(data))
   return res
 }
