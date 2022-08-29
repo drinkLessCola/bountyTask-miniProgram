@@ -26,13 +26,13 @@ export async function getUserInfo(id:string) {
  */
 export async function takeTask(taskid:number,userid:number) {
   const data = JSON.stringify({userid, taskid})
-  const res = await postRequest(`/task/take`,data,'POST')
+  const res = await postRequest(`/task/take`,data)
   return res
 }
 // 添加收藏任务
 export async function addCollectTask(taskid:number,userid:number) {
   const data = JSON.stringify({userid, taskid})
-  const res = await postRequest(`/collect/add`,data,'POST')
+  const res = await postRequest(`/collect/add`,data)
   return res
 }
 
