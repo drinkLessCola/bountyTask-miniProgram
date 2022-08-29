@@ -9,7 +9,7 @@
       <li class="icon {{selected === 3? 'msg-icon-active' : 'msg-icon'}}" bindtap="switchTab" data-idx="3"></li>
       <li class="icon {{selected === 4? 'user-icon-active' : 'user-icon'}}" bindtap="switchTab" data-idx="4"></li>
     </ul>
-    <button class="btn" type="primary">
+    <button class="btn" type="primary" bindtap="switchPage">
       <view class="add-icon"></view>
     </button>
   </view>

@@ -1,12 +1,19 @@
-<nav-bar navbar-data='{{navbarData}}'></nav-bar>
+<nav-bar 
+  showCapsule="{{true}}" 
+  title="完成任务" 
+></nav-bar>
 <!-- 自定义导航栏，抄来的,看上去有点抽象 -->
+<!-- 获取小程序提供的 api，通过胶囊的坐标信息与状态栏（每个手机都不一样）的高度
+    计算得到导航栏的位置信息，使导航栏与胶囊垂直居中
+ -->
 <view class="taskTitle">{{task.title}}</view>
 
-<view><title><view class="title">任务要求</view></title></view>
-<view class="taskRequire">{{task.requirement}}</view>
+<title title="任务要求">
+  <view class="taskRequire">{{task.requirement}}</view>
+</title>
 
-<view><title><view class="title">提交证明</view></title></view>
-<view  class="confirmBox">
+<title title="提交证明">
+  <view class="confirmBox">
   <textarea type="text" class="input" placeholder="请输入" auto-height="true" bindinput="textInput"></textarea>
   <view class="imgBox" wx:for="{{imgArray}}">
     <image wx:if="{{index%3 != 2}}" src='{{item}}' mode="aspectFill" class="img"></image>
@@ -21,6 +28,8 @@
       <image src='/images/finish/addImg.png' mode="aspectFill" class="addImg"></image>
     </view>
 </view>
+</title>
+
 
 <view class="buttonBox">
   <button  bindtap="submit">提交</button>

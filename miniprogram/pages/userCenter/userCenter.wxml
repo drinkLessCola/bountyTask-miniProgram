@@ -3,21 +3,21 @@
 <view class="user-center">
   <view class="primary-title">个人中心</view>
   <header>
-    <view class="avatar">
+    <view class="avatar" bindtap="login">
     </view>
     <ul class="user-data">
       <li class="user-data-item">
         <span class="title">发布任务</span>
-        <view class="data">10</view>
+        <view class="data">-</view>
       </li>
       <li class="line"></li>
       <li class="user-data-item">
         <span class="title">任务通过率</span>
-        <view class="data">100%</view>
+        <view class="data">-</view>
       </li>
     </ul>
   </header>
-  <view class="nickname">孜然</view>
+  <view class="nickname" bindtap="login">点击登录</view>
 
   <!-- 中间的那一栏 -->
   <ul class="tabbar">

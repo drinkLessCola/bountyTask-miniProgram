@@ -17,3 +17,15 @@ const formatNumber = (n: number) => {
   const s = n.toString()
   return s[1] ? s : '0' + s
 }
+interface Obj {
+  [prop:string]:any
+}
+export const formdata =  (obj:Obj = {}) => {
+  let result = ''
+  for (let name of Object.keys(obj)) {
+    let value = obj[name];
+    result += 
+    `\r\n--XXX'\r\nContent-Disposition: form-data; name="${name}"\r\n\r\n${value}`
+  }
+  return result + '\r\n--XXX--'
+}

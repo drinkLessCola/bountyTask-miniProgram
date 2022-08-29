@@ -1,15 +1,51 @@
 // miniprogram.ts
+import { onLogin } from '../../API/user'
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    encryptedData:null,
+
   },
   toTaskCollect() {
     const userid = 0 //额...
     wx.navigateTo({
-      url:"/pages/taskCollection/taskCollection?userid="+userid
+      url: "/pages/taskCollection/taskCollection?userid=" + userid
+    })
+  },
+  login() {
+    wx.login({
+      async success(res) {
+        if (!res.code) {
+          console.log('登录失败！' + res.errMsg)
+          return
+        }
+        console.log('code', res.code)
+        wx.setStorageSync('user_code', res.code)
+      }
+    })
+    wx.getUserProfile({
+      desc: '必须授权才能使用',
+      success:res => {
+        let user=res.userInfo
+        wx.setStorageSync('user', user) //信息暂存在客户端
+        this.setData({
+          encryptedData: res.encryptedData,
+          iv: res.iv
+        })
+        const code = wx.getStorageSync('user_code')
+        const encryptedData = res.encryptedData
+        const iv = res.iv
+        console.log(code, encryptedData, iv)
+        onLogin({
+          code:code,
+          encryptedData:encryptedData,
+          iv:iv
+        })
+      }
     })
   },
   /**

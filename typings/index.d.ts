@@ -34,3 +34,7 @@ interface BindTapEvent{
   [propName: string]: any
   // dataset:object,
 }
+
+interface Object {
+  [key: string]: any
+}

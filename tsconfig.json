@@ -23,7 +23,7 @@
   },
   "include": [
     "./**/*.ts"
-  ],
+, "miniprogram/utils/formdata.js"  ],
   "exclude": [
     "node_modules"
   ]

@@ -67,12 +67,6 @@ Page({
         bounty: 20
       }]
   },
-  // 事件处理函数
-  bindViewTap() {
-    wx.navigateTo({
-      url: '../logs/logs',
-    })
-  },/*没调用这个*/
 
   search(){
     let condition

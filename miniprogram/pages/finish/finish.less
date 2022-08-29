@@ -1,7 +1,9 @@
 /* pages/finish/finish.wxss */
+// 可以定义在 App.less 作为全局的样式
 page {
   // font-family: "PingFang SC";
-  padding-left: 50rpx;
+  // padding-left: 50rpx;
+  padding:0 50rpx;
 }
 
 
@@ -18,21 +20,25 @@ page {
   font-weight: bold;
 }
 
+// 边距信息最好定义在组件之中，不然每次使用都需要分别定义
+// 比如下面的信息，可以变成标题的样式 margin-bottom:26rpx
 .taskRequire {
   font-size: 28rpx;
   color: rgb(85,85,85);
-  margin-left: 20rpx;
-  margin-top: 26rpx;
+
+  // margin-left: 20rpx;
+  // margin-top: 26rpx;
 }
 
 .confirmBox {
   width: 650rpx;
   .input{
     width: 650rpx;
-    margin-top: 20rpx;
     word-wrap: break-all;
-    margin-bottom: 20rpx;
-    
+
+    // margin-top: 20rpx;
+    // margin-bottom: 20rpx;
+    margin: 20rpx 0; // 上面这两个可以合并 第一个上下的 margin, 第二个值是左右的 margin。
   }
   .img{
     float: left;

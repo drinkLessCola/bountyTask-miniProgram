@@ -26,6 +26,11 @@ Page({
     .then((res) => console.log(res))
     .catch((err) => console.log(err))
   },
+  switchPage(){
+    wx.navigateTo({
+      url: '../pages/publishTask/publishTask',
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
