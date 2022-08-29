@@ -10,8 +10,11 @@
     <view class="labelTitle">{{item.name}}</view>
     <view class="decorate" wx:if='{{select}}'></view>
   </view>
-  <!-- <view class="label {{select ? 'sel' : ''}}" data-id='0' bindtap="change">
-    <view class="labelTitle">领取的任务</view>
-    <view class="decorate" wx:if='{{!select}}'></view>
-  </view> -->
+  <!-- 发布的任务和领取的任务 通过bindtap选谁来触发样式更改 -->
+</view>
+
+<view class="shift"></view>
+<!-- 暴力位移 -->
+<view class='msg'>
+  <taskMessage></taskMessage>
 </view>

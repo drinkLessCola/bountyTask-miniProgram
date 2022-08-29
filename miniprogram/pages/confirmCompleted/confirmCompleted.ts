@@ -9,18 +9,47 @@ Page({
   data: {
     height:  appcC.globalData.navBarHeight,
 
-
+    userid:0,
+    publisherId:0,
     finisherId:0,
     finisherName:'',
     finisherImg:'',
+
+    isPublisher:1,
+    // 0是发布方 1是执行方
+
+    status:0,
+    //0是通过1是未通过2是等待确认
+
     //---------------警告，测试用的task属性和后端不一样
     task: {
       id: 0,
       title: '测试',
       request:'完成后截图'
     },
+
+    userinfos:{
+      Id:0,
+      nickname:'发布者',
+      avatarUrl:'http://tmp/ny1Hd2Fgrql4d21c915c93b7255357d06571d729118e.jpeg',
+      // lzh的头像
+    },
+
     // 待会要改这东西
     imgArray:['/images/confirmCompleted/testImg.png','/images/confirmCompleted/testImg.png','/images/confirmCompleted/testImg.png','/images/confirmCompleted/testImg.png','/images/confirmCompleted/testImg.png','/images/confirmCompleted/testImg.png']
+  },
+
+  isPublisher() {
+    if(this.data.userid == this.data.publisherId){
+      this.setData({
+        isPublisher:0
+      })
+    }
+    else {
+      this.setData({
+        isPublisher:1
+      })
+    }
   },
 
   refuse() {
