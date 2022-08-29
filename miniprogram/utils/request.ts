@@ -1,49 +1,59 @@
 import FormData from './formdata.js'
 
 const BASE_URL = "http://43.138.254.32"
+// 需要备案，否则腾讯云不解析。。😡
 
-type Method = 'GET' | 'POST' | 'PUT'
-// interface RequestOption<T> {
-//   url: string,
-//   data?: T,
-//   header?: object,
-//   timeout?: number,
-//   method: 'GET' | 'POST' | 'PUT',
-//   dataType: string,
-//   responseType: string,
-// }
+interface ResultObject {
+  data:{
+    code:number,
+    data:Object,
+    message:string
+  },
+  errMsg:string
+}
+// 响应拦截器，抄的
+const dataInterceptor = (response:ResultObject) => {
+  console.log("response:", response);
+  const {data, code, message} = response.data
+    if(code) return Promise.resolve(data)
+    else {
+      wx.showToast({
+        icon:'none',
+        title:message
+      })
+      return Promise.reject(response.data)
+    }
+}
+const errorInterceptor = (err:WechatMiniprogram.GeneralCallbackResult) => {
+  wx.showToast({
+    icon:'error',
+    title:'网络请求失败，请重试',
+  })
+  return Promise.reject(err)
+}
 
-// interface PromiseRes {
-//   then:(res:any) => any;
-//   catch:(err:Error) => any;
-//   [Symbol.toStringTag]:string;
-//   finally:(res:any) => any;
-//   [key:string]:any;
-// }
-export const postRequest = async(url:string, data:string | object | ArrayBuffer, method:Method, header?:object) => {
-  const res = await new Promise((resolve:(res:Object) => void, reject:(err: WechatMiniprogram.GeneralCallbackResult | undefined) => void) => {
+
+export const postRequest = async (url:string, data:string | object | ArrayBuffer, header?:object) => {
+  const result = await new Promise((resolve:(res:Promise<Object>) => void, reject:(res:Promise<PromiseRejectedResult> | undefined) => void) => {
     wx.request({
       url: BASE_URL + url,
       data,
-      method,
+      method:'POST',
       header:{
         'charset':'utf-8',
-        'Content-Type':'application/json'
+        'Content-Type':'application/json',
+        ...header
       },
-      success(res) {
-        console.log(res)
-        resolve(res.data)
+      success(response:ResultObject) {
+        resolve(dataInterceptor(response))
       },
-      fail(res) {
-        console.log(res)
-        reject(res)
+      fail(err) {
+        reject(errorInterceptor(err))
       }
     })
   })
-  // .then((result:Object) => console.log(result))
-  // .catch((err:WechatMiniprogram.GeneralCallbackResult) => console.log(err))
-  console.log(res)
-  return res;
+
+  return result;
 }
 
 export const getRequest = async(url:string) => {

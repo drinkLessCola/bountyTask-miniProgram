@@ -9,13 +9,23 @@ Page({
    */
   data: {
     encryptedData:null,
-
+    uid:'',
+    nickName: '',
+    avatarUrl:'',
   },
   toTaskCollect() {
-    const userid = 0 //额...
-    wx.navigateTo({
-      url: "/pages/taskCollection/taskCollection?userid=" + userid
-    })
+    const uid = wx.getStorageSync('uid')
+    if(uid) {
+      wx.navigateTo({
+        url: "/pages/taskCollection/taskCollection?userid=" + uid
+      })
+    } else {
+      wx.showToast({
+        icon:'none',
+        title:'请先登录！'
+      })
+      this.login()
+    }
   },
   toVersionInfo() {
     wx.navigateTo({
@@ -28,8 +38,9 @@ Page({
     })
   },
   login() {
+    if(this.data.nickName && this.data.avatarUrl) return 
     wx.login({
-      async success(res) {
+      success(res) {
         if (!res.code) {
           console.log('登录失败！' + res.errMsg)
           return
@@ -51,10 +62,30 @@ Page({
         const encryptedData = res.encryptedData
         const iv = res.iv
         console.log(code, encryptedData, iv)
-        onLogin({
-          code:code,
-          encryptedData:encryptedData,
-          iv:iv
+        onLogin({code:code, encryptedData:encryptedData, iv:iv})
+        .then(data => { /* 处理成功的响应 */
+          console.log(data)
+          const {avatarUrl, nickName, openId, id:uid} = data
+          // 存储必要信息
+          wx.setStorageSync('avatarUrl', avatarUrl)
+          wx.setStorageSync('nickName', nickName)
+          wx.setStorageSync('openId', openId) // 这是啥来着……
+          wx.setStorageSync('uid', uid)
+          
+          this.setData({
+            nickName,
+            avatarUrl
+          })
+        })
+        .catch(err => { /* 处理失败的响应 */
+          console.log(err)
+        })
+        
+      },
+      fail:() => {
+        wx.showToast({
+          icon:'none',
+          title:'登录失败！'
         })
       }
     })
@@ -63,7 +94,13 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad() {
+    const avatarUrl = wx.getStorageSync('avatarUrl'),
+          nickName = wx.getStorageSync('nickName')
 
+    this.setData({
+      avatarUrl,
+      nickName,
+    })
   },
 
   /**

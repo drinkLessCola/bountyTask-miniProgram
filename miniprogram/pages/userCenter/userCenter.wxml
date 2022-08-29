@@ -4,20 +4,21 @@
   <view class="primary-title">个人中心</view>
   <header>
     <view class="avatar" bindtap="login">
+      <image src="{{avatarUrl}}" mode="aspectFit"></image>
     </view>
     <ul class="user-data">
       <li class="user-data-item">
         <span class="title">发布任务</span>
-        <view class="data">-</view>
+        <view class="data">{{publishNum || '-'}}</view>
       </li>
       <li class="line"></li>
       <li class="user-data-item">
         <span class="title">任务通过率</span>
-        <view class="data">-</view>
+        <view class="data">{{passRet || '-'}}</view>
       </li>
     </ul>
   </header>
-  <view class="nickname" bindtap="login">点击登录</view>
+  <view class="nickname" bindtap="login">{{nickName || '点击登录'}}</view>
 
   <!-- 中间的那一栏 -->
   <ul class="tabbar">

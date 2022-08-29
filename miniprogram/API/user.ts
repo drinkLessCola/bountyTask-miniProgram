@@ -12,12 +12,9 @@ export async function onLogin(d:LoginData){
   // const data = new FormData()
   // data.appendAll(d)
   // const formData = data.getData()
-  console.log('!', d)
+  // 'Content-Type': formData.contentType,
   const data = JSON.stringify(d)
-  const res = postRequest('/login', data, 'POST', /* header */{
-    // 'Content-Type': formData.contentType,
-    'Content-Type': 'application/json'
-  })
+  const res = postRequest('/login', data)
   return res
 }
 
