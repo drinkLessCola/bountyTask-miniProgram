@@ -1,6 +1,6 @@
 import FormData from './formdata.js'
 
-const BASE_URL = "https://summerblink.site"
+const BASE_URL = "http://43.138.254.32:80"
 
 type Method = 'GET' | 'POST' | 'PUT'
 // interface RequestOption<T> {
@@ -21,13 +21,15 @@ type Method = 'GET' | 'POST' | 'PUT'
 //   [key:string]:any;
 // }
 export const postRequest = async(url:string, data:string | object | ArrayBuffer, method:Method, header?:object) => {
-  console.log()
   const res = await new Promise((resolve:(res:Object) => void, reject:(err: WechatMiniprogram.GeneralCallbackResult | undefined) => void) => {
     wx.request({
       url: BASE_URL + url,
       data,
       method,
-      header,
+      header:{
+        'charset':'utf-8',
+        'Content-Type':'application/json'
+      },
       success(res) {
         console.log(res)
         resolve(res.data)
@@ -38,9 +40,9 @@ export const postRequest = async(url:string, data:string | object | ArrayBuffer,
       }
     })
   })
-  .then((result:Object) => console.log(result))
-  .catch((err:WechatMiniprogram.GeneralCallbackResult) => console.log(err))
-  
+  // .then((result:Object) => console.log(result))
+  // .catch((err:WechatMiniprogram.GeneralCallbackResult) => console.log(err))
+  console.log(res)
   return res;
 }
 
@@ -62,7 +64,7 @@ export const getRequest = async(url:string) => {
   return res;
 }
 
-export const putRequest = async (url:string, data:Object) => {
+export const putRequest = async (url:string, data:string) => {
   return await new Promise((resolve, reject) => {
     wx.request({
       url: BASE_URL + url,

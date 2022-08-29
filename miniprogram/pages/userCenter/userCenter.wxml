@@ -49,11 +49,11 @@
       <view class="icon service-icon"/>
       <span class="title">联系客服</span>
     </li>
-    <li class="menubar-item">
+    <li class="menubar-item" bindtap="toFeedBack">
       <view class="icon feedback-icon"/>
       <span class="title">意见反馈</span>
     </li>
-    <li class="menubar-item">
+    <li class="menubar-item" bindtap="toVersionInfo">
       <view class="icon info-icon"/>
       <span class="title">版本信息</span>
     </li>

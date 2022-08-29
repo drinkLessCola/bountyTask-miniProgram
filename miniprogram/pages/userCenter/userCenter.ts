@@ -1,4 +1,5 @@
 // miniprogram.ts
+import { getTaskById } from '../../API/taskDetail'
 import { onLogin } from '../../API/user'
 
 Page({
@@ -14,6 +15,16 @@ Page({
     const userid = 0 //额...
     wx.navigateTo({
       url: "/pages/taskCollection/taskCollection?userid=" + userid
+    })
+  },
+  toVersionInfo() {
+    wx.navigateTo({
+      url:"/pages/version/version"
+    })
+  },
+  toFeedBack() {
+    wx.navigateTo({
+      url:"/pages/opinion/opinion"
     })
   },
   login() {

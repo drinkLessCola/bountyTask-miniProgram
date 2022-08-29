@@ -1,4 +1,9 @@
 import {getRequest, putRequest, postRequest } from '../utils/request' 
+
+export async function getTaskById (taskId:string) {
+  const res = await getRequest(`/task/get/${taskId}`)
+  return res
+}
 /*------------ 任务详情（执行人） -------------*/
 /**
  * 任务详情
