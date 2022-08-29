@@ -80,7 +80,8 @@ Page({
       }
       that.setData({
         task:task,
-        finisherId:data.finisherId
+        finisherId:data.finisherId,
+        isPublisher:data.isPublisher
       })
       // console.log(data,"我被传过来了");
     });

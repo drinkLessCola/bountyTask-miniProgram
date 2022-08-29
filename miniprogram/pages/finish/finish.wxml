@@ -8,11 +8,11 @@
  -->
 <view class="taskTitle">{{task.title}}</view>
 
-<title title="任务要求">
-  <view class="taskRequire">{{task.requirement}}</view>
-</title>
+<view class="missionRequest"><title>任务要求</title></view>
 
-<title title="提交证明">
+<view class="taskRequire">{{task.requirement}}</view>
+
+<view class="confirmTitle"><title >提交证明</title></view>
   <view class="confirmBox">
   <textarea type="text" class="input" placeholder="请输入" auto-height="true" bindinput="textInput"></textarea>
   <view class="imgBox" wx:for="{{imgArray}}">
@@ -28,7 +28,7 @@
       <image src='/images/finish/addImg.png' mode="aspectFill" class="addImg"></image>
     </view>
 </view>
-</title>
+
 
 
 <view class="buttonBox">

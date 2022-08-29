@@ -6,8 +6,8 @@ Component({
   properties: {
     title:String,
     time:String,
-    status:Number||String,
-
+    statusBar:String,
+    // status:Number
   },
 
   /**
@@ -16,9 +16,7 @@ Component({
   data: {
     title:'',
     time:'',
-    showTime:'',
-    status:'',
-    showStatus:'',
+    statusBar:'',
   },
 
 
@@ -29,7 +27,10 @@ Component({
     
     attached: function () {
       this.setData({
-        
+        time:this.properties.time,
+        title:this.properties.title,
+        statusBar:this.properties.statusBar,
+        // status:this.properties.status
       })
      },
     moved: function () { },

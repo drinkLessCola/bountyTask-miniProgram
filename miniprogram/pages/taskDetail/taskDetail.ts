@@ -10,7 +10,7 @@ Page({
     // avatarUrl: getApp().globalData.defaultAvatarUrl,
     userid:0,
     // 当前用户id
-    isPublisher:0,
+    isPublisher:1,
     // 0是发布者 1不是
     hidden:1,
     //提示框 0不显示1显示
@@ -133,6 +133,7 @@ Page({
     // console.log(t.info);
     // 跳转：确认完成界面 参数t.info.id(头像应该传不过去吧，太长了)
     let emitData = {
+      isPublisher : this.data.isPublisher,
       finisherId : t.info.id,
       taskId : this.data.task.id,
       taskTitle : this.data.task.title,

@@ -11,10 +11,6 @@ Page({
     task: {
       id: 0,
       title: '测试',
-      area: '泰山区',
-      deadline: 1660566722638,
-      startTime: 1660566722638,
-      bounty: 5,
       requirement: '完成后截图'
     },
 
@@ -49,8 +45,12 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad() {
-
+  onLoad(option) {
+    const task = this.data.task
+    task.id=Number(option.id)
+    this.setData({
+      task:task
+    })
   },
 
   /**
