@@ -1,6 +1,6 @@
 import FormData from './formdata.js'
 
-const BASE_URL = "http://43.138.254.32:80"
+const BASE_URL = "http://43.138.254.32"
 
 type Method = 'GET' | 'POST' | 'PUT'
 // interface RequestOption<T> {
@@ -64,7 +64,7 @@ export const getRequest = async(url:string) => {
   return res;
 }
 
-export const putRequest = async (url:string, data:string) => {
+export const putRequest = async (url:string, data:string | object) => {
   return await new Promise((resolve, reject) => {
     wx.request({
       url: BASE_URL + url,
