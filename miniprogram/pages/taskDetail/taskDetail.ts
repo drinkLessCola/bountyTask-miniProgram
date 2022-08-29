@@ -10,7 +10,7 @@ Page({
     // avatarUrl: getApp().globalData.defaultAvatarUrl,
     userid:0,
     // 当前用户id
-    isPublisher:0,
+    isPublisher:1,
     // 0是发布者 1不是
     hidden:1,
     //提示框 0不显示1显示
@@ -83,8 +83,13 @@ Page({
 
     //时间从任务对象里获取后要处理 |未获取已处理
 
-    //
-    
+    //目前已发现的接口需求:
+    // 根据任务id获得任务发布者id，任务执行者id，以及其在该任务的状态 both
+    // 根据任务id查询返回任务对象  both
+    // 根据用户id查询 获取用户昵称和用户头像 both 多次调用
+    // 下线任务 发
+    // 接任务 执
+    // 添加收藏任务 执 
 
   },
 
@@ -133,6 +138,7 @@ Page({
     // console.log(t.info);
     // 跳转：确认完成界面 参数t.info.id(头像应该传不过去吧，太长了)
     let emitData = {
+      isPublisher : this.data.isPublisher,
       finisherId : t.info.id,
       taskId : this.data.task.id,
       taskTitle : this.data.task.title,

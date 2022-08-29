@@ -7,14 +7,15 @@ Page({
    */
   data: {
     height:  appf.globalData.navBarHeight,
-
+    // 目前发现需要的接口
+    // 根据任务id查询
+    // 上传证明图片 多次调用
+    // 删除某个证明图片 额,似乎是全删
+    // 查找该用户在该任务中提交的证明图片 额，每上传一张就重新调用一次。。
+    // 提交任务
     task: {
       id: 0,
       title: '测试',
-      area: '泰山区',
-      deadline: 1660566722638,
-      startTime: 1660566722638,
-      bounty: 5,
       requirement: '完成后截图'
     },
 
@@ -49,8 +50,12 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad() {
-
+  onLoad(option) {
+    const task = this.data.task
+    task.id=Number(option.id)
+    this.setData({
+      task:task
+    })
   },
 
   /**

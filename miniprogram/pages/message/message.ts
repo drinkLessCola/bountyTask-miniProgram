@@ -3,6 +3,7 @@
 Page({
   data: {
     // select:0,
+    userid:0,
 
     select:[{
       name:"发布的任务",
@@ -12,6 +13,103 @@ Page({
       checked:false
     }],
 
+    publishShowMsgArray:[{
+      taskId:0,
+      taskTitle:'测试1',
+      number:2,
+      status:'领取',
+      time:'刚刚'
+    },{
+      taskId:1,
+      taskTitle:'测试2',
+      number:3,
+      status:'完成',
+      time:'3小时前'
+    },{
+      taskId:1,
+      taskTitle:'测试2',
+      number:3,
+      status:'完成',
+      time:'3小时前'
+    },{
+      taskId:1,
+      taskTitle:'测试2',
+      number:3,
+      status:'完成',
+      time:'3小时前'
+    },{
+      taskId:1,
+      taskTitle:'测试2',
+      number:3,
+      status:'完成',
+      time:'3小时前'
+    },{
+      taskId:1,
+      taskTitle:'测试2',
+      number:3,
+      status:'完成',
+      time:'3小时前'
+    },{
+      taskId:1,
+      taskTitle:'测试2',
+      number:3,
+      status:'完成',
+      time:'3小时前'
+    },{
+      taskId:1,
+      taskTitle:'测试2',
+      number:3,
+      status:'完成',
+      time:'3小时前'
+    },{
+      taskId:1,
+      taskTitle:'测试2',
+      number:3,
+      status:'完成',
+      time:'3小时前'
+    },{
+      taskId:1,
+      taskTitle:'测试2',
+      number:3,
+      status:'完成',
+      time:'3小时前'
+    },{
+      taskId:1,
+      taskTitle:'测试2',
+      number:3,
+      status:'完成',
+      time:'3小时前'
+    },{
+      taskId:1,
+      taskTitle:'测试2',
+      number:3,
+      status:'完成',
+      time:'3小时前'
+    },{
+      taskId:1,
+      taskTitle:'测试2',
+      number:3,
+      status:'完成',
+      time:'3小时前'
+    }],
+
+    getShowMsgArray:[{
+      taskId:0,
+      taskTitle:'测试A',
+      status:'任务未通过',
+      time:'5小时前'
+    }],
+    // 发布的任务消息数组和领取的任务消息数组（处理后的）,展示用
+
+    publishMsgArray:[{
+
+    }],
+
+    getMsgArray:[{
+
+    }],
+    
+    // 发布的任务消息数组和领取的任务消息数组,存储后端数据用
   },
   // 事件处理函数
   bindViewTap() {
@@ -32,6 +130,65 @@ Page({
       })
     
   },
+
+  toDetail(e:any) {
+    const t = e.currentTarget.dataset
+    let userid = 'userid='+this.data.userid
+    // let isPublisher = 'isPublisher=0'
+    // 这个在taskDetail自动检测 
+    let taskid = '&taskid='+t.id
+    let url
+    if(this.data.select[0].checked) {
+      // 发布的任务就是ture 领取的任务是false
+      url = "/pages/taskDetail/taskDetail?"+userid+taskid
+      wx.navigateTo({
+        url:url
+      })
+      console.log(url);
+      
+    }
+    else {
+      // 领取的任务
+      const taskObj = this.data.getMsgArray[t.index]
+      // taskObj.status 此ts新增，因为后端  根据用户角色和任务状态查询  需要根据进行中还是已完成的状态去查
+      if(0){
+        // ------------------------------------------------需要看一下表才能确认
+        // 任务已完成
+        const t = e.currentTarget.dataset
+        // console.log(t.info);
+        // 跳转：确认完成界面 
+        // 我擦，当时没想到要从消息界面进去。。。得从这里  把东西丢给下一个界面
+        let emitData = {
+          isPublisher : 1,
+          finisherId : this.data.userid,
+          taskId : t.id,
+          taskTitle :t.title,
+          taskRequest : t.request
+        }
+        wx.navigateTo({
+          url:"/pages/confirmCompleted/confirmCompleted",
+          success:function(res) {
+            res.eventChannel.emit('handleEvent' , emitData)
+          }
+        })
+        
+        
+      }
+      else {
+        url="/pages/finish/finish?taskid="+t.id
+        // 任务未完成
+        wx.navigateTo({
+          url:url
+        })
+      }
+      // ------------------------此处需要等后端完成了领取的任务的消息的对应接口
+      
+    }
+    // console.log(this.data.select[0].checked);
+    
+  },
+
+
 
   onLoad() {
     let sel = this.data.select

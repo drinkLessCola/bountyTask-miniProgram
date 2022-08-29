@@ -3,9 +3,10 @@
   title="" 
 ></nav-bar>
 
-<view class="navbackground"></view>
+<!-- <view class="navbackground"></view> -->
 <view class="topBox"> 
   <view class="title">消息</view>
+  <!-- 根据谁被选了来改样式 -->
   <view class="label {{item.checked ? 'sel' : ''}}" data-id='{{index}}' bindtap="change" wx:for='{{select}}' wx:key='index'> 
     <view class="labelTitle">{{item.name}}</view>
     <view class="decorate" wx:if='{{select}}'></view>
@@ -13,8 +14,12 @@
   <!-- 发布的任务和领取的任务 通过bindtap选谁来触发样式更改 -->
 </view>
 
-<view class="shift"></view>
+<!-- <view class="shift"></view> -->
 <!-- 暴力位移 -->
-<view class='msg'>
-  <taskMessage></taskMessage>
+
+<!-- 发布的任务就是ture 领取的任务是false -->
+<view class='msg' wx:for="{{select[0].checked ? publishShowMsgArray : getShowMsgArray}}" wx:key="{{taskId}}" bindtap="toDetail"  data-id = "{{item.taskId}}" data-index = "{{item.index}}">
+  <taskMessage title="{{item.taskTitle}}" time="{{item.time}}" statusBar="{{item.status}}"></taskMessage>
 </view>
+
+<view style="height:188rpx"></view>
