@@ -1,0 +1,6 @@
+<section class="formItem">
+  <!-- 标题 -->
+  <view class="generalTitle">{{title}}</view>
+  <!-- 插槽 -->
+  <slot></slot>
+</section>

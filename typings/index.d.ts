@@ -6,6 +6,7 @@ interface IAppOption {
     titleCoord: Coord | null,
     navBarHeight:number,
     tabBarBottom:number,
+    bottomBarHeight:number,
   }
   userInfoReadyCallback?: WechatMiniprogram.GetUserInfoSuccessCallback,
 }

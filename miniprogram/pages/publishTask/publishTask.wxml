@@ -1,74 +1,67 @@
 <!--miniprogram.wxml-->
-<nav-bar 
-  showCapsule="{{true}}"
-  title="发布任务" 
-  bgColor="white"
-></nav-bar>
-<view class="formBox">
-  <form>
-  <!-- 理想很丰满 现实很骨感。。一大堆不在form范围里的数据。。只能手动打包提交了 -->
-    <view class="generalTitle" >标题</view>
-    <input type="text" name="title"
-    placeholder="请输入标题" bindinput="bindTitle"/>
+<nav-bar showCapsule="{{true}}" title="发布任务" bgColor="white"></nav-bar>
+<view class="formArea">
+  <form-item title="标题">
+    <input type="text" name="title" placeholder="请输入标题" bindinput="bindTitle" />
+  </form-item>
 
-    <view class="generalTitle">任务说明</view>
-    <textarea name="taskContent" id="" auto-height="true" 
-    placeholder="请输入任务说明" bindinput="bindContentInput"></textarea>
+  <form-item title="任务说明">
+    <textarea name="taskContent" id="" auto-height="true" placeholder="请输入任务说明" bindinput="bindIllustrate"></textarea>
+  </form-item>
 
-    <view class="floatContentBox">
-
-      <view class="bountyAndNumber BAleft">
-        <view class="generalTitle perBounty">悬赏金额（每份）</view>
-        <view class="inputBounty">
-          <view class='yuan'>￥</view>
-          <input type="number" name="bounty" bindinput="bindPerBounty" />
-        </view>
-      </view>
-
-      <view class="bountyAndnNumber">
-        <view class="generalTitle taskNum">任务份数</view>
-        <input type="number" name="taskNumber" class="inputNumber" bindinput="bindTaskNumber" />
-        <!-- 没有强制要求输入数字,但不是数字的情况已被处理 -->
+  <!-- 悬赏金额 & 任务份数 -->
+  <section class="floatContentBox">
+    <view class="bountyAndNumber BAleft">
+      <view class="generalTitle perBounty">悬赏金额（每份）</view>
+      <view class="inputBounty">
+        <view class='yuan'>￥</view>
+        <input value="{{taskInfo.bounty}}" type="digit" name="bounty" bindinput="bindPerBounty" />
       </view>
     </view>
 
-    <view class="generalTitle">截止时间</view>
-    <picker mode="date" name="date" class="inputDate" value="{{beginDate}}" start="{{startDate}}" end="2221-01-01" bindchange="bindDateChange">
+    <view class="bountyAndnNumber">
+      <view class="generalTitle taskNum">任务份数</view>
+      <input value="{{taskInfo.tasknumber}}" type="number" name="taskNumber" class="inputNumber" bindinput="bindTaskNumber" />
+      <!-- 没有强制要求输入数字,但不是数字的情况已被处理 -->
+    </view>
+  </section>
+
+  <view class="generalTitle">截止时间</view>
+  <picker mode="date" name="date" class="inputDate" value="{{beginDate}}" start="{{startDate}}" end="2221-01-01" bindchange="bindDate">
     <!-- 截止时间总不能是昨天吧 -->
-      <input type="text" value="{{beginDate}}" />
-    </picker>
+    <input type="text" value="{{beginDate}}" />
+  </picker>
 
-    <picker mode="time" name="time" class="inputTime" value="{{beginTime}}" bindchange="bindTimeChange">
-      <input type="text" value="{{beginTime}}" />
-    </picker>
+  <picker mode="time" name="time" class="inputTime" value="{{beginTime}}" bindchange="bindTime">
+    <input type="text" value="{{beginTime}}" />
+  </picker>
 
-    <view class="generalTitle">提交要求</view>
-    <picker bindchange="bindPickerChange" value="{{index}}" range="{{array}}">
+  <form-item title="提交要求">
+    <picker bindchange="bindPicker" value="{{requireIdx}}" range="{{submitRequireArr}}">
       <view class="picker">
-        {{array[index]}}
+        {{submitRequireArr[requireIdx]}}
         <image src="/images/publishTask/jiantou.png" mode="aspectFill" class="jiantouImg"></image>
       </view>
     </picker>
+  </form-item>
 
-    <view class="generalTitle">联系方式</view>
-    <input type="text" name="contact" id="" class="inputTitle"  bindinput="bindContact"/>
+  <form-item title="联系方式">
+    <input type="text" name="contact" id="" class="inputTitle" bindinput="bindContact" />
+  </form-item>
 
-    <view class="generalTitle">添加标签</view>
-
-    <view class="endEmptyArea">
-      <view class="labelBox" wx:for="{{labelArray}}" wx:key="name">
-        <view class="label {{item.checked ? ' labelChecked ' :''}} {{item.name =='自定义' ? 'labelDefine' : '' }}"  bindtap="labelTap" data-id="{{index}}">{{item.name}}</view>
-      </view>
+  <form-item title="添加标签">
+    <view class="labelBox" wx:for="{{labelArray}}" wx:key="name">
+      <view class="label {{item.checked && ' labelChecked'}} {{item.name == '自定义' &&'labelDefine'}}" bindtap="labelTap" data-id="{{index}}">{{item.name}}</view>
     </view>
-
-    
-
-    <view class="submitBox">
-      <view>合计：</view>
-      <view class="totalBounty" style="font-size:{{fontSize}}rpx">￥{{taskInfo.total}}</view>
-      <!-- 字体自适应大小，避免>=1000的数字或者带小数的数字放不下 -->
-      <button form-type="submit" bindtap="submit" >发布任务</button>
-    </view>
-
-  </form>
+  </form-item>
 </view>
+
+
+<section class="submitBox" style="margin-bottom:{{bottomBarHeight}}px;">
+  <section class="sum">
+    <view>合计：</view>
+    <view class="totalBounty" style="font-size:{{fontSize}}rpx">￥{{taskInfo.total}}</view>
+  </section>
+  <!-- 字体自适应大小，避免>=1000的数字或者带小数的数字放不下 -->
+  <button form-type="submit" bindtap="submit">发布任务</button>
+</section>
