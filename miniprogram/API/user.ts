@@ -1,4 +1,4 @@
-import {getRequest, putRequest, postRequest } from '../utils/request' 
+import {getRequest, postRequest } from '../utils/request' 
 interface LoginData {
   code:string,
   encryptedData:any,
@@ -8,17 +8,15 @@ interface LoginData {
  * 登录
  * @param d LoginData 登录所需的数据
  */
-export async function onLogin(d:LoginData){
+export async function onLogin(data:LoginData){
   // const data = new FormData()
   // data.appendAll(d)
   // const formData = data.getData()
   // 'Content-Type': formData.contentType,
-  const data = JSON.stringify(d)
   const res = postRequest('/login', data)
   return res
 }
 
-/*------------ 个人中心 -------------*/
 /**
  * 根据用户角色和任务状态查询任务
  * @param userId 用户 id

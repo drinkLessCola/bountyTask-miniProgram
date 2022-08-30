@@ -2,13 +2,13 @@
 <nav-bar 
   showCapsule="{{true}}"
   title="发布任务" 
-  nav-bgc-class='whiteBgc'
+  bgColor="white"
 ></nav-bar>
 <view class="formBox">
-  <form action="">
+  <form>
   <!-- 理想很丰满 现实很骨感。。一大堆不在form范围里的数据。。只能手动打包提交了 -->
     <view class="generalTitle" >标题</view>
-    <input type="text" name="title" id="" class="inputTitle" 
+    <input type="text" name="title"
     placeholder="请输入标题" bindinput="bindTitle"/>
 
     <view class="generalTitle">任务说明</view>

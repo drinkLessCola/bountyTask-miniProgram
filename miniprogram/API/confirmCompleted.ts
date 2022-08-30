@@ -15,7 +15,7 @@ export async function getUserInfo(id:string) {
 // 发布人确认执行人提交的任务 只有确认没有退回任务。。 发
 
 export async function confirmeTask(userid:number, taskid:number) {
-  const data = JSON.stringify({userid, taskid})
+  const data = {userid, taskid}
   const res = await putRequest(`/task/confirm`, data)
   return res
 }

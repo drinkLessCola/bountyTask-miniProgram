@@ -1,8 +1,10 @@
 /* miniprogram.wxss */
+
 page {
   // 这两个可以合并，两个值时第一个是 上下的，第二个是左右的。
   // padding-left: 50rpx;
   // padding-right: 50rpx;
+  position: relative;
   padding: 0 50rpx;
   width:100vw;
   box-sizing: border-box;
@@ -24,6 +26,7 @@ input {
 }
 
 textarea {
+  position: relative;
   background-color: #f6f6f6;
   font-size: 32rpx;
   border-radius: 20rpx;
@@ -31,6 +34,7 @@ textarea {
   margin-bottom: 20rpx;
   // height 是 content 的高度，需要减去 2 个 padding
   // textarea 居然有默认的宽度，我看看怎么改🙇‍♂️
+  // unset nb!
   min-height: 140rpx;
   padding: 20rpx;
 }
@@ -67,6 +71,7 @@ image {
     float: left;
     .inputBounty, .inputNumber {
       width: 272rpx;
+      font-family: 'Gilroy Bold';
     }
     // 这两东西不在同一个框里所以分开写
     .inputBounty {
@@ -82,6 +87,7 @@ image {
       input {
         margin:0;
         padding:0;
+        padding-left: 5rpx;
       }
     }
   }

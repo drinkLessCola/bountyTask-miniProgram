@@ -1,12 +1,13 @@
 // index.ts
+
+import { getCollectedTasksById } from "../../API/taskCollection"
+
 // import {icon_time, icon_address} from '../../utils/icon'
 const apptc = getApp()
+
 Page({
   data: {
     height:apptc.globalData.navBarHeight,
-
-    userid:0,
-
     //task的数组，以后应该是后端给一个task数组，直接把给来的数组setData就好
 
     // 目前已发现需要的接口:
@@ -14,47 +15,39 @@ Page({
     // 删除收藏任务 多次调用
 
     // -------------------------------警告，现在写在前端测试用的task对象的属性和后端不一样-------------------------------------
-    taskArray: [{
-        id: 0,
-        title: '测试',
-        area: '泰山区',
-        deadline: 1660566722638,
-        startTime: 1660566722638,
-        bounty: 5
-    }, {
-        id: 2,
-        title: '测试2',
-        area: '华山区',
-        deadline: 1660566722638,
-        startTime: 1660566722638,
-        bounty: 20
-    }]
+    taskArray:[] as TaskObj[]
+    // [{
+    //     id: 0,
+    //     title: '测试',
+    //     area: '泰山区',
+    //     deadline: 1660566722638,
+    //     startTime: 1660566722638,
+    //     bounty: 5
+    // }]
     
   },
-  // 事件处理函数
-  bindViewTap() {
-    wx.navigateTo({
-      url: '../logs/logs',
-    })
-  },/*没调用这个*/ 
 
   toTaskDetail(e:any) {
-    const userid = 0 //这玩意从哪搞来？
+    const userid = wx.getStorageSync('uid')
     const id = e.currentTarget.dataset.id
-    let url =  "/pages/taskDetail/taskDetail?taskid="+id +"&userid=" +userid
+    let url =  "/pages/taskDetail/taskDetail?taskid="+ id +"&userid=" +userid
     wx.navigateTo({
       url:url
     })//跳转到任务详情
   },
   
+  /**
+   * 清除过期任务
+   */
+  clearExpireTask() {
+    const taskArr:TaskObj[] = this.data.taskArray
+    if(!taskArr.length) return
 
-  btnTap() {
-    //清除过期任务
    let clearIdArray = []
    const now = new Date(Date.now()).getTime()
 
-   this.data.taskArray.forEach(element => {
-      if(element.deadline < now){
+   taskArr.forEach(element => {
+      if(element.deadline.getTime() < now){
         clearIdArray.push(element.id)
       }
    })
@@ -64,8 +57,20 @@ Page({
 
   
   
-  onLoad() {
-    // console.log(icon_address ,icon_time)
-    
+  onLoad(options) {
+    const {userid} = options
+    this.getCollection(userid as string)
   },
+
+  getCollection(userid:string) {
+    getCollectedTasksById(userid)
+    .then(data =>{
+      this.setData({
+        taskArray: data as TaskObj[]
+      })
+    })
+    .catch(err => {
+      console.log(err)
+    })
+  }
 })

@@ -29,3 +29,11 @@ export const formdata =  (obj:Obj = {}) => {
   }
   return result + '\r\n--XXX--'
 }
+
+export const debounceWrapper = (func:Function, ms:number = 500) => {
+  let timer:null | number
+  return function(this:any, ...args:any[]){
+    if(timer) clearTimeout(timer)
+    timer = setTimeout(() => func.apply(this, args), ms)
+  }
+}

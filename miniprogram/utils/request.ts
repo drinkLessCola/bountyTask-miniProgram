@@ -1,5 +1,3 @@
-import FormData from './formdata.js'
-
 const BASE_URL = "http://43.138.254.32"
 // 需要备案，否则腾讯云不解析。。😡
 
@@ -33,7 +31,8 @@ const errorInterceptor = (err:WechatMiniprogram.GeneralCallbackResult) => {
 }
 
 
-export const postRequest = async (url:string, data:string | object | ArrayBuffer, header?:object) => {
+export const postRequest = async (url:string, unhandleData:string | object | ArrayBuffer, header?:object) => {
+  const data = JSON.stringify(unhandleData)
   const result = await new Promise((resolve:(res:Promise<Object>) => void, reject:(res:Promise<PromiseRejectedResult> | undefined) => void) => {
     wx.request({
       url: BASE_URL + url,
@@ -57,36 +56,32 @@ export const postRequest = async (url:string, data:string | object | ArrayBuffer
 }
 
 export const getRequest = async(url:string) => {
-  console.log()
-  const res = await new Promise((resolve, reject) => {
+  const result = await new Promise((resolve, reject) => {
     wx.request({
       url: BASE_URL + url,
-      success(res) {
-        console.log(res)
-        resolve(res.data)
+      success(response:ResultObject) {
+        resolve(dataInterceptor(response))
       },
-      fail(res) {
-        console.log(res)
-        reject(res)
+      fail(err) {
+        reject(errorInterceptor(err))
       }
     })
   })
-  return res;
+  return result;
 }
 
-export const putRequest = async (url:string, data:string | object) => {
+export const putRequest = async (url:string, unhandleData:string | object) => {
+  const data = JSON.stringify(unhandleData)
   return await new Promise((resolve, reject) => {
     wx.request({
       url: BASE_URL + url,
       data,
       method:'PUT',
-      success(res) {
-        console.log(res)
-        resolve(res.data)
+      success(response:ResultObject) {
+        resolve(dataInterceptor(response))
       },
-      fail(res) {
-        console.log(res)
-        reject(res)
+      fail(err) {
+        reject(errorInterceptor(err))
       }
     })
   })

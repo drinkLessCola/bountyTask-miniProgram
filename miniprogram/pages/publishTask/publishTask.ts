@@ -1,3 +1,6 @@
+import { publishTask } from "../../API/publishTask"
+import { debounceWrapper } from "../../utils/util"
+
 // miniprogram.ts
 const apppT = getApp()
 Page({
@@ -6,10 +9,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    //height:  apppT.globalData.navBarHeight,
     array: ['截图 / 拍照', '无'],
     index: 0,
-
     labelArray: [{
       checked: false,
       name: '紧急'
@@ -50,7 +51,6 @@ Page({
     // ----------------------------注意：这个taskInfo   符合   后端接口要求------------------
     taskInfo: {
       userid:0,
-      // userid额，小程序接口应该有吧。。？ 有的
       title: '',
       illustrate: '',
       bounty: 0,
@@ -58,12 +58,12 @@ Page({
       deadline: '',
       request: '',
       contact: '',
-      labels: '',
-      // 后端要求拼接字符串
+      label: '',
+      // 后端要求拼接字符串 ok
       total: 0,
       category:'',
       // 分类到时候跳转页面的时候赋值
-    }
+    } as publishTaskObj
   },
 
   toDateinfo: function (d: Date): any {
@@ -149,15 +149,16 @@ Page({
   },
 
   //表单内数据的提取
-  bindTitle:function(e:any) {
+  bindTitle:debounceWrapper(function(this:any, e:any) {
     const value = e.detail.value
-    const taksTitle = this.data.taskInfo
-    taksTitle.title = value
+    const taskInfo = this.data.taskInfo
+    taskInfo.title = value
     //把textarea的内容装到taskinfo里，form好像不能打包textarea
     this.setData({
-      taskInfo: taksTitle
+      taskInfo: taskInfo
     })
-  },
+    console.log(this.data.taskInfo)
+  }),
 
   bindContentInput: function (e: any) {
     const value = e.detail.value
@@ -181,7 +182,7 @@ Page({
     })
   },
 
-  //(写完时发现)最后就3个数据不用处理。。。。。。。
+  //(写完时发现)最后就3个数据不用处理。。。。。。。辛苦了，致敬👏
 
   // 合计: 需要提交前计算
   // 先获取数据
@@ -263,14 +264,21 @@ Page({
     labels=labels.substr(0,labels.length-1)
     // console.log(labels);
     
-    taskInfo.labels=labels
+    taskInfo.label=labels
     this.setData({
       taskInfo:taskInfo
     })
     console.log(this.data.taskInfo);
 
+    const data = this.data.taskInfo
     //发送到后端未实现
-    
+    publishTask(data)
+    .then(data => {
+      console.log(data)
+    })
+    .catch(err => {
+      console.log(err)
+    })
   },
 
   /**

@@ -10,6 +10,34 @@ interface IAppOption {
   userInfoReadyCallback?: WechatMiniprogram.GetUserInfoSuccessCallback,
 }
 
+interface TaskObj {
+  id:BigInt,
+  title: String,        // 标题
+  bounty: Number,       // 赏金
+  startTime: Date,   // 发布时间
+  area: String,         // 校区
+  deadline: Date,    // 截止时间
+}
+interface publishTaskObj {
+  userid: number,
+  title: string,
+  illustrate: string,
+  bounty: number,
+  tasknumber: number,
+  deadline: string,
+  request: string,
+  contact: string,
+  label: string,
+  // 后端要求拼接字符串
+  total: number,
+  category:string,
+}
+interface TaskCollectionOption {
+  data: {
+    height:number,
+    taskArray:TaskObj[]
+  }
+}
 interface TimeInfo {
   month:number,
   date:number,

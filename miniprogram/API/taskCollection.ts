@@ -1,14 +1,24 @@
 import {getRequest, putRequest, postRequest } from '../utils/request' 
 
+// 任务收藏夹的 api
+
+/**
+ * 获取用户的收藏任务
+ * @param userid 用户 uid
+ */
 export async function getCollectedTasksById (userid:string) {
   const res = await getRequest(`/collect/_mget/${userid}`)
   return res
 }
-// 查询用户收藏的任务 
 
+/**
+ * 取消收藏某个任务
+ * @param userid 用户 id
+ * @param taskid 任务 id
+ */
 export async function deleteCollectedTasksById (userid:Number,taskid:Number) {
-  const data = JSON.stringify({userid, taskid})
-  const res = await putRequest(`/delete`,data)
+  const data = {userid, taskid}
+  const res = await putRequest(`collect/delete`,data)
   return res
 }
 

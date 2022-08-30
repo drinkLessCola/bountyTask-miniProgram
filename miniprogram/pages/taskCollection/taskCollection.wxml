@@ -8,7 +8,7 @@
   <!-- <view class="title">任务收藏夹</view> -->
   <!-- 擦，这个在导航栏上 -->
   <text class="taskNumber" space="nbsp">共 {{taskArray.length}} 个任务</text>
-  <button class='clearButton' bindtap="btnTap">清除过期任务</button>
+  <button class='clearButton' bindtap="clearExpireTask">清除过期任务</button>
 </view>
 
 
