@@ -57,18 +57,43 @@ Page({
     taskArray: [{
         id: 0,
         title: '测试',
-        area: '泰山区',
+        labels: ['泰山区'],
+        area:'',
         deadline: 1660566722638,
         startTime: 1660566722638,
         bounty: 5
       }, {
         id: 2,
         title: '测试2',
-        area: '华山区',
+        labels: ['紧急','华山区'],
+        area:'',
         deadline: 1660566722638,
         startTime: 1660566722638,
         bounty: 20
       }]
+  },
+  // task对象这还得处理 后端的“泰山区” “华山区” 什么的在label里
+  // 发布任务界面可选择多个校区。
+
+  setTaskArea(){
+    let taskArray = this.data.taskArray
+    taskArray.forEach(element => {
+      if(element.labels[0]!='紧急'){
+        element.area=element.labels[0]
+      }else if(element.labels[1]){
+        element.area=element.labels[1]
+      }else{
+        element.area=''
+      }
+    });
+    // 由于后端的taskObj没有area属性 需要从labels里抠出来一个
+    // 应急处理方法，严格来说应该得限制发布任务处选项互斥
+    // 发布任务选标签有很多小bug，比如重复的自定义标签。。没有互斥判断。。可以不选标签。。可以创建空标签..
+    // 使用到task组件的地方都可以用这个应急方法转换
+    // 确认这么处理后再把这方法复制到home 和 taskCollection 去
+    this.setData({
+      taskArray:taskArray
+    })
   },
 
   search(){
@@ -129,6 +154,7 @@ Page({
     this.setData({
       selectParameter: this.data.selectParameter,
     }) //默认parameter数组的第一个对象是选中的
+   this.setTaskArea()
   },
   onShow() {
     //自定义的tabbar

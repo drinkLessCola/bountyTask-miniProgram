@@ -10,7 +10,7 @@
 
 <view class="missionRequest"><title>任务要求</title></view>
 
-<view class="taskRequire">{{task.requirement}}</view>
+<view class="taskRequire">{{task.request}}</view>
 
 <view class="confirmTitle"><title >提交证明</title></view>
   <view class="confirmBox">

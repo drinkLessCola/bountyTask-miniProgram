@@ -16,7 +16,7 @@ Page({
     task: {
       id: 0,
       title: '测试',
-      requirement: '完成后截图'
+      request: '完成后截图'
     },
 
     imgArray: ['/images/confirmCompleted/testImg.png', '/images/confirmCompleted/testImg.png', '/images/confirmCompleted/testImg.png', '/images/confirmCompleted/testImg.png', '/images/confirmCompleted/testImg.png'],
