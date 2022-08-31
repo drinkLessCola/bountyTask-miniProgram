@@ -27,8 +27,9 @@ Page({
     .catch((err) => console.log(err))
   },
   switchPage(){
+    console.log('?')
     wx.navigateTo({
-      url: '../pages/publishTask/publishTask',
+      url: '/pages/publishTask/publishTask',
     })
   },
   /**

@@ -1,14 +1,38 @@
 import { publishTask } from "../../API/publishTask"
-import { debounceWrapper } from "../../utils/util"
+import { debounceWrapper, getFormatDate } from "../../utils/util"
+import { validate, ValidateRule } from "./validate"
 
-// miniprogram.ts
 const app = getApp()
+interface Valid {
+  title:boolean,
+  illustrate:boolean,
+  bounty:boolean,
+  tasknumber:boolean,
+  deadline:boolean,
+}
+// 校验规则
+const rules:ValidateRule = {
+  title:["required"],
+  illustrate:["required"],
+  bounty:["required", "positive"],
+  deadline:["required","deadline"],
+  tasknumber:["required", "positive"],
+}
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    // 校验
+    valid:{
+      title:true,
+      illustrate:true,
+      bounty:true,
+      tasknumber:true,
+      deadline:true,
+    } as Valid,
     submitRequireArr: ['截图 / 拍照', '无'],
     requireIdx: 0,
 
@@ -42,12 +66,11 @@ Page({
 
     //日期选择器开始时间设置为当天
     startDate: '',
-    beginDate: '',
+    startTime: '',
 
     // 提交时把下面这两个合起来装ddl里
-    standardDate: '',
-    beginTime: '',
-
+    date: '',
+    time: '',
 
     // ----------------------------注意：这个taskInfo   符合   后端接口要求------------------
     taskInfo: {
@@ -66,42 +89,46 @@ Page({
       // 分类到时候跳转页面的时候赋值
     } as publishTaskObj
   },
+  // 获取时间戳的方式：
+  //    Date.now() 获取当前的时间戳
+  //    Date.prototype.getTime() (即 Date 对象上有一个 getTime 方法)
 
-  toDateinfo: function (d: Date): any {
-    const year = d.getFullYear(),
-      month = d.getMonth() + 1,
-      day = d.getDate()
-    return { year, month, day }
-  },
+  // toDateinfo: function (d: Date): any {
+  //   const year = d.getFullYear(),
+  //     month = d.getMonth() + 1,
+  //     day = d.getDate()
+  //   return { year, month, day }
+  // },
 
-  dateCompare: function (a: Date, b: Date): Date {
-    let aMS = a.getTime()
-    let bMS = b.getTime()
-    return aMS >= bMS ? a : b
-    //选大的出来
-  },
+  // dateCompare: function (a: Date, b: Date): Date {
+  //   let aMS = a.getTime()
+  //   let bMS = b.getTime()
+  //   return aMS >= bMS ? a : b
+  //   //选大的出来
+  // },
   //额，发现可以算出startTime，这个就废弃了
   //废弃个屁,万一填表途中过12点就嗝屁了
 
   // 时间输入检测
   bindDate: function (e: any) {
-    const dateNow = new Date(Date.now())
-    const dateSel = new Date(e.detail.value)
-    var dateinfo = this.toDateinfo(this.dateCompare(dateNow, dateSel))
-
+    const {value} = e.detail
     this.setData({
-      standardDate: dateinfo.year + '-' + dateinfo.month + '-' + dateinfo.day,
-      beginDate: dateinfo.year + "年" + dateinfo.month + "月" + dateinfo.day + "日"
-
+      date:getFormatDate(new Date(value)).date
     })
+    if(this.data.time) this.validateTime()
+    // const dateStr = date.
+    // toISOString().slice(0, 19).replace('T', ' '); 
+    // const dateNow = new Date(Date.now())
+    // const dateSel = new Date(e.detail.value)
+    // var dateinfo = this.toDateinfo(this.dateCompare(dateNow, dateSel))
   },
 
   bindTime: function (e: any) {
-    // 我草,在这里处理“截止时间早于现实时间”的问题实在难搞，不搞了
     this.setData({
       // 这玩意是标准的
-      beginTime: e.detail.value
+      time: e.detail.value
     })
+    if(this.data.date) this.validateTime()
   },
 
 
@@ -149,26 +176,26 @@ Page({
     })
   },
 
-  //表单内数据的提取
+  // 标题
   bindTitle: debounceWrapper(function (this: any, e: any) {
     const value = e.detail.value
     this.setData({["taskInfo.title"] : value})
   }),
-
+   //任务说明
   bindIllustrate: debounceWrapper(function (this: any, e: any) {
     const value = e.detail.value
     this.setData({ ["taskInfo.illustrate"]: value })
     // 额，回车不知道别人能不能看到
     // 应该可以吧，回车是不是 \n
   }),
-
+  //联系方式
   bindContact: debounceWrapper(function (this: any, e: any) {
     const value = e.detail.value
     this.setData({ ["taskInfo.contact"]: value })
   }),
 
   //(写完时发现)最后就3个数据不用处理。。。。。。。辛苦了，致敬👏
-
+   //悬赏金额（每份）
   bindPerBounty: function (e: any) {
     let value = e.detail.value
     // 虽然暂时还看不懂，但是解决了
@@ -179,16 +206,15 @@ Page({
     })
     this.calTotalBounty()
   },
-
+   //任务份数
   bindTaskNumber: function (e: any) {
     let value = e.detail.value.replace(/[^(1-9|0)]/, '').replace(/^0\d{1}/g, '0')
     this.setData({
       ["taskInfo.tasknumber"]: value
     })
     this.calTotalBounty()
-    return `${value}`
   },
-
+   // 合计
   calTotalBounty: function () {
     const { bounty: per, tasknumber: num } = this.data.taskInfo
     const total = Math.max(0, per * num)
@@ -210,45 +236,106 @@ Page({
     // 蓝湖默认48rpx,这里选最小的
     return 48 < fontSize ? 48 : fontSize
   },
-
-
-  submit: function () {
-    // 时间格式处理
-    const taskInfo = this.data.taskInfo
-    const timeCombine = this.data.standardDate + ' ' + this.data.beginTime + ':00'
-    taskInfo.deadline = timeCombine
-    // 提交要求设置
-    const request = this.data.submitRequireArr[this.data.requireIdx]
-    taskInfo.request = request
-    // 拼接标签数组变成字符串
-    const labelArray = this.data.labelArray
-    let labels = ''
-    // 淦，这是个对象数组不能join
-    labelArray.forEach(element => {
-      if (element.checked == true) {
-        labels += element.name + ','
-      }
-    });
-    labels = labels.substr(0, labels.length - 1)
-    // console.log(labels);
-
-    taskInfo.label = labels
+  /**
+   * 校验
+   */
+  validateData(name:string, val:any) {
+    const isVaild = validate(val, rules[name])
     this.setData({
-      taskInfo: taskInfo
+      [`valid.${name}`]: isVaild
     })
-    console.log(this.data.taskInfo);
+  },
+  validateTime():void{
+    let {date:d, time} = this.data
+    d = d.replace(/[年月]/gu, '-').replace(/日/, '')
+    const date = new Date(`${d} ${time}:00`)
+
+    if(date.getTime() < Date.now()) {
+      this.setData({
+        ["valid.deadline"]: false
+      })
+      return
+    }
+
+    const deadline = date.toISOString().replace('T', ' ').slice(0, 19)
+    this.setData({
+      ["taskInfo.deadline"]: deadline,
+      ["valid.deadline"]: true
+    })
+  },
+  validateAllData(){
+    const datas = this.data.taskInfo
+    const valid = this.data.valid
+    type Key = keyof Valid;
+    // 脑阔疼
+    for(let key in valid) {
+      if(key === 'deadline') continue
+      this.validateData(key, datas[key as Key])
+    }
+    this.validateTime()
+  },
+  /**
+   * 是否所有数据都有效
+   * @returns {boolean} 数据是否有效
+   */
+  isValid():boolean {
+    const {valid} = this.data
+    for(let key in valid){
+      if(!valid[key as keyof Valid]) return false
+    }
+    return true
+  },
+  /**
+   * 发布任务
+   */
+  submit: function () {
+    // 校验必填项
+    this.validateAllData()
+    if(!this.isValid()) return false
+    console.log('yes')
+    // 时间格式处理
+    const { date, time } = this.data
+    console.log(date, time)
+    // const timeCombine = this.data.standardDate + ' ' + this.data.beginTime + ':00'
+    // taskInfo.deadline = timeCombine
+    // // 提交要求设置
+    // const request = this.data.submitRequireArr[this.data.requireIdx]
+    // taskInfo.request = request
+    // // 拼接标签数组变成字符串
+    // const labelArray = this.data.labelArray
+    // let labels = ''
+    // // 淦，这是个对象数组不能join
+    // labelArray.forEach(element => {
+    //   if (element.checked == true) {
+    //     labels += element.name + ','
+    //   }
+    // });
+    // labels = labels.substr(0, labels.length - 1)
+    // // console.log(labels);
+
+    // taskInfo.label = labels
+    // this.setData({
+    //   taskInfo: taskInfo
+    // })
+    // console.log(this.data.taskInfo);
 
     const data = this.data.taskInfo
-    //发送到后端未实现
-    publishTask(data)
-      .then(data => {
-        console.log(data)
-      })
-      .catch(err => {
-        console.log(err)
-      })
-  },
+    console.log(data)
 
+    // publishTask(data)
+    //   .then(data => {
+    //     console.log(data)
+    //   })
+    //   .catch(err => {
+    //     console.log(err)
+    //   })
+  },
+  handleBlur(e:any) {
+    const name = e.currentTarget.id,
+          val = e.detail.value
+    console.log(name, val)
+    this.validateData(name, val)
+  },
   /**
    * 生命周期函数--监听页面加载
    */
@@ -256,6 +343,14 @@ Page({
   let taskinfo = this.data.taskInfo
   let category = option.category
   taskinfo.category = String(category)
+
+  const {date, time} = getFormatDate(new Date())
+  this.setData({    
+    startDate:date,
+    startTime:time,
+    date:date,
+    time:time
+  })
 },
 
   /**
@@ -269,7 +364,9 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
-    console.log(this.data.bottomBarHeight)
-},
+    wx.createSelectorQuery().select('#title').node((res) => {
+      console.log(res)
+    }).exec()
+}
 
 })

@@ -12,7 +12,17 @@ export const formatTime = (date: Date) => {
     [hour, minute, second].map(formatNumber).join(':')
   )
 }
-
+export const getFormatDate = (date:Date) => {
+  const year = date.getFullYear()
+  const month = date.getMonth() + 1
+  const day = date.getDate()
+  const hour = date.getHours()
+  const minute = date.getMinutes()
+  return {
+    time:`0${hour}`.slice(-2) + ':' + `0${minute}`.slice(-2),
+    date:`${year}` + '年' + `0${month}`.slice(-2) + '月' + `0${day}`.slice(-2) + '日'
+  }
+}
 const formatNumber = (n: number) => {
   const s = n.toString()
   return s[1] ? s : '0' + s

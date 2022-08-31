@@ -3,7 +3,9 @@ Component({
   behaviors: [],
   // 使用模板时传入的数据在这里定义
   properties: {
-    title:String
+    title:String,
+    tip:String,
+    valid:Boolean,
   },
   // 私有数据，可用于模版渲染
   data: {

@@ -1,40 +1,82 @@
 <!--miniprogram.wxml-->
 <nav-bar showCapsule="{{true}}" title="发布任务" bgColor="white"></nav-bar>
 <view class="formArea">
-  <form-item title="标题">
-    <input type="text" name="title" placeholder="请输入标题" bindinput="bindTitle" />
+  <form-item title="标题" tip="标题不能为空" valid="{{valid.title}}">
+    <input
+      id="title"
+      placeholder="请输入标题" 
+      bindinput="bindTitle" 
+      bindblur="handleBlur"
+      data-valid="{{valid.title}}"
+    />
   </form-item>
 
-  <form-item title="任务说明">
-    <textarea name="taskContent" id="" auto-height="true" placeholder="请输入任务说明" bindinput="bindIllustrate"></textarea>
+  <form-item title="任务说明" tip="任务说明不能为空" valid="{{valid.illustrate}}">
+    <textarea 
+      id="illustrate"
+      auto-height="true" 
+      placeholder="请输入任务说明" bindinput="bindIllustrate" 
+      bindblur="handleBlur"
+      data-valid="{{valid.illustrate}}"
+    ></textarea>
   </form-item>
 
   <!-- 悬赏金额 & 任务份数 -->
   <section class="floatContentBox">
     <view class="bountyAndNumber BAleft">
       <view class="generalTitle perBounty">悬赏金额（每份）</view>
-      <view class="inputBounty">
+      <view 
+        class="inputBounty" 
+        data-valid="{{valid.bounty}}"
+      >
         <view class='yuan'>￥</view>
-        <input value="{{taskInfo.bounty}}" type="digit" name="bounty" bindinput="bindPerBounty" />
+       
+        <input 
+          id="bounty"
+          type="digit"  
+          value="{{taskInfo.bounty}}"  
+          bindblur="handleBlur" 
+          bindinput="bindPerBounty"
+        />
       </view>
     </view>
 
     <view class="bountyAndnNumber">
       <view class="generalTitle taskNum">任务份数</view>
-      <input value="{{taskInfo.tasknumber}}" type="number" name="taskNumber" class="inputNumber" bindinput="bindTaskNumber" />
+      <input 
+        id="tasknumber"
+        value="{{taskInfo.tasknumber}}" 
+        data-valid="{{valid.tasknumber}}" 
+        class="inputNumber" 
+        bindinput="bindTaskNumber"
+        bindblur="handleBlur"
+       />
       <!-- 没有强制要求输入数字,但不是数字的情况已被处理 -->
     </view>
   </section>
 
-  <view class="generalTitle">截止时间</view>
-  <picker mode="date" name="date" class="inputDate" value="{{beginDate}}" start="{{startDate}}" end="2221-01-01" bindchange="bindDate">
-    <!-- 截止时间总不能是昨天吧 -->
-    <input type="text" value="{{beginDate}}" />
-  </picker>
-
-  <picker mode="time" name="time" class="inputTime" value="{{beginTime}}" bindchange="bindTime">
-    <input type="text" value="{{beginTime}}" />
-  </picker>
+  <form-item title="截止时间" tip="截止时间不能早于当前" valid="{{valid.deadline}}">
+    <picker 
+      mode="date" 
+      data-valid="{{valid.deadline}}"
+      class="inputDate" 
+      value="{{date}}" 
+      start="{{startDate}}" end="2221-01-01" bindchange="bindDate"
+    >
+      <!-- 截止时间总不能是昨天吧 -->
+      <input type="text" value="{{date}}" />
+    </picker>
+    <picker 
+      mode="time" 
+      id="deadline"
+      data-valid="{{valid.deadline}}" 
+      class="inputTime" 
+      value="{{time}}" 
+      bindchange="bindTime"
+    >
+      <input type="text" value="{{time}}" />
+    </picker>
+  </form-item>
 
   <form-item title="提交要求">
     <picker bindchange="bindPicker" value="{{requireIdx}}" range="{{submitRequireArr}}">
@@ -46,7 +88,7 @@
   </form-item>
 
   <form-item title="联系方式">
-    <input type="text" name="contact" id="" class="inputTitle" bindinput="bindContact" />
+    <input type="text" class="inputTitle" bindinput="bindContact" />
   </form-item>
 
   <form-item title="添加标签">
