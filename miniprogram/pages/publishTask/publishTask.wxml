@@ -96,6 +96,12 @@
       <view class="label {{item.checked && ' labelChecked'}} {{item.name == '自定义' &&'labelDefine'}}" bindtap="labelTap" data-id="{{index}}">{{item.name}}</view>
     </view>
   </form-item>
+
+  <form-item title="选择分类">
+    <view class="labelBox" wx:for="{{categorys}}" wx:key="name">
+      <view class="label {{item.checked && ' labelChecked'}}" bindtap="categoryTap" data-id="{{index}}">{{item.name}}</view>
+    </view>
+  </form-item>
 </view>
 
 

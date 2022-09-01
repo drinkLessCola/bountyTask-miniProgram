@@ -61,6 +61,12 @@ Page({
       checked: false,
       name: '自定义'
     }],
+    categorys:[
+      { checked: false, name: '取物' }, 
+      { checked: false, name: '代购' },
+      { checked: false, name: '投票' },
+      { checked: true, name: '其他' }
+    ],
     bottomBarHeight:app.globalData.bottomBarHeight,
     fontSize: 48,
 
@@ -169,10 +175,17 @@ Page({
     }
 
   },
-
-  bindPicker: function (this: any, e: any) {
+  categoryTap (e: any) {
+    const id = +e.currentTarget.dataset.id
+    const {categorys} = this.data
+    categorys.forEach((cate, idx) => {
+      cate.checked = idx === id ? true : false
+    })
+    this.setData({categorys: categorys})
+  },
+  bindPicker: function (e: any) {
     this.setData({
-      index: e.detail.value
+      requireIdx: +e.detail.value
     })
   },
 
@@ -292,26 +305,22 @@ Page({
     // 校验必填项
     this.validateAllData()
     if(!this.isValid()) return false
-    console.log('yes')
     // 时间格式处理
-    const { date, time } = this.data
-    console.log(date, time)
     // const timeCombine = this.data.standardDate + ' ' + this.data.beginTime + ':00'
     // taskInfo.deadline = timeCombine
     // // 提交要求设置
-    // const request = this.data.submitRequireArr[this.data.requireIdx]
+    const request = this.data.submitRequireArr[this.data.requireIdx]
     // taskInfo.request = request
     // // 拼接标签数组变成字符串
-    // const labelArray = this.data.labelArray
-    // let labels = ''
-    // // 淦，这是个对象数组不能join
+    const {labelArray, categorys} = this.data
+    // 淦，这是个对象数组不能join
+ 
     // labelArray.forEach(element => {
     //   if (element.checked == true) {
     //     labels += element.name + ','
     //   }
     // });
     // labels = labels.substr(0, labels.length - 1)
-    // // console.log(labels);
 
     // taskInfo.label = labels
     // this.setData({
@@ -319,20 +328,38 @@ Page({
     // })
     // console.log(this.data.taskInfo);
 
-    const data = this.data.taskInfo
+    // 可以这样
+    const label = labelArray.filter(label => label.checked).map(obj => obj.name).join(',')
+    const category = categorys.filter(cate => cate.checked)[0].name
+    
+    const data = Object.assign({}, this.data.taskInfo, {label, request, category})
     console.log(data)
-
-    // publishTask(data)
-    //   .then(data => {
-    //     console.log(data)
-    //   })
-    //   .catch(err => {
-    //     console.log(err)
-    //   })
+    
+    // 发送请求
+    publishTask(data)
+      .then(data => {
+        console.log(data)
+      })
+      .catch(err => {
+        console.log(err)
+      })
   },
   handleBlur(e:any) {
-    const name = e.currentTarget.id,
-          val = e.detail.value
+    const name = e.currentTarget.id
+    let val = e.detail.value
+    if(name === 'bounty') {
+      val = parseFloat(val)
+      this.setData({
+        ["taskInfo.bounty"]:val
+      })
+    }
+    if(name === 'tasknumber') {
+      val = +val
+      this.setData({
+        ["taskInfo.tasknumber"]: val
+      })
+    }
+    
     console.log(name, val)
     this.validateData(name, val)
   },
