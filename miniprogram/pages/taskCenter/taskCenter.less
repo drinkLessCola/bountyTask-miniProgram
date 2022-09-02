@@ -1,5 +1,9 @@
 page {
   background-color: #F6F6F6;
+  height:100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
 
 .main {
@@ -38,28 +42,7 @@ page {
   float: left;
 }
 
-.search {
-  width: 640rpx;
-  height: 84rpx;
-  background-color: rgb(243, 243, 243);
-  border-radius: 42rpx;
-  margin-left: 50rpx;
 
-}
-
-.search image {
-  margin-top: 26rpx;
-  margin-left: 34rpx;
-  width:40rpx;
-  height:40rpx;
-}
-
-.search input {
-  font-size: 36rpx;
-  margin-top: 22rpx;
-  margin-left: 94rpx;
-  height: 50rpx;
-}
 
 .jiantouImg {
   width: 20rpx;
@@ -67,7 +50,12 @@ page {
 }
 
 .selectBox {
-  margin-left: 50rpx;
+  width: 100vw;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding:0 50rpx;
 }
 
 .selectBox::after {
@@ -79,7 +67,6 @@ page {
 // button实际上可以删掉,我一开始想拿button做的。。。
 .selectBox button,
 .selectBox picker {
-  float: left;
   width: fit-content;
   /* display: inline-block; */
 }
@@ -113,15 +100,19 @@ page {
 }
 
 .picker {
-  margin: 68rpx 0 0 34rpx;
   font-size: 24rpx;
   color: rgb(85, 85, 85);
 }
 
 
+.missions-container {
+  padding:0rpx 50rpx;
+  box-sizing: border-box;
+  margin-bottom:180rpx;
+  flex:1;
+  // 出现滚动条
+  overflow: auto;
+}
 .missions {
-  margin-top: 20rpx;
-  margin-left: 50rpx;
-  margin-right: 48rpx;
-  height:fit-content ;
+  margin:20rpx 0;
 }

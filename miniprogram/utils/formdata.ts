@@ -5,7 +5,6 @@ class FormData {
   private data: Object
   private files: Array<any>
 
-
   constructor() {
     this.fileManager = wx.getFileSystemManager();
     this.data = {};

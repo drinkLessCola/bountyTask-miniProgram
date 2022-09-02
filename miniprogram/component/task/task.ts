@@ -8,7 +8,7 @@ Component({
       value:{
         title: String,        // 标题
         bounty: Number,       // 赏金
-        startTime: Number,   // 发布时间
+        startTime: String,   // 发布时间
         area: String,         // 校区
         deadline: String,    // 截止时间
       }
@@ -44,8 +44,8 @@ Component({
   },
   // 定义组件方法
   methods: {
-    getTimeInfo(t: string | number): TimeInfo {
-      const time = new Date(+t)
+    getTimeInfo(t: string): TimeInfo {
+      const time = new Date(t)
       const month = time.getMonth() + 1,
         date = time.getDate(),
         isAm = time.getHours() >= 12,
@@ -53,14 +53,14 @@ Component({
         min = time.getMinutes()
       return { month, date, isAm, hour, min }
     },
-    handleDeadline(deadline: string | number): string { 
+    handleDeadline(deadline: string): string { 
       const {month, date, isAm, hour, min} = this.getTimeInfo(deadline)
       return `${month}月${date}日 ${isAm? '上午':'下午'} ${hour}:${min}` 
     },
-    handlePublishTime(timestamp:number):string{
-      const past = Math.ceil((Date.now() - new Date(+timestamp).getTime()) / 1000)
-      const {month, date} = this.getTimeInfo(timestamp)
-
+    handlePublishTime(time:string):string{
+      const past = Math.ceil((Date.now() - new Date(time).getTime()) / 1000)
+      const {month, date} = this.getTimeInfo(time)
+      console.log(month, date)
       let res = ''
       switch(past){
         case 60: res = '刚刚'; break

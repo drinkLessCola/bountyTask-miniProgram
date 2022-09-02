@@ -9,18 +9,17 @@
   <view class="title">任务中心</view>
   <view class="topBlock" >
   <!-- 搜索框,topBlock就只装着搜索框 -->
-    <view class="search">
-      <image src="/images/taskCenter/search.png" mode="aspectFill" bindtap="search"></image>
-      <input type="text" placeholder="something" bindinput="inputSearch"/>
-    </view>
+    <search mode="2" bind:search="getTask"></search>
   </view>
   
   <view class="selectBox">
     <!-- 选择按钮组 好像可以变组件-->
     <!-- 这个是抄来的哈哈 -->
-    <block class='selectBlock' wx:for="{{selectParameter}}" wx:key="select_Parameter">
-      <view class='parameter {{item.checked?"checked_parameter":""}}' data-id='{{item.id}}' bindtap='parameterTap'>{{item.name}}</view>
-    </block>
+    <view>
+      <block class='selectBlock' wx:for="{{selectParameter}}" wx:key="select_Parameter">
+        <view class='parameter {{item.checked?"checked_parameter":""}}' data-id='{{item.id}}' bindtap='parameterTap'>{{item.name}}</view>
+      </block>
+    </view>
     <!-- picker这个select框也是抄来的,下拉框看上去有点复杂懒得研究 -->
     <picker bindchange="bindPickerChange" value="{{index}}" range="{{array}}">
       <view class="picker">
@@ -36,6 +35,7 @@
 
 
 <!-- task为任务object,后端似乎返回的是一个task对象的数组 -->
+<main class="missions-container">
 <view class="missions" wx:for="{{taskArray}}" wx:key="id">
   <!-- 重新改了一下，直接传入整个对象即可 -->
   <task 
@@ -44,4 +44,5 @@
     data-id="{{item.id}}"
   ></task>
 </view>
+</main>
 <!-- 感觉把这个列表解耦出来会好一点，但是 好像没办法把这个列表单独列在后台与后端通信，用的时候放进页面 吧。。 可以👍 -->

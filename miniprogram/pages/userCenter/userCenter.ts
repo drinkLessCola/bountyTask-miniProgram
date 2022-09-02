@@ -1,6 +1,7 @@
 // miniprogram.ts
 import { getTaskById } from '../../API/taskDetail'
 import { onLogin } from '../../API/user'
+import { login } from '../../utils/login'
 
 Page({
 
@@ -24,7 +25,7 @@ Page({
         icon:'none',
         title:'请先登录！'
       })
-      this.login()
+      login()
     }
   },
   toVersionInfo() {
@@ -37,59 +38,7 @@ Page({
       url:"/pages/opinion/opinion"
     })
   },
-  login() {
-    if(this.data.nickName && this.data.avatarUrl) return 
-    wx.login({
-      success(res) {
-        if (!res.code) {
-          console.log('登录失败！' + res.errMsg)
-          return
-        }
-        console.log('code', res.code)
-        wx.setStorageSync('user_code', res.code)
-      }
-    })
-    wx.getUserProfile({
-      desc: '必须授权才能使用',
-      success:res => {
-        let user=res.userInfo
-        wx.setStorageSync('user', user) //信息暂存在客户端
-        this.setData({
-          encryptedData: res.encryptedData,
-          iv: res.iv
-        })
-        const code = wx.getStorageSync('user_code')
-        const encryptedData = res.encryptedData
-        const iv = res.iv
-        console.log(code, encryptedData, iv)
-        onLogin({code:code, encryptedData:encryptedData, iv:iv})
-        .then(data => { /* 处理成功的响应 */
-          console.log(data)
-          const {avatarUrl, nickName, openId, id:uid} = data
-          // 存储必要信息
-          wx.setStorageSync('avatarUrl', avatarUrl)
-          wx.setStorageSync('nickName', nickName)
-          wx.setStorageSync('openId', openId) // 这是啥来着……
-          wx.setStorageSync('uid', uid)
-          
-          this.setData({
-            nickName,
-            avatarUrl
-          })
-        })
-        .catch(err => { /* 处理失败的响应 */
-          console.log(err)
-        })
-        
-      },
-      fail:() => {
-        wx.showToast({
-          icon:'none',
-          title:'登录失败！'
-        })
-      }
-    })
-  },
+
   /**
    * 生命周期函数--监听页面加载
    */

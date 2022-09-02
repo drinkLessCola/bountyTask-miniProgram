@@ -2,7 +2,6 @@
 
 interface IAppOption {
   globalData: {
-    userInfo?: WechatMiniprogram.UserInfo,
     titleCoord: Coord | null,
     navBarHeight:number,
     tabBarBottom:number,
@@ -12,12 +11,13 @@ interface IAppOption {
 }
 
 interface TaskObj {
-  id:BigInt,
-  title: String,        // 标题
-  bounty: Number,       // 赏金
-  startTime: Date,   // 发布时间
-  area: String,         // 校区
-  deadline: Date,    // 截止时间
+  id:number,
+  title: string,        // 标题
+  bounty: number,       // 赏金
+  startTime: string,   // 发布时间
+  label: string,         // 校区
+  deadline: string,    // 截止时间
+  area:string,
 }
 interface publishTaskObj {
   userid: number,
@@ -66,4 +66,9 @@ interface BindTapEvent{
 
 interface Object {
   [key: string]: any
+}
+
+interface UserLoginInfo {
+  encryptedData: any,
+  iv: any
 }
