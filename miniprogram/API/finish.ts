@@ -24,7 +24,14 @@ export async function submitImage(taskid:number,userid:number,image:string) {
 // 删除某个证明图片 (额，所以是哪个。。。。)
 export async function delImage(userid:number, taskid:number) {
   const data = {userid, taskid}
-  const res = await putRequest(`/task/offline`, data)
+  const res = await putRequest(`/prove/del`, data)
+  return res
+}
+
+// 批量删除证明图片
+export async function mdelImage(ids:Array<number>) {
+  const data = {ids}
+  const res = await putRequest(`/prove/_mdelete`, data)
   return res
 }
 

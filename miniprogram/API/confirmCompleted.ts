@@ -12,11 +12,19 @@ export async function getUserInfo(id:string) {
   return res
 }
 
-// 发布人确认执行人提交的任务 只有确认没有退回任务。。 发
+// 发布人确认执行人提交的任务  发
 
 export async function confirmeTask(userid:number, taskid:number) {
   const data = {userid, taskid}
   const res = await putRequest(`/task/confirm`, data)
+  return res
+}
+
+// 认定无效  发
+
+export async function rejectTask(userid:number, taskid:number) {
+  const data = {userid, taskid}
+  const res = await putRequest(`/task/reject`, data)
   return res
 }
 
