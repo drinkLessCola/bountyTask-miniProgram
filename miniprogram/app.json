@@ -1,11 +1,15 @@
 {
   "pages": [
-    "pages/message/message",
     "pages/confirmCompleted/confirmCompleted",
+    "pages/home/home",
+    
+    "pages/finish/finish",
+    "pages/message/message",
+    
     "pages/guide/guide",
     "pages/version/version",
     "pages/opinion/opinion",
-    "pages/home/home",
+    
     "pages/publishTask/publishTask",
     
     "pages/taskDetail/taskDetail",
@@ -13,7 +17,7 @@
     "pages/taskCenter/taskCenter",
     "pages/userCenter/userCenter",
     "pages/taskCollection/taskCollection",
-    "pages/finish/finish",
+    
     
    
     "pages/logs/logs"

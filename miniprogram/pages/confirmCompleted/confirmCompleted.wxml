@@ -18,8 +18,9 @@
 
 <view><title><view class="title">证明信息</view></title></view>
 <view  class="confirmBox">
-  <p class="p">证明信息真的只有图片,加留言后端就爆炸了</p>
-  <view class="imgBox" wx:for="{{imgArray}}">
+  <!-- <p class="p">证明信息真的只有图片,加留言后端就爆炸了</p> -->
+  <view style="height: 20rpx;"></view>
+  <view class="imgBox" wx:for="{{imgInfo.imgArray}}">
     <image wx:if="{{index%3 != 2}}" src='{{item}}' mode="aspectFill" class="img"></image>
     <!-- 每行的最后一个没有右margin -->
     <image wx:else="" src='{{item}}'  mode="aspectFill" class="img imglast"></image>
@@ -30,17 +31,17 @@
 
 <view class="submitStatus" wx:if="{{isPublisher}}">
   <view><title><view class="title">提交状态</view></title></view>
-  <view class="statusNormal statusYes" wx:if="{{status == 0}}">
+  <view class="statusNormal statusYes" wx:if="{{status.status == 0}}">
     <view class="icon">✓</view>
     <view class="text">已通过</view>
   </view>
-  <view class="statusNormal statusNo" wx:if="{{status == 1}}">
+  <view class="statusNormal statusNo" wx:if="{{status.status == -1}}">
     <view class="icon">×</view>
     <view class="text">未通过：任务未完成</view>
   </view>
-  <view class="special" wx:if="{{status == 2}}"></view>
+  <view class="special" wx:if="{{status.status == 2}}"></view>
   <!-- 画时钟icon用来遮挡的 -->
-  <view class="statusNormal statusLoad" wx:if="{{status == 2}}">
+  <view class="statusNormal statusLoad" wx:if="{{status.status == 2}}">
     <view class="icon"><view>L</view></view>
     <view class="text">等待确认中…</view>
   </view>

@@ -14,9 +14,12 @@
 
 <view class="confirmTitle"><title >提交证明</title></view>
   <view class="confirmBox">
-  <textarea type="text" class="input" placeholder="请输入" auto-height="true" bindinput="textInput"></textarea>
+  <!-- <textarea type="text" class="input" placeholder="请输入" auto-height="true" bindinput="textInput"></textarea> -->
+  <!-- 输入文本，但后端没这功能 -->
+  <view style="height: 20rpx;"></view>
+  <!-- 上面这个是调整布局用的 -->
   <view class="imgBox" wx:for="{{imgArray}}">
-    <image wx:if="{{index%3 != 2}}" src='{{item}}' mode="aspectFill" class="img"></image>
+    <image wx:if="{{index%3 != 2}}" src='{{item}}' data-index='{{item.index}}' mode="aspectFill" class="img" capture-bind:longpress="delImg"></image>
     <!-- 每行的最后一个没有右margin -->
     <image wx:else="" src='{{item}}'  mode="aspectFill" class="img imglast"></image>
     
@@ -32,5 +35,5 @@
 
 
 <view class="buttonBox">
-  <button  bindtap="submit">提交</button>
+  <button  bindtap="submit">提交(长按删除图片)</button>
 </view>

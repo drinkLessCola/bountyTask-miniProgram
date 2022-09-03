@@ -1,4 +1,6 @@
 // pages/confirmCompleted/confirmCompleted.ts
+import {getImage,getUserInfo,confirmeTask,rejectTask,taskStatus} from "../../API/confirmCompleted";
+
 const appcC = getApp()
 Page({
     
@@ -9,17 +11,19 @@ Page({
   data: {
     height:  appcC.globalData.navBarHeight,
 
-    userid:0,
-    publisherId:0,
-    finisherId:0,
+    userid:1,
+    publisherId:1,
+    finisherId:2,
     finisherName:'',
     finisherImg:'',
 
-    isPublisher:1,
+    isPublisher:0,
     // 0是发布方 1是执行方
-
-    status:0,
-    //0是通过1是未通过2是等待确认
+    status : {
+      status:0
+    },
+    
+    //0是通过-1是未通过2是等待确认
 
     //目前发现所需接口:
     // 查找该用户在该任务中提交的证明图片 both
@@ -42,7 +46,10 @@ Page({
     },
 
     // 待会要改这东西
-    imgArray:['/images/confirmCompleted/testImg.png','/images/confirmCompleted/testImg.png','/images/confirmCompleted/testImg.png','/images/confirmCompleted/testImg.png','/images/confirmCompleted/testImg.png','/images/confirmCompleted/testImg.png']
+    imgInfo:{
+      imgArray:[]
+    }
+    
   },
 
   isPublisher() {
@@ -58,40 +65,108 @@ Page({
     }
   },
 
+  getUserInfo(userid:number){
+    getUserInfo(userid.toString())
+      .then ((data) => {
+        this.setData({
+          userinfos:data as any
+        })
+        console.log(data);
+        
+      })
+      .catch((err) => {
+        console.log(err);
+        
+      })
+  },
+
   refuse() {
     console.log('no');
-    //需求缺失
+    rejectTask(this.data.finisherId,this.data.task.id)
+    .then ((data) => {
+      console.log(data);
+      
+    })
+    .catch((err) => {
+      console.log(err);
+      
+    })
   },
 
   confirm() {
     console.log('yes');
     //调用接口 发布人确认执行人提交的任务
+    confirmeTask(this.data.finisherId,this.data.task.id)
+    .then ((data) => {
+      console.log(data);
+      
+    })
+    .catch((err) => {
+      console.log(err);
+      
+    })
   },
 
   getProveImg(userid:number , taskid :number) {
     //调用接口 查找该用户在该任务中提交的证明图片
+    let imgInfo
+     getImage(userid.toString(),taskid.toString())
+      .then ((data) => {
+        imgInfo=data
+        this.setData({
+          imgInfo:imgInfo as any
+        })
+      })
+      .catch ((err) => {
+        console.log(err);
+        
+      })
+  },
+
+  getTaskStatus(userid:number,taskid:number) {
+    taskStatus(userid,taskid)
+      .then((data) => {
+        console.log(data);
+        this.setData({
+          status:data as any
+        })
+      })
+      .catch((err) => {
+        console.log(err);
+        
+      })
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad() {
-    let that = this;
-    const eventChannel = this.getOpenerEventChannel();   //取到事件对象
-    eventChannel.on("handleEvent",data=>{//发布事件
-      let task = {
-        id:data.taskid,
-        title:data.taskTitle,
-        request:data.taskRequest
-      }
-      that.setData({
-        task:task,
-        finisherId:data.finisherId,
-        isPublisher:data.isPublisher
-      })
-      // console.log(data,"我被传过来了");
-    });
+    
+    // 暂时屏蔽
+
+    // let that = this;
+    // const eventChannel = this.getOpenerEventChannel();   //取到事件对象
+    // eventChannel.on("handleEvent",data=>{//发布事件
+    //   let task = {
+    //     id:data.taskid,
+    //     title:data.taskTitle,
+    //     request:data.taskRequest
+    //   }
+    //   that.setData({
+    //     task:task,
+    //     finisherId:data.finisherId,
+    //     isPublisher:data.isPublisher
+    //   })
+    //   // console.log(data,"我被传过来了");
+    // });
     // console.log(eventChannel);
+    this.getProveImg(this.data.userid,this.data.task.id)
+    if(this.data.isPublisher==0) {
+      this.getUserInfo(this.data.userid)
+    }else{
+      this.getTaskStatus(this.data.userid,this.data.task.id)
+    }
+
   },
 
   /**

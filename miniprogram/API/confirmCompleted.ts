@@ -28,4 +28,9 @@ export async function rejectTask(userid:number, taskid:number) {
   return res
 }
 
-// 缺失：任务提交后的状态：等待/通过/未通过 执
+//任务提交后的状态：等待/通过/未通过 执
+
+export async function taskStatus(userid:number, taskid:number) {
+  const res = await getRequest(`/user_task/getStatus/${userid}/${taskid}`)
+  return res
+}
