@@ -5,6 +5,7 @@
 
 <!-- <view class="navbackground"></view> -->
 <view class="topBox"> 
+  <!-- <view style="height: 168rpx;"></view> -->
   <view class="title">消息</view>
   <!-- 根据谁被选了来改样式 -->
   <view class="label {{item.checked ? 'sel' : ''}}" data-id='{{index}}' bindtap="change" wx:for='{{select}}' wx:key='index'> 
@@ -18,8 +19,13 @@
 <!-- 暴力位移 -->
 
 <!-- 发布的任务就是ture 领取的任务是false -->
-<view class='msg' wx:for="{{select[0].checked ? publishShowMsgArray : getShowMsgArray}}" wx:key="{{taskId}}" bindtap="toDetail"  data-id = "{{item.taskId}}" data-index = "{{item.index}}">
+
+
+<scroll-view  scroll-y="true" style="flex: 1; height: 65vh;">
+  <view class='msg' wx:for="{{select[0].checked ? publishShowMsgArray : getShowMsgArray}}" wx:key="{{taskId}}" bindtap="toDetail"  data-id = "{{item.taskId}}" data-index = "{{item.index}}">
   <taskMessage title="{{item.taskTitle}}" time="{{item.time}}" statusBar="{{item.status}}"></taskMessage>
-</view>
+  </view>
+</scroll-view>
+
 
 <view style="height:188rpx"></view>
