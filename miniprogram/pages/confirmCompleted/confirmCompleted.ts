@@ -47,7 +47,8 @@ Page({
 
     // 待会要改这东西
     imgInfo:{
-      imgArray:[]
+      imgArray:[] as string[],
+      data:[] as string[]
     }
     
   },
@@ -109,6 +110,7 @@ Page({
 
   getProveImg(userid:number , taskid :number) {
     //调用接口 查找该用户在该任务中提交的证明图片
+    const that = this
     let imgInfo
      getImage(userid.toString(),taskid.toString())
       .then ((data) => {
@@ -116,11 +118,25 @@ Page({
         this.setData({
           imgInfo:imgInfo as any
         })
+        that.shiftImgArray()
       })
       .catch ((err) => {
         console.log(err);
         
       })
+  },
+
+  shiftImgArray() {
+    let imgInfo = this.data.imgInfo
+    const addString = 'data:image/png;base64,'
+    let newString
+    for(let index=0 ; index < imgInfo.data.length;index++){
+      newString = addString+imgInfo.data[index]
+      imgInfo.imgArray[index] = newString 
+      this.setData({
+        imgInfo:imgInfo
+      })
+    }
   },
 
   getTaskStatus(userid:number,taskid:number) {
