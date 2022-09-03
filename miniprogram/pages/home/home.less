@@ -8,46 +8,15 @@ page {
 }
 
 .topBlock {
-  width: 100vw;
+  width: auto;
+  margin:0 50rpx;
   height: 86rpx;
+  display: flex;
+  align-items: center;
 }
-
-.topBlock image{
-  float: left;
-  margin-top:20rpx;
-  width:44rpx;
-  height:50rpx;
-}
-
-.topBlock view{
-  float: left;
-}
-
-.search {
-  width: 520rpx;
-  height: 92rpx;
-  background-color: #fff;
-  border-radius: 42rpx;
+.msg {
   margin-left: 50rpx;
 }
-
-.search image {
-  margin-top: 26rpx;
-  margin-left: 34rpx;
-}
-
-.search input {
-  font-size: 36rpx;
-  margin-top: 22rpx;
-  margin-left: 94rpx;
-  height: 50rpx;
-}
-
-.tips {
-  margin-top: 22rpx;
-  margin-left: 42rpx;
-}
-
 .titleText {
   margin-left: 50rpx;
   margin-top: 36rpx;
@@ -61,17 +30,13 @@ page {
 }
 
 .typeBox {
-  margin-left: 50rpx;
+  display: flex;
+  justify-content: space-between;
+  margin:0 50rpx;
 }
 
-.typeBox::after{
-  clear: both;
-  display: block;
-  content: "";
-}
 
-button{
-  float: left;
+.bigBox button{
   color: #FFF;
   border-radius: 20rpx;
   font-size: 52rpx;
@@ -84,20 +49,19 @@ button{
   background-color:rgb(243,194,175);
   text-align: left;
   width: 394rpx;
-  margin-right: 32rpx;
-  padding-left: 32rpx;
+  padding-left: 30rpx;
 }
 
 #helpBuy{
   background-color:rgb(236,226,225);
   width: 226rpx;
   text-align: right;
-  padding-right: 16rpx;
+  padding-right: 15rpx;
 }
 
 #vote {
   background-color:rgb(200,213,185);
-  width: 258rpx;
+  width: 260rpx;
   margin-top: 40rpx;
   text-align: left;
   padding-left: 30rpx;
@@ -108,9 +72,8 @@ button{
   width: 350rpx;
   margin-top: 40rpx;
   margin-top: 40rpx;
-  margin-left: 44rpx;
   text-align: left;
-  padding-left: 48rpx;
+  padding-left: 45rpx;
 }
 
 .missions {

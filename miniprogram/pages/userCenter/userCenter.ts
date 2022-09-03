@@ -1,6 +1,4 @@
 // miniprogram.ts
-import { getTaskById } from '../../API/taskDetail'
-import { onLogin } from '../../API/user'
 import { login } from '../../utils/login'
 
 Page({

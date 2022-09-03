@@ -1,35 +1,42 @@
 
+
 .search {
   position: relative;
-  width: 650rpx;
+  width:var(--width);
   height: 90rpx;
-  background-color: rgb(243, 243, 243);
+  background-color: var(--color);
   border-radius: 42rpx;
-  margin-left: 50rpx;
   line-height:84rpx;
   font-size: 36rpx;
   z-index: 50;
+  box-sizing: border-box;
+  padding: 0 35rpx;
+  transition: all .15s ease-in-out;
 }
 
 .search image {
-  margin-top: 26rpx;
-  margin-left: 34rpx;
   width:40rpx;
   height:40rpx;
 }
 
 .search input {
+  margin-left: 20rpx;
   font-family: "PingFang SC";
   font-size: 34rpx;
-  margin-top: 22rpx;
-  margin-left: 94rpx;
   height: 50rpx;
 }
-
+.input {
+  display: flex;
+  height:100%;
+  align-items: center;
+}
 .mask {
   visibility: hidden;
-  background-color: #fff;
-  position: absolute;
+  background-color: var(--maskColor);
+  position: fixed;
+  z-index:20;
+  top:0;
+  left:0;
   width:100vw;
   height:100vh;
   // overflow: hidden;
@@ -38,7 +45,7 @@
   visibility: visible;
 }
 .search.active {
-  position: fixed;
+  width:650rpx;
 }
 .detail.active {
   display: flex;
@@ -55,7 +62,7 @@
   white-space: pre-wrap;
   span {
     display: inline-block;
-    background-color: #f3f3f3;
+    background-color: var(--color);
     height:36rpx;
     line-height: 36rpx;
     margin-right:10rpx;

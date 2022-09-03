@@ -6,6 +6,7 @@ interface IAppOption {
     navBarHeight:number,
     tabBarBottom:number,
     bottomBarHeight:number,
+    searchKeyword:string,
   }
   userInfoReadyCallback?: WechatMiniprogram.GetUserInfoSuccessCallback,
 }

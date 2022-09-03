@@ -26,7 +26,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    // 校验
+    // 校验，为 false 会使相应的输入框出现红色边框和提示字段
     valid: {
       title: true,
       illustrate: true,

@@ -9,7 +9,7 @@
   <view class="title">任务中心</view>
   <view class="topBlock" >
   <!-- 搜索框,topBlock就只装着搜索框 -->
-    <search mode="2" bind:search="getTask"></search>
+    <search mode="grey" width="650" keyword="{{keyword}}" bind:search="setKeyword"></search>
   </view>
   
   <view class="selectBox">

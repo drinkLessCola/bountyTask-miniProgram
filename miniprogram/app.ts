@@ -7,6 +7,7 @@ App<IAppOption>({
     navBarHeight:0,
     tabBarBottom:0,
     bottomBarHeight:0,
+    searchKeyword:'',
   },
   onLaunch() {
     // 展示本地存储能力

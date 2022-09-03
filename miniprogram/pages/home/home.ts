@@ -1,4 +1,5 @@
 // pages/page1/page1.ts
+const app = getApp()
 Page({
 
   /**
@@ -32,9 +33,15 @@ Page({
     return Date.now()
   },
 
-  search(){
+  search(e:any){
+    const keyword = e.detail
+    app.globalData.keyword = keyword
     //调用接口 按关键字搜索 标签为最新 泰山区 取物？
     //需要进一步决定
+
+    wx.switchTab({
+      url: `/pages/taskCenter/taskCenter`,
+    })
   },
 
   inputSearch(e:any) {
@@ -60,9 +67,9 @@ Page({
   },
 
   toTaskDetail(e:any) {
-    const userid = 0 //这玩意从哪搞来？
+    const userid = wx.getStorageSync('uid')
     const id = e.currentTarget.dataset.id
-    let url =  "/pages/taskDetail/taskDetail?taskid="+id +"&userid=" +userid
+    let url =  "/pages/taskDetail/taskDetail?taskid="+ id +"&userid=" + userid
     wx.navigateTo({
       url:url
     })
