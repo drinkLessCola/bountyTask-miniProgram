@@ -1,6 +1,6 @@
 // pages/finish/finish.ts
 
-import { submitTask,getTaskById,submitImage,delImage,mdelImage,getImage } from "../../API/finish";
+import { submitTask,getTaskById,submitImage,delImage,getImage } from "../../API/finish";
 const appf = getApp()
 Page({
 

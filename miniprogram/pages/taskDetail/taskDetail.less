@@ -106,23 +106,18 @@ page {
 }
 
 
-.getCondition {
-  margin-top: 40rpx;
-
-  .perCondition {
-    margin-left: 20rpx;
-    display: inline-block;
-    margin-top: 15rpx; //可能是盒子带来的误差？ 直接换算过来多了3像素
-
-    .userinfo {
-      width: 622rpx;
-    }
-
-    .status {
-      color: rgba(85, 85, 85, 1);
-      font-size: 24rpx;
-      float: right;
-    }
+.perReceiver {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 15rpx; //可能是盒子带来的误差？ 直接换算过来多了3像素
+  &:active {
+    background-color:#fff8e8 ;
+  }
+  .status {
+    color: rgba(85, 85, 85, 1);
+    font-size: 24rpx;
+    font-weight: 400;
   }
 }
 
@@ -133,7 +128,8 @@ page {
   display: flex;
   align-items: center;
 
-  .receiverBtn, .publisherBtn {
+  .receiverBtn,
+  .publisherBtn {
     width: 100%;
     display: flex;
     align-items: center;
@@ -145,6 +141,7 @@ page {
       background-color: #eee;
     }
   }
+
   button {
     color: #fff;
     border-radius: 20rpx;
@@ -153,30 +150,38 @@ page {
     height: 80rpx;
     margin: 0;
   }
-  .receive-btn, .finished-btn {
+
+  .receive-btn,
+  .finished-btn {
     background-color: #ffcf56;
+
     &:active {
       background-color: #ffc430;
     }
   }
+
   .submit-btn {
     background-color: #FF971E;
+
     &:active {
       background-color: #ff8e0d;
     }
   }
+
   .disable-btn {
-    width:100%;
+    width: 100%;
     height: 100rpx;
     background-color: #ddd;
-    color:#888;
+    color: #888;
   }
+
   .offline-btn {
     height: 100rpx;
-    width:100%;
+    width: 100%;
     color: rgba(255, 183, 0, 1);
     background-color: #fff0c9;
     border-radius: 20rpx;
+
     &:active {
       background-color: #ffecbb;
     }
@@ -185,11 +190,11 @@ page {
 
 .mask {
   position: fixed;
-  z-index:200;
-  left:0;
-  top:0;
-  width:100vw;
-  height:100vh;
+  z-index: 200;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
   background-color: rgba(0, 0, 0, 0.1);
 }
 
@@ -197,16 +202,17 @@ page {
   position: fixed;
   bottom: 0;
   left: 0;
-  width:100vw;
+  width: 100vw;
   height: 600rpx;
   background-color: #fff;
   z-index: 300;
   border-radius: 60rpx 60rpx 0 0;
   box-sizing: border-box;
-  padding:60rpx 70rpx 0 70rpx;
+  padding: 60rpx 70rpx 0 70rpx;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+
   .title {
     font-size: 48rpx;
     font-weight: bold;
@@ -218,22 +224,24 @@ page {
     color: rgba(85, 85, 85, 1);
     height: 320rpx;
     line-height: 52rpx;
-    flex:1;
+    flex: 1;
   }
 
   .buttons {
     margin-bottom: 20rpx;
     display: flex;
-    width:100%;
+    width: 100%;
     justify-content: space-between;
+
     button {
       font-size: 40rpx;
       border-radius: 20rpx;
       width: 280rpx;
       height: 100rpx;
       display: inline-block;
-      margin:0;
-      &:active{
+      margin: 0;
+
+      &:active {
         background-color: #ffc430;
       }
     }
@@ -241,7 +249,8 @@ page {
     .btnNO {
       background-color: #e6e6e6;
       color: rgba(85, 85, 85, 1);
-      &:active{
+
+      &:active {
         background-color: #ddd;
       }
     }
@@ -249,7 +258,8 @@ page {
     .btnYes {
       background-color: rgba(255, 207, 86, 1);
       color: #fff;
-      &:active{
+
+      &:active {
         background-color: #ffc430;
       }
     }
