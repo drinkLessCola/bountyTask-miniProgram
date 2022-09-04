@@ -38,11 +38,11 @@
     </title>
     <!-- 这个有wx:if 发布方可见-->
     <title title="领取情况" wx:if="{{isPublisher}}">
-      <view class="perCondition" wx:for="{{task.receiverInfo}}" wx:key="index">
-        <view class="status">{{item.status}}</view>
+      <view class="perReceiver" wx:for="{{receiverInfo}}" wx:key="index" bindtap="comfirmTask">
         <view class='userinfo'>
-          <userinfo avatarUrl="{{item.avatarUrl}}" nickname="{{item.nickname}}" data-info='{{item}}' bindtap="comfirmTask"></userinfo>
+          <userinfo avatarUrl="{{item.avatarUrl}}" nickname="{{item.nickName}}" data-info='{{item}}' ></userinfo>
         </view>
+        <view class="status">{{item.status}}</view>
         <!-- 这里使用wx:for  遍历 领取任务的人-->
       </view>
     </title>

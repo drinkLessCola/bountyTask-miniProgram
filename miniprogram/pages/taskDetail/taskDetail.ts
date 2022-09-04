@@ -4,6 +4,7 @@ import { deleteCollectedTasksById } from "../../API/taskCollection"
 import { addCollectTask, getTaskById, getTaskStatus, isCollected, offlineTask, takeTask } from "../../API/taskDetail"
 const app = getApp()
 type ReceivedStatus = '未接受' | '未提交' | '已提交'
+const STATUS = ['待确认','进行中']
 Page({
   /**
    * 页面的初始数据
@@ -94,11 +95,15 @@ Page({
         // data[0] 为发布者
         const [publisher, ...receivers] = data as TaskStatusObj[]
         const { user } = publisher
-        const receiverInfo = receivers.map((r) => r.user)
-        const receiveSelf = receivers.filter((r) => r.user.id === userid)[0],
+        const receiverInfo = receivers.map((r) => {
+          console.log(r)
+          const {id, avatarUrl, nickName} = r.user
+          const status = STATUS[r.status]
+          return {id, avatarUrl, nickName, status }
+        })
+        const receiveSelf = receiverInfo.filter((r) => r.id === userid)[0],
               receiveStatus = !receiveSelf ? '未接受' : 
                 (receiveSelf.status ? '未提交' : '已提交')
-        console.log(receiverInfo)
         isPublisher = userid === user.id
         this.setData({ publisher: user, receiverInfo, isPublisher, receiveStatus })
         return getTaskById(taskid)
@@ -159,8 +164,14 @@ Page({
   },
 
   offlineTask: function() {
-
-    const {userid, taskid} = this.data
+    const {userid, taskid, receiverInfo} = this.data
+    const num = receiverInfo.reduce((res, r) => {
+      return res + (r.status === '待确认' ? 1 : 0)
+    }, 0)
+    if(num) {
+      wx.showToast({icon:"none", title:"不能下线有待确认的任务"})
+      return
+    }
     //调用接口:下线任务
     offlineTask(userid, taskid)
     .then(data => {
