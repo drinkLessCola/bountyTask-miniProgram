@@ -1,7 +1,7 @@
 // miniprogram.ts
 
 import { deleteCollectedTasksById } from "../../API/taskCollection"
-import { addCollectTask, getTaskById, getTaskStatus, isCollected, takeTask } from "../../API/taskDetail"
+import { addCollectTask, getTaskById, getTaskStatus, isCollected, offlineTask, takeTask } from "../../API/taskDetail"
 const app = getApp()
 type ReceivedStatus = '未接受' | '未提交' | '已提交'
 Page({
@@ -15,6 +15,7 @@ Page({
     showDialog: false,  // true 显示 确认接受任务的对话框
     isCollect: false,   // true 收藏,实心星星图案缺失 补上了
     isOutDate: false,   // 任务是否已截止
+    isOffline: false,   // 任务是否已下线
     receiveStatus: '未接受' as ReceivedStatus,  // 任务接受状态
     bottomBarHeight: app.globalData.bottomBarHeight,
     publisher: {
@@ -72,15 +73,6 @@ Page({
 
   },
 
-
-
-  // onChooseAvatar(e:any) {
-  //   const   { avatarUrl }  = e.detail
-  //   this.setData({
-  //     avatarUrl,
-  //   })
-  //   console.log(avatarUrl);
-  // },
   formatTime(d: string) {
     const [date, time] = d.split(" ")
     const [year, month, day] = date.split('-')
@@ -90,7 +82,7 @@ Page({
     return `${year}年${+month}月${day}日 ${isAm ? '上午' : '下午'} ${hour}:${minutes}`
   },
   /**
-   * 获取
+   * 获取任务详情
    * @param taskid 任务 id
    */
   getTaskDetail(taskid: number, userid: number) {
@@ -103,18 +95,25 @@ Page({
         const [publisher, ...receivers] = data as TaskStatusObj[]
         const { user } = publisher
         const receiverInfo = receivers.map((r) => r.user)
+        const receiveSelf = receivers.filter((r) => r.user.id === userid)[0],
+              receiveStatus = !receiveSelf ? '未接受' : 
+                (receiveSelf.status ? '未提交' : '已提交')
+        console.log(receiverInfo)
         isPublisher = userid === user.id
-        this.setData({ publisher: user, receiverInfo, isPublisher })
+        this.setData({ publisher: user, receiverInfo, isPublisher, receiveStatus })
         return getTaskById(taskid)
       })
       .then((data) => {
         console.log(data)
-        const { id, title, illustrate, taskNumber, getNum, deadline: ddl, bounty, contact, label, request } = data as UnhandledTaskDetail
+        const { id, title, illustrate, taskNumber, taskStatus, getNum, deadline: ddl, bounty, contact, label, request } = data as UnhandledTaskDetail
         const number = taskNumber - getNum,
-          labels = label ? label.split(',') : []
-        const deadline = this.formatTime(ddl)
+              labels = label ? label.split(',') : [],
+              deadline = this.formatTime(ddl),
+              isOffline = taskStatus === 1,
+              isOutDate = new Date(ddl).getTime() < Date.now() 
+        console.log('isOffline', isOffline, isOutDate)
         const task: TaskDetailObj = { id, title, illustrate, request, number, labels, deadline, bounty, contact }
-        this.setData({ task })
+        this.setData({ task, isOffline, isOutDate })
         if(!isPublisher) this.checkCollected()
       })
       .catch((errCode) => {
@@ -136,32 +135,10 @@ Page({
     })
     .catch(errCode => console.log("查询收藏信息失败！errCode:" + errCode))
   },
-  // isPublisher:function(nowid:number , taskPublisherId:number){
-  //   this.setData({
-  //     isPublisher: nowid !== taskPublisherId
-  //   })
-  //   //偷懒,直接三元解决
-  //   // 注意 0 才是发布者
-  // },
-
-  timeHandler: function (s: string) {
-    // yyyy-MM-dd hh:mm:ss
-    const date = new Date(s)
-    const isAM = ['上午', '下午']
-    let timeString = date.getFullYear() + '年' + (date.getMonth() + 1) + '月' + date.getDate() + '日 ' + (isAM[date.getHours() / 12]) + ' ' + (date.getHours() % 12 >= 10 ? date.getHours() % 12 : '0' + date.getHours() % 12) + ' : ' + (date.getMinutes() >= 10 ? date.getMinutes() : '0' + date.getMinutes())
-    return timeString
-    // 懒得设变量,略显抽象,内含：
-    // 24转12小时制
-    // 0~11上午 12~23下午 额  12:00 -> 下午 00:00有点抽象
-    // 小时分钟自动补零 如 08时 10时
-
+  toFinish() {
+    const {taskid, userid} = this.data
+    wx.navigateTo({url:`/pages/finish/finish?taskid=${taskid}&userid=${userid}`})
   },
-
-  // toLabelsArray:function(s:string) :string[] {
-  //   return s.split(",")
-  //   // 好家伙，有现成的
-  // },
-
   comfirmTask: function (e: any) {
     const t = e.currentTarget.dataset
     // console.log(t.info);
@@ -181,8 +158,19 @@ Page({
     })
   },
 
-  btnPutDown: function () {
+  offlineTask: function() {
+
+    const {userid, taskid} = this.data
     //调用接口:下线任务
+    offlineTask(userid, taskid)
+    .then(data => {
+      console.log(data)
+      this.getTaskDetail(taskid, userid)
+      wx.showToast({icon:"success", title:"任务下线成功！"})
+    }) 
+    .catch(errCode => {
+      wx.showToast({icon:"none", title:"任务下线失败！errCode:" + errCode})
+    })
   },
   
   // ✔ 添加收藏
@@ -245,9 +233,6 @@ Page({
       userid = +option.userid
     this.setData({ taskid, userid })
     this.getTaskDetail(taskid, userid)
-    // console.log(new Date('2022-08-01 00:00:00'));
-    // console.log(option.taskid);
-    // 似乎可以用eventChannel把整个task发过来。。以后优化
   },
 
   /**

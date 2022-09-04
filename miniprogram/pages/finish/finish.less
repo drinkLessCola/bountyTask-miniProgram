@@ -1,24 +1,15 @@
 /* pages/finish/finish.wxss */
 // 可以定义在 App.less 作为全局的样式
 page {
-  // font-family: "PingFang SC";
-  // padding-left: 50rpx;
   padding:0 50rpx;
+  box-sizing: border-box;
 }
-
-
 
 .taskTitle {
   position: relative;
   font-size: 48rpx;
-  padding-top: 22rpx;
-  
-}
-
-.title {
-  margin-top: 40rpx;
-  font-size: 36rpx;
-  font-weight: bold;
+  margin-top: 30rpx;
+  font-weight:900;
 }
 
 .missionRequest {
@@ -28,25 +19,15 @@ page {
 // 边距信息最好定义在组件之中，不然每次使用都需要分别定义
 // 比如下面的信息，可以变成标题的样式 margin-bottom:26rpx
 .taskRequire {
-
   font-size: 28rpx;
   color: rgb(85,85,85);
-  margin-left: 20rpx;
-  margin-top: 26rpx;
-}
-
-.confirmTitle {
-  margin-top: 20rpx;
+  width:100%;
 }
 .confirmBox {
   width: 650rpx;
   .input{
     width: 650rpx;
     word-wrap: break-all;
-
-    // margin-top: 20rpx;
-    // margin-bottom: 20rpx;
-    margin: 20rpx 0; // 上面这两个可以合并 第一个上下的 margin, 第二个值是左右的 margin。
   }
   .img{
     float: left;
@@ -106,9 +87,10 @@ page {
     padding: 4rpx 74rpx 24rpx 74rpx ;
     font-size: 36rpx;
     font-weight: bold;
-    margin-top: 20rpx;
     background-color: rgb(255, 207, 86);
     color: #fff;
+
+
   }
 
 }
