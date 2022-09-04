@@ -4,7 +4,7 @@ import { deleteCollectedTasksById } from "../../API/taskCollection"
 import { addCollectTask, getTaskById, getTaskStatus, isCollected, offlineTask, takeTask } from "../../API/taskDetail"
 const app = getApp()
 type ReceivedStatus = '未接受' | '未提交' | '已提交'
-const STATUS = ['待确认','进行中']
+const STATUS = ['','进行中', '待确认']
 Page({
   /**
    * 页面的初始数据
@@ -144,16 +144,18 @@ Page({
     const {taskid, userid} = this.data
     wx.navigateTo({url:`/pages/finish/finish?taskid=${taskid}&userid=${userid}`})
   },
-  comfirmTask: function (e: any) {
-    const t = e.currentTarget.dataset
+  confirmTask: function (e: any) {
+    console.log(e)
+    const {info:{id}} = e.currentTarget.dataset
+    const {taskid, isPublisher, task:{title, request}} = this.data 
     // console.log(t.info);
     // 跳转：确认完成界面 参数t.info.id(头像应该传不过去吧，太长了)
     let emitData = {
-      isPublisher: this.data.isPublisher,
-      finisherId: t.info.id,
-      taskId: this.data.task.id,
-      taskTitle: this.data.task.title,
-      taskRequest: this.data.task.request
+      isPublisher: isPublisher,
+      finisherId: id,
+      taskId: taskid,
+      taskTitle: title,
+      taskRequest: request
     }
     wx.navigateTo({
       url: "/pages/confirmCompleted/confirmCompleted",
@@ -162,7 +164,6 @@ Page({
       }
     })
   },
-
   offlineTask: function() {
     const {userid, taskid, receiverInfo} = this.data
     const num = receiverInfo.reduce((res, r) => {
