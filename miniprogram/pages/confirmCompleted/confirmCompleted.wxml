@@ -13,9 +13,9 @@
 
 <!-- 发布者和执行者两种界面！ -->
 
-<view  wx:if="{{!isPublisher}}"><title title='帮手信息'>
-  <view class="helperinfo" wx:if="{{!isPublisher}}">
-  <userinfo avatarUrl="{{userinfos.avatarUrl}}" nickname="{{userinfos.nickname}}" size="60">  </userinfo>
+<view  wx:if="{{isPublisher}}"><title title='帮手信息'>
+  <view class="helperinfo" wx:if="{{isPublisher}}">
+  <userinfo avatarUrl="{{userinfos.avatarUrl}}" nickname="{{userinfos.nickName}}" size="60">  </userinfo>
   </view>
 </title></view>
 
@@ -33,7 +33,7 @@
 
 <!-- 发布者和执行者两种界面！ -->
 
-<view class="submitStatus" wx:if="{{isPublisher}}">
+<view class="submitStatus" wx:if="{{!isPublisher}}">
   <view><title title='提交状态'><view class="title"></view></title></view>
   <view class="statusNormal statusYes" wx:if="{{status.status == 0}}">
     <view class="icon">✓</view>
@@ -54,7 +54,7 @@
 
 <view style="height: 188rpx;"></view>
 <!-- 把按钮栏顶开 -->
-<view class="buttonBox" wx:if="{{!isPublisher}}">
+<view class="buttonBox" wx:if="{{isPublisher}}">
   <button class="btnNo" bindtap="refuse">认定无效</button>
   <button class="btnYes" bindtap="confirm">确认完成</button>
 </view>

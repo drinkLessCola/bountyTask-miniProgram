@@ -17,8 +17,8 @@ Page({
     finisherName:'',
     finisherImg:'',
 
-    isPublisher:0,
-    // 0是发布方 1是执行方
+    isPublisher:false,
+    // 1是发布方 0是执行方
     status : {
       status:0
     },
@@ -39,8 +39,8 @@ Page({
     },
 
     userinfos:{
-      Id:0,
-      nickname:'发布者',
+      id:0,
+      nickName:'发布者',
       avatarUrl:'http://tmp/ny1Hd2Fgrql4d21c915c93b7255357d06571d729118e.jpeg',
       // lzh的头像
     },
@@ -53,18 +53,18 @@ Page({
     
   },
 
-  isPublisher() {
-    if(this.data.userid == this.data.publisherId){
-      this.setData({
-        isPublisher:0
-      })
-    }
-    else {
-      this.setData({
-        isPublisher:1
-      })
-    }
-  },
+  // isPublisher() {
+  //   if(this.data.userid == this.data.publisherId){
+  //     this.setData({
+  //       isPublisher:0
+  //     })
+  //   }
+  //   else {
+  //     this.setData({
+  //       isPublisher:1
+  //     })
+  //   }
+  // },
 
   getUserInfo(userid:number){
     getUserInfo(userid.toString())
@@ -111,14 +111,20 @@ Page({
   getProveImg(userid:number , taskid :number) {
     //调用接口 查找该用户在该任务中提交的证明图片
     const that = this
-    let imgInfo
+    let imgInfo = this.data.imgInfo
      getImage(userid.toString(),taskid.toString())
       .then ((data) => {
-        imgInfo=data
-        this.setData({
-          imgInfo:imgInfo as any
-        })
-        that.shiftImgArray()
+        console.log(data + "GI");
+        if(data){
+          imgInfo.data=data as string[];
+          this.setData({
+            imgInfo:imgInfo as any
+          })
+        console.log("GISUCCESS:  "+ that.data.imgInfo);
+        
+          that.transformImgArray()
+        }
+        
       })
       .catch ((err) => {
         console.log(err);
@@ -126,7 +132,7 @@ Page({
       })
   },
 
-  shiftImgArray() {
+  transformImgArray() {
     let imgInfo = this.data.imgInfo
     const addString = 'data:image/png;base64,'
     let newString
@@ -160,28 +166,24 @@ Page({
     
     // 暂时屏蔽
 
-    // let that = this;
-    // const eventChannel = this.getOpenerEventChannel();   //取到事件对象
-    // eventChannel.on("handleEvent",data=>{//发布事件
-    //   let task = {
-    //     id:data.taskid,
-    //     title:data.taskTitle,
-    //     request:data.taskRequest
-    //   }
-    //   that.setData({
-    //     task:task,
-    //     finisherId:data.finisherId,
-    //     isPublisher:data.isPublisher
-    //   })
-    //   // console.log(data,"我被传过来了");
-    // });
-    // console.log(eventChannel);
-    this.getProveImg(this.data.userid,this.data.task.id)
-    if(this.data.isPublisher==0) {
-      this.getUserInfo(this.data.userid)
-    }else{
-      this.getTaskStatus(this.data.userid,this.data.task.id)
-    }
+    let that = this;
+    const eventChannel = this.getOpenerEventChannel();   //取到事件对象
+    eventChannel.on("handleEvent",data=>{//发布事件
+      let task = {
+        id:data.taskId,
+        title:data.taskTitle,
+        request:data.taskRequest
+      }
+      that.setData({
+        task:task,
+        finisherId:data.finisherId,
+        isPublisher:data.isPublisher,
+        userid:data.userid
+      })
+      console.log(data,"我被传过来了");
+    });
+    console.log(eventChannel);
+    
 
   },
 
@@ -196,6 +198,14 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
+    if(this.data.isPublisher==true) {
+      this.getUserInfo(this.data.finisherId)
+    }else{
+      this.getTaskStatus(this.data.userid,this.data.task.id)
+    }
+    console.log(this.data.finisherId,this.data.task.id + ' FTinfo' );
+    
+    this.getProveImg(this.data.finisherId,this.data.task.id)
 
   },
 

@@ -72,7 +72,7 @@
       
       <button wx:if="{{!isOutDate && receiveStatus === '未接受'}}" class="receive-btn" bindtap="showDialog">接任务</button>
       <button wx:if="{{!isOutDate && receiveStatus === '未提交'}}" class="submit-btn" bindtap="toFinish">完成任务</button>
-      <button wx:if="{{!isOutDate && receiveStatus === '已提交'}}" class="finished-btn" bindtap="" >查看完成情况</button>
+      <button wx:if="{{!isOutDate && receiveStatus === '已提交'}}" class="finished-btn" bindtap="confirmTask" >查看完成情况</button>
       <button wx:if="{{isOutDate}}" class="disable-btn">已截止</button>
 
     </view>

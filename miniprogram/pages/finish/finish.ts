@@ -92,40 +92,67 @@ Page({
   },
   
   // 删除图片？先不给你删[doge]
-  // 现在..能用
   
   submit: function () {
     console.log("submit");
+    let flag = true //判定是否提交成功
     this.data.base64Array.forEach(e => {
+      
+      let string_e = e.toString()
+      console.log({
+        taskid:this.data.taskid,
+        userid:this.data.userid,
+        img:string_e
+      });
+      
       if(e != ''){
-      submitImage(this.data.taskid,this.data.userid,e.toString())
+      submitImage(this.data.taskid,this.data.userid,string_e)
       // 擦，后端似乎不能强行接收base64
         .then((data) => {
-          console.log(data);
+          console.log(data+'SI');
         })
         .catch((err) => {
-          console.log(err);
+          flag = false
+          console.log(err+'SI');
         })
       }
     })
     submitTask(this.data.taskid,this.data.userid)
       .then((data) => {
-        console.log(data);
+        console.log(data)+'ST';
       })
       .catch((err) => {
-        console.log(err);
+        flag =false
+        console.log(err+'ST');
       })
+      if(flag){
+        wx.showToast({
+          title:"提交成功"
+        })
+        // setTimeout(() => {
+        //   wx.navigateBack()
+        // },2000)
+        // 这里我无法判定是否成功。。。
+        
+      }else{
+        wx.showToast({
+          title:"提交失败",
+          icon:"error"
+        })
+      }
   },
   /**
    * 生命周期函数--监听页面加载
    */
   // 额？从哪个界面进来的？
   onLoad(option) {  
-    if(option) {
-      let taskid
-    taskid=Number(option.id)
+    let taskid
+    let userid
+    taskid=Number(option.taskid)
+    userid=Number(option.userid)
     this.setData({
-      taskid:taskid
+      taskid:taskid,
+      userid:userid
     })
     // 懒得删掉了
     getTaskById(taskid.toString())
@@ -136,7 +163,7 @@ Page({
         })
       })
       .catch((err) => console.log(err))
-    }
+    
     
   },
   // 获取任务这个接口测试后没有问题（因为这里我把他设置成了首页面，上一个页面是没东西传过来的）

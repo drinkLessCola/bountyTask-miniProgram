@@ -103,7 +103,7 @@ Page({
         })
         const receiveSelf = receiverInfo.filter((r) => r.id === userid)[0],
               receiveStatus = !receiveSelf ? '未接受' : 
-                (receiveSelf.status ? '未提交' : '已提交')
+                (receiveSelf.status == '进行中' ? '未提交' : '已提交') //只要接收了任务,那么这个receiveSelf.status就只会是进行中或者已提交，没接收任务的会被上一行判定赋值
         isPublisher = userid === user.id
         this.setData({ publisher: user, receiverInfo, isPublisher, receiveStatus })
         return getTaskById(taskid)
@@ -144,13 +144,26 @@ Page({
     const {taskid, userid} = this.data
     wx.navigateTo({url:`/pages/finish/finish?taskid=${taskid}&userid=${userid}`})
   },
+
+
+
   confirmTask: function (e: any) {
     console.log(e)
-    const {info:{id}} = e.currentTarget.dataset
-    const {taskid, isPublisher, task:{title, request}} = this.data 
+    let id 
+    if(this.data.isPublisher){
+      // const {info:{id}} = e.currentTarget.dataset
+      id  =  e.currentTarget.dataset.info
+      // 执行方可没这个info id 
+    }else{
+      id = this.data.userid
+      // 执行方的finisherId就是自己的
+    }
+    
+    const {userid,taskid, isPublisher, task:{title, request}} = this.data 
     // console.log(t.info);
     // 跳转：确认完成界面 参数t.info.id(头像应该传不过去吧，太长了)
     let emitData = {
+      userid:userid,
       isPublisher: isPublisher,
       finisherId: id,
       taskId: taskid,
