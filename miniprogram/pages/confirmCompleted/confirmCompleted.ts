@@ -13,7 +13,7 @@ Page({
 
     userid:1,
     publisherId:1,
-    finisherId:2,
+    finisherId:1,
     finisherName:'',
     finisherImg:'',
 
@@ -33,7 +33,7 @@ Page({
 
     //---------------警告，测试用的task属性和后端不一样
     task: {
-      id: 0,
+      id: 1,
       title: '测试',
       request:'完成后截图'
     },

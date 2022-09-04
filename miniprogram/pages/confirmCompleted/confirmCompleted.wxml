@@ -6,20 +6,24 @@
 <!-- 自定义导航栏，抄来的,看上去有点抽象 -->
 <view class="taskTitle" style="margin-top:0;">{{task.title}}</view>
 
-<view><title><view class="title">任务要求</view></title></view>
-<view class="taskRequire">{{task.request}}</view>
+<view><title title='任务要求'>
+  <view class="taskRequire">{{task.request}}</view>
+</title></view>
+
 
 <!-- 发布者和执行者两种界面！ -->
 
-<view  wx:if="{{!isPublisher}}"><title><view class="title">帮手信息</view></title></view>
-<view class="helperinfo" wx:if="{{!isPublisher}}">
+<view  wx:if="{{!isPublisher}}"><title title='帮手信息'>
+  <view class="helperinfo" wx:if="{{!isPublisher}}">
   <userinfo avatarUrl="{{userinfos.avatarUrl}}" nickname="{{userinfos.nickname}}" size="60">  </userinfo>
-</view>
+  </view>
+</title></view>
 
-<view><title><view class="title">证明信息</view></title></view>
+
+<view><title title='证明信息'></title></view>
 <view  class="confirmBox">
   <!-- <p class="p">证明信息真的只有图片,加留言后端就爆炸了</p> -->
-  <view style="height: 20rpx;"></view>
+  <!-- <view style="height: 20rpx;"></view> -->
   <view class="imgBox" wx:for="{{imgInfo.imgArray}}">
     <image wx:if="{{index%3 != 2}}" src='{{item}}' mode="aspectFill" class="img"></image>
     <!-- 每行的最后一个没有右margin -->
@@ -30,7 +34,7 @@
 <!-- 发布者和执行者两种界面！ -->
 
 <view class="submitStatus" wx:if="{{isPublisher}}">
-  <view><title><view class="title">提交状态</view></title></view>
+  <view><title title='提交状态'><view class="title"></view></title></view>
   <view class="statusNormal statusYes" wx:if="{{status.status == 0}}">
     <view class="icon">✓</view>
     <view class="text">已通过</view>
