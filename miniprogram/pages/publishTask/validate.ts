@@ -19,8 +19,12 @@ const validateFunc: ValidateFunc = {
  * @param rules 规则数组，如 ["required"]
  */
 export function validate(val: any, rules: validateType[]): boolean {
+  // reduce 遍历规则数组，第一个参数是函数，数组的每一项都会执行该函数
+  // 函数的返回值会传递给下一次迭代的第一个参数 valid，最后返回给 res
   const res = rules.reduce((valid: boolean, rule) => {
+    // 如果有一个规则不符合，直接返回无效
     if (!valid) return valid
+    // 检验是否符合某一个规则，执行对应的规则函数
     return validateFunc[rule](val)
   }, true)
   return res

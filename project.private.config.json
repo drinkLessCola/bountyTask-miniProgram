@@ -45,6 +45,13 @@
           "query": "",
           "launchMode": "default",
           "scene": null
+        },
+        {
+          "name": "任务详情",
+          "pathName": "pages/taskDetail/taskDetail",
+          "query": "taskid=14&userid=4",
+          "launchMode": "default",
+          "scene": null
         }
       ]
     }

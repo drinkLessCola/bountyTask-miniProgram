@@ -7,10 +7,12 @@ interface ResultObject {
     data:Object,
     message:string
   },
-  errMsg:string
+  errMsg:string,
+  statusCode:number
 }
 // 响应拦截器，抄的
 const dataInterceptor = (response:ResultObject) => {
+  wx.hideLoading()
   console.log("response:", response);
   const {data, code, message} = response.data
     if(code) return Promise.resolve(data)
@@ -19,7 +21,7 @@ const dataInterceptor = (response:ResultObject) => {
         icon:'none',
         title:message
       })
-      return Promise.reject(response.data)
+      return Promise.reject(response.statusCode)
     }
 }
 const errorInterceptor = (err:WechatMiniprogram.GeneralCallbackResult) => {
@@ -32,6 +34,7 @@ const errorInterceptor = (err:WechatMiniprogram.GeneralCallbackResult) => {
 
 
 export const postRequest = async (url:string, unhandleData:string | object | ArrayBuffer, header?:object) => {
+  wx.showLoading({title:"加载中", mask:true})
   const data = JSON.stringify(unhandleData)
   const result = await new Promise((resolve:(res:Promise<Object>) => void, reject:(res:Promise<PromiseRejectedResult> | undefined) => void) => {
     wx.request({
@@ -56,6 +59,7 @@ export const postRequest = async (url:string, unhandleData:string | object | Arr
 }
 
 export const getRequest = async(url:string) => {
+  wx.showLoading({title:"加载中", mask:true})
   const result = await new Promise((resolve, reject) => {
     wx.request({
       url: BASE_URL + url,
@@ -71,6 +75,7 @@ export const getRequest = async(url:string) => {
 }
 
 export const putRequest = async (url:string, unhandleData:string | object) => {
+  wx.showLoading({title:"加载中", mask:true})
   const data = JSON.stringify(unhandleData)
   return await new Promise((resolve, reject) => {
     wx.request({

@@ -6,7 +6,7 @@ import {getRequest, putRequest, postRequest } from '../utils/request'
  * 获取用户的收藏任务
  * @param userid 用户 uid
  */
-export async function getCollectedTasksById (userid:string) {
+export async function getCollectedTasksById (userid:number) {
   const res = await getRequest(`/collect/_mget/${userid}`)
   return res
 }
@@ -16,9 +16,9 @@ export async function getCollectedTasksById (userid:string) {
  * @param userid 用户 id
  * @param taskid 任务 id
  */
-export async function deleteCollectedTasksById (userid:Number,taskid:Number) {
+export async function deleteCollectedTasksById (userid:number, taskid:number) {
   const data = {userid, taskid}
-  const res = await putRequest(`collect/delete`,data)
+  const res = await putRequest(`/collect/delete`,data)
   return res
 }
 

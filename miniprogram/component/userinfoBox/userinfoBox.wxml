@@ -6,7 +6,6 @@
 <!-- size为头像长宽 单位rpx -->
 <!-- 淦，外部样式怎么用不了，不知道哪写错了 先不管了-->
 
-<view class="Box" style="height: {{size}}rpx;">
-  <image  src="{{avatarUrl}}" style="width: {{size}}rpx; height: {{size}}rpx; border-radius: {{size}}rpx;"></image>
-  <text class="fontCSS" style="top:{{fontTop}}rpx;">{{nickname}} </text>
+<view class="Box {{mode === 'publisher'? 'publisher': ''}}">
+  <image src="{{avatarUrl}}"></image>{{nickname}}
 </view>

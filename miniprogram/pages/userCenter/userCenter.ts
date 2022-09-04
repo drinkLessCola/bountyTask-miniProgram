@@ -12,6 +12,33 @@ Page({
     nickName: '',
     avatarUrl:'',
   },
+  // 登录
+  handleLogin() {
+    login()
+    .then(() => {
+      const avatarUrl = wx.getStorageSync('avatarUrl'),
+      nickName = wx.getStorageSync('nickName')
+      this.setData({
+        avatarUrl,
+        nickName,
+      })
+    })
+  },
+  // 登出
+  logout() {
+    wx.removeStorageSync('uid')
+    wx.removeStorageSync('avatarUrl')
+    wx.removeStorageSync('nickName')
+    wx.removeStorageSync('openId')
+    this.setData({
+      avatarUrl: '',
+      nickName: '',
+    })
+    wx.showToast({
+      title:'已登出',
+      icon:'none'
+    })
+  },
   toTaskCollect() {
     const uid = wx.getStorageSync('uid')
     if(uid) {
@@ -23,7 +50,7 @@ Page({
         icon:'none',
         title:'请先登录！'
       })
-      login()
+     this.handleLogin()
     }
   },
   toVersionInfo() {

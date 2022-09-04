@@ -24,8 +24,8 @@ export async function login() {
         })
         let user = res.userInfo
         console.log(user)
-        wx.setStorageSync('user', user) //信息暂存在客户端
         const code = wx.getStorageSync('user_code')
+        wx.removeStorageSync('user_code')
         const encryptedData = res.encryptedData
         const iv = res.iv
         console.log(code, encryptedData, iv)
@@ -45,7 +45,6 @@ export async function login() {
           wx.setStorageSync('avatarUrl', avatarUrl)
           wx.setStorageSync('nickName', nickName)
           wx.setStorageSync('openId', openId) // 这是啥来着……
-          console.log(uid)
           wx.setStorageSync('uid', uid)
           resolve(uid)
         })

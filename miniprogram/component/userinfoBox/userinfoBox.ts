@@ -8,7 +8,8 @@ Component({
   properties: {
     avatarUrl: String,
     nickname: String,
-    size:Number
+    size:Number,
+    mode:String
   },
 
   
@@ -16,8 +17,6 @@ Component({
    * 组件的初始数据
    */
   data: {
-    avatarUrl: '',
-    nickname: '',
     size:50,
     fontTop:20,
   },

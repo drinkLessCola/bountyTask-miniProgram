@@ -15,7 +15,7 @@
   </view> -->
   <search mode="white" width="520" bind:search="search"></search>
 <!-- 铃铛 -->
-  <view class="msg msg_icon" bindtap="toMsg"></view>
+  <view class="msg home-msg-icon" bindtap="toMsg"></view>
 </view>
 <!-- 这两个黑字标题样式一样 -->
 <view class="titleText">寻求帮助</view>

@@ -1,19 +1,20 @@
 import {getRequest, putRequest, postRequest } from '../utils/request' 
+import { getCollectedTasksById } from './taskCollection'
 
-export async function getTaskById (taskId:string) {
+export async function getTaskById (taskId:number) {
   const res = await getRequest(`/task/get/${taskId}`)
   return res
 }
 /* @param taskId 任务 id */
-export async function getTaskStatus(taskId:string) {
+export async function getTaskStatus(taskId:number) {
   const res = await getRequest(`/user_task/get/${taskId}`)
   return res
 }
 
-export async function getUserInfo(id:string) {
-  const res = await getRequest(`/user/get/${id}`)
-  return res
-}
+// export async function getUserInfo(id:string) {
+//   const res = await getRequest(`/user/get/${id}`)
+//   return res
+// }
 // 上面三个上往下依次为:
 // 根据任务id获得任务发布者id，任务执行者id，以及其在该任务的状态 both
 // 根据任务id查询返回任务对象  both
@@ -25,13 +26,13 @@ export async function getUserInfo(id:string) {
  * 接任务
  */
 export async function takeTask(taskid:number,userid:number) {
-  const data = JSON.stringify({userid, taskid})
+  const data = {taskid, userid}
   const res = await postRequest(`/task/take`,data)
   return res
 }
 // 添加收藏任务
-export async function addCollectTask(taskid:number,userid:number) {
-  const data = JSON.stringify({userid, taskid})
+export async function addCollectTask(userid:number,taskid:number) {
+  const data = {userid, taskid}
   const res = await postRequest(`/collect/add`,data)
   return res
 }
@@ -57,8 +58,24 @@ export async function addCollectTask(taskid:number,userid:number) {
  * @param taskid 任务 id
  */
 export async function offlineTask(userid:number, taskid:number) {
-  const data = JSON.stringify({userid, taskid})
+  const data = {userid, taskid}
   const res = await putRequest(`/task/offline`, data)
   return res
 }
 /*----------------------------------*/
+interface CollectObj {
+  id:number,
+  userId:number,
+  taskId:number
+}
+/**
+ * 用户是否收藏了 taskid 的任务
+ * @param userid 
+ * @param taskid 
+ */
+export async function isCollected (userid:number, taskid:number):Promise<boolean> {
+  const collectList = await getCollectedTasksById(userid)
+  console.log(collectList)
+  const tasks = (collectList as CollectObj[]).map((task) => task.taskId)
+  return tasks.includes(taskid)
+}

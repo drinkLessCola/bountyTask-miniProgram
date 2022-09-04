@@ -1,69 +1,47 @@
 // miniprogram.ts
 
-
+import { deleteCollectedTasksById } from "../../API/taskCollection"
+import { addCollectTask, getTaskById, getTaskStatus, isCollected, takeTask } from "../../API/taskDetail"
+const app = getApp()
+type ReceivedStatus = '未接受' | '未提交' | '已提交'
 Page({
-
   /**
    * 页面的初始数据
    */
   data: {
-    // avatarUrl: getApp().globalData.defaultAvatarUrl,
-    userid:0,
-    // 当前用户id
-    isPublisher:1,
-    // 0是发布者 1不是
-    hidden:1,
-    //提示框 0不显示1显示
-    isCollect:0,
-    //0不收藏1收藏,实心星星图案缺失
-    isGot:0,
-    //0未接该任务,1已接该任务
-    //已接任务的按钮还没做,样式未知
-
-    publish:{
-      Id:0,
-      nickname:'发布者',
-      avatarUrl:'http://tmp/ny1Hd2Fgrql4d21c915c93b7255357d06571d729118e.jpeg',
-      // lzh的头像
+    taskid: 0,   // 任务 id 
+    userid: 0,   // 当前用户 id
+    isPublisher: true,  // 0是发布者 1不是 (感觉好像反了哈哈，直接用 boolean 吧
+    showDialog: false,  // true 显示 确认接受任务的对话框
+    isCollect: false,   // true 收藏,实心星星图案缺失 补上了
+    isOutDate: false,   // 任务是否已截止
+    receiveStatus: '未接受' as ReceivedStatus,  // 任务接受状态
+    bottomBarHeight: app.globalData.bottomBarHeight,
+    publisher: {
+      id: 0,
+      nickName: '孜然',
+      avatarUrl: 'https://thirdwx.qlogo.cn/mmopen/vi_32/DYAIOgq83erl9ZckDjfNl3g2PGJgfX0OLafM9MWZWC6KYEZWmdWVshDOA5lfh5zibo3dCdbVb07MFwFYsFEIBVQ/132',
+      // lzh的头像 现在是我的头像了（×
     },
-    
-    geter:{
-      Id:0,
-      nickname:'',
-      avatarUrl:'',
-      status:0,//2：待确认；1：进行中；0：已完成
-    },
-    // 领取者获取回来时的对象结构，仅用作展示
-    taskid:0,
-    //方便onload写入
-    task:{
-      id:0,
-      title:'任务标题',
-      getCondition:[{
-        id:1,
-        nickname:'一号',
-        avatarUrl:'http://tmp/ny1Hd2Fgrql4d21c915c93b7255357d06571d729118e.jpeg',
-        status:"已完成",
-      },{
-        id:2,
-        nickname:'2号',
-        avatarUrl:'http://tmp/ny1Hd2Fgrql4d21c915c93b7255357d06571d729118e.jpeg',
-        status:"待确认",
-      },{
-        id:3,
-        nickname:'3号',
-        avatarUrl:'http://tmp/ny1Hd2Fgrql4d21c915c93b7255357d06571d729118e.jpeg',
-        status:"进行中",
-      }],//这个需要二次请求才会处理好放进来
-      illstrate:'你猜11111111111111111111111111111111111111111111111111111111111111111122222222222222222222',
-      request:'截图 / 拍照',
-      number:1,//这个是剩余n份任务
-      labels:['泰山区','紧急','校外',1],
-      deadline:'2022年8月16日 上午 08 : 00',//yyyy年MM月dd日 上/下午 hh:mm 这里月份的十位若是0则不显示
-      bounty:'2',//这个是每份的 
-
-    },
-
+    // 任务情况
+    task: {
+      id: 0,
+      title: '任务标题',
+      illustrate: '你猜',
+      request: '截图 / 拍照',
+      number: 1,//这个是剩余n份任务
+      labels: ['泰山区', '紧急', '校外'],
+      deadline: '2022年8月16日 上午 08:00',//yyyy年MM月dd日 上/下午 hh:mm 这里月份的十位若是0则不显示
+      contact: '联系方式',
+      bounty: 2,//这个是每份的 
+    } as TaskDetailObj,
+    // 执行者信息
+    receiverInfo: [{
+      id: 1,
+      nickName: '一号',
+      avatarUrl: 'http://tmp/ny1Hd2Fgrql4d21c915c93b7255357d06571d729118e.jpeg',
+      status: "已完成",
+    }] as TaskUser[],
     // 以下可看作 清单
 
     // 这里的task对象是需要在下面处理后再放数据的
@@ -80,6 +58,7 @@ Page({
 
     //这里需要写一个字符串分离方法,因为后端的labels是个字符串而不是字符串数组 | 已完成未测试
     //要是有大聪明自定义标签是个','就寄了 | 不管
+    // 大聪明哈哈哈哈
 
     //时间从任务对象里获取后要处理 |未获取已处理
 
@@ -93,7 +72,7 @@ Page({
 
   },
 
- 
+
 
   // onChooseAvatar(e:any) {
   //   const   { avatarUrl }  = e.detail
@@ -102,24 +81,74 @@ Page({
   //   })
   //   console.log(avatarUrl);
   // },
-
-  getTask(taskid:number) {
-    //调用 根据任务id查询 根据任务id返回发布者id
-  },  
-
-  isPublisher:function(nowid:number , taskPublisherId:number){
-    this.setData({
-      isPublisher:(nowid!=taskPublisherId? 1 : 0)
-    })
-    //偷懒,直接三元解决
-    // 注意 0 才是发布者
+  formatTime(d: string) {
+    const [date, time] = d.split(" ")
+    const [year, month, day] = date.split('-')
+    const [h, minutes] = time.split(":")
+    const hour = `0${+h % 12}`.slice(-2)
+    const isAm = +h >= 12
+    return `${year}年${+month}月${day}日 ${isAm ? '上午' : '下午'} ${hour}:${minutes}`
   },
+  /**
+   * 获取
+   * @param taskid 任务 id
+   */
+  getTaskDetail(taskid: number, userid: number) {
+    let isPublisher:boolean = false
+    wx.showLoading({ title: "加载中…" })
+    getTaskStatus(taskid)
+      .then((data) => {
+        console.log('taskStatus', data)
+        // data[0] 为发布者
+        const [publisher, ...receivers] = data as TaskStatusObj[]
+        const { user } = publisher
+        const receiverInfo = receivers.map((r) => r.user)
+        isPublisher = userid === user.id
+        this.setData({ publisher: user, receiverInfo, isPublisher })
+        return getTaskById(taskid)
+      })
+      .then((data) => {
+        console.log(data)
+        const { id, title, illustrate, taskNumber, getNum, deadline: ddl, bounty, contact, label, request } = data as UnhandledTaskDetail
+        const number = taskNumber - getNum,
+          labels = label ? label.split(',') : []
+        const deadline = this.formatTime(ddl)
+        const task: TaskDetailObj = { id, title, illustrate, request, number, labels, deadline, bounty, contact }
+        this.setData({ task })
+        if(!isPublisher) this.checkCollected()
+      })
+      .catch((errCode) => {
+        wx.showToast({
+          icon: "none",
+          title: `获取任务详情失败! errCode:${errCode}`,
+        }).then(() => {
+          wx.navigateBack()
+        })
+      })
+    //调用 根据任务id查询 根据任务id返回发布者id
+  },
+  checkCollected() {
+    const {taskid, userid} = this.data
+    isCollected(userid, taskid)
+    .then(isCollect => {
+      console.log(isCollect)
+      this.setData({isCollect})
+    })
+    .catch(errCode => console.log("查询收藏信息失败！errCode:" + errCode))
+  },
+  // isPublisher:function(nowid:number , taskPublisherId:number){
+  //   this.setData({
+  //     isPublisher: nowid !== taskPublisherId
+  //   })
+  //   //偷懒,直接三元解决
+  //   // 注意 0 才是发布者
+  // },
 
-  timeHandler:function(s:string) {
+  timeHandler: function (s: string) {
     // yyyy-MM-dd hh:mm:ss
     const date = new Date(s)
-    const isAM=['上午','下午']
-    let timeString = date.getFullYear()+'年'+ (date.getMonth()+1) + '月' + date.getDate() + '日 ' + (isAM[date.getHours()/12]) +' ' + (date.getHours()%12>=10 ? date.getHours()%12 : '0'+ date.getHours()%12) +' : ' +  (date.getMinutes()>=10 ? date.getMinutes() : '0'+ date.getMinutes())
+    const isAM = ['上午', '下午']
+    let timeString = date.getFullYear() + '年' + (date.getMonth() + 1) + '月' + date.getDate() + '日 ' + (isAM[date.getHours() / 12]) + ' ' + (date.getHours() % 12 >= 10 ? date.getHours() % 12 : '0' + date.getHours() % 12) + ' : ' + (date.getMinutes() >= 10 ? date.getMinutes() : '0' + date.getMinutes())
     return timeString
     // 懒得设变量,略显抽象,内含：
     // 24转12小时制
@@ -128,83 +157,97 @@ Page({
 
   },
 
-  toLabelsArray:function(s:string) :string[] {
-    return s.split(",")
-    // 好家伙，有现成的
-  },
+  // toLabelsArray:function(s:string) :string[] {
+  //   return s.split(",")
+  //   // 好家伙，有现成的
+  // },
 
-  comfirmTask:function(e:any) {
+  comfirmTask: function (e: any) {
     const t = e.currentTarget.dataset
     // console.log(t.info);
     // 跳转：确认完成界面 参数t.info.id(头像应该传不过去吧，太长了)
     let emitData = {
-      isPublisher : this.data.isPublisher,
-      finisherId : t.info.id,
-      taskId : this.data.task.id,
-      taskTitle : this.data.task.title,
-      taskRequest : this.data.task.request
+      isPublisher: this.data.isPublisher,
+      finisherId: t.info.id,
+      taskId: this.data.task.id,
+      taskTitle: this.data.task.title,
+      taskRequest: this.data.task.request
     }
     wx.navigateTo({
-      url:"/pages/confirmCompleted/confirmCompleted",
-      success:function(res) {
-        res.eventChannel.emit('handleEvent' , emitData)
+      url: "/pages/confirmCompleted/confirmCompleted",
+      success: function (res) {
+        res.eventChannel.emit('handleEvent', emitData)
       }
     })
   },
 
-  btnPutDown:function() {
+  btnPutDown: function () {
     //调用接口:下线任务
   },
-
-  taskCollect:function() {
+  
+  // ✔ 添加收藏
+  taskCollect: function () {
+    const {taskid, userid} = this.data
     //调用接口:添加收藏任务
+    addCollectTask(userid, taskid)
+    .then(() => {
+      this.checkCollected()
+      wx.showToast({ icon:"success", title:"收藏成功！"})
+    })
+    .catch(errCode => {
+      wx.showToast({ icon:'none', title:"添加收藏失败！errCode:" +  errCode})
+    })
   },
-
-  delCollect:function() {
+  // ✔ 取消收藏
+  delCollect: function () {
+    const {taskid, userid} = this.data
     //调用接口:删除收藏任务
+    deleteCollectedTasksById(userid, taskid)
+    .then(() => {
+      this.checkCollected()
+      wx.showToast({ icon:"success", title:"取消收藏成功！"})
+    })
+    .catch(errCode => {
+      wx.showToast({ icon:"none", title:'取消收藏失败！errCode' + errCode})
+    })
   },
 
-  btnGetTask:function() {
-    this.setData({
-      hidden:1
-    })
+  showDialog: function () {
     // 显示提示框
+    this.setData({ showDialog: true})
   },
-
-  btnNo:function() {
-    this.setData({
-      hidden:0
-    })
+  hideDialog: function () {
     // 关闭
+    this.setData({ showDialog: false })
   },
 
-  btnYes:function() {
+  receiveTask: function () {
     // 调用接口:接任务
-    this.setData({
-      hidden:0
+    const {taskid, userid} = this.data
+    takeTask(taskid, userid)
+    .then((data) => {
+      console.log(data)
+      this.getTaskDetail(taskid, userid)
+      wx.showToast({icon:"success", title:"接受任务成功！"})
+    })
+    .catch(errCode => {
+      wx.showToast({icon:"none", title:"接受任务失败！errCode:" + errCode})
     })
     // 关闭
+    this.hideDialog()
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad(option) {
-    this.setData({
-      hidden:0,
-      taskid:Number(option.taskid),
-      userid:Number(option.userid)
-    })
-    console.log(
-      this.data.taskid+' '+this.data.userid
-    );
-    
+  onLoad(option: any) {
+    const taskid = +option.taskid,
+      userid = +option.userid
+    this.setData({ taskid, userid })
+    this.getTaskDetail(taskid, userid)
     // console.log(new Date('2022-08-01 00:00:00'));
     // console.log(option.taskid);
     // 似乎可以用eventChannel把整个task发过来。。以后优化
-
-    
-    
   },
 
   /**
@@ -218,7 +261,6 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
-
   },
 
   /**

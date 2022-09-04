@@ -1,20 +1,24 @@
 /* component/userinfoBox/userinfoBOx.wxss */
 .Box {
   width: fit-content;
-  
+  color:#333;
+  font-size: 28rpx;
   image {
     display: inline-block;
+    // 图片与文字的对齐方式
+    vertical-align: middle;
+    border-radius: 50%;
+    height:50rpx;
+    width:50rpx;
+    margin-right:10rpx;
   }
-  text {
-    // line-height: 60rpx;
-    position: relative;
-    display: inline-block;
-    text-align: left;
-    margin-left: 10rpx;
-    // top:-33rpx;
-    // 麻了,瞪眼对齐法
-    // 不知道怎么让字自动贴边 我忘了那个属性叫什么
-    font-size: 28rpx;
-    
+}
+
+.publisher {
+  color:#555;
+  font-size: 28rpx;
+  image {
+    width: 60rpx;
+    height: 60rpx;
   }
 }

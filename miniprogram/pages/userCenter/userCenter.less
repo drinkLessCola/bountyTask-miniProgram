@@ -1,6 +1,8 @@
 /* miniprogram.wxss */
 page {
   background: #f6f6f6;
+  height:100vh;
+  overflow: auto;
   .bg {
     position: absolute;
     top:0;
@@ -17,9 +19,8 @@ page {
   width:100vw;
   padding:0 50rpx;
   box-sizing: border-box;
-  
-  
-
+  // padding 可以撑开盒子 margin 不可以
+  padding-bottom: 160rpx;
   // 头像
   .avatar {
     width:200rpx;
@@ -119,6 +120,7 @@ header {
   background-color: #fff;
   color:#515151;
   border-radius: 10rpx;
+  margin:40rpx 0;
   .menubar-item{
     display: flex;
     align-items: center;
@@ -135,5 +137,15 @@ header {
     width:34rpx;
     height:32rpx;
     background-size:auto 32rpx; 
+  }
+}
+.logout {
+  background-color: #ff843d;
+  color:#fff;
+  .menubar-item {
+    justify-content: center;
+    &:active {
+      background-color: #ff7221;
+    }
   }
 }

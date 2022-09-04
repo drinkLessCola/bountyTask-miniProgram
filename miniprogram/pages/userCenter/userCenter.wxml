@@ -3,7 +3,7 @@
 <view class="user-center">
   <view class="primary-title">个人中心</view>
   <header>
-    <view class="avatar" bindtap="login">
+    <view class="avatar" bindtap="handleLogin">
       <image src="{{avatarUrl}}" mode="aspectFit"></image>
     </view>
     <ul class="user-data">
@@ -18,7 +18,7 @@
       </li>
     </ul>
   </header>
-  <view class="nickname" bindtap="login">{{nickName || '点击登录'}}</view>
+  <view class="nickname" bindtap="handleLogin">{{nickName || '点击登录'}}</view>
 
   <!-- 中间的那一栏 -->
   <ul class="tabbar">
@@ -58,5 +58,9 @@
       <view class="icon info-icon"/>
       <span class="title">版本信息</span>
     </li>
+  </ul>
+
+  <ul class="menubar logout">
+    <li class="menubar-item" bindtap="logout">退出登录</li>
   </ul>
 </view>

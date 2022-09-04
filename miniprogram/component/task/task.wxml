@@ -10,7 +10,7 @@
         <span class="icon icon-address"></span>{{taskData.area}}
       </li>
       <li class="info">
-      <span class="icon icon_time"></span>
+      <span class="icon icon-time"></span>
       {{deadline}}</li>
     </ul>
     <span>{{publishTime}}</span>

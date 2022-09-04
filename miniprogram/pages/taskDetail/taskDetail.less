@@ -1,44 +1,43 @@
 /* miniprogram.wxss */
-// page {
-//   background-color: rgba(250, 243, 221, 1);
-// }
-
-.navBackGround {
-  z-index: -1000;
-  background-color: rgba(250, 243, 221, 1);
-  position: absolute;
-  height: 600rpx;
-  width: 100vw;
-  top: 0rpx;
+page {
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .topImg {
-  height: 260rpx;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 520rpx;
   width: 100vw;
+  background-color: #FAF3DD;
+  z-index: -5;
 }
 
 .background-publisher {
-  position: relative;
-  margin-top: 25rpx;
-  padding-top: 6rpx;
-  padding-left: 50rpx;
-  padding-right: 50rpx;
-}
-
-.background-publisher::after {
-  clear: both;
-  display: block;
-  content: '';
-  height: 188rpx;
+  margin-top: 30rpx;
+  padding: 0 50rpx;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: #fff;
 }
 
 .background-execute {
-  border-radius: 40rpx 40rpx 0 0 ;
+  margin-top: 260rpx;
+  padding: 0 50rpx;
   padding-top: 40rpx;
-  padding-left: 50rpx;
-  padding-right: 50rpx;
+  border-radius: 40rpx 40rpx 0 0;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: #fff;
 }
-
 
 .taskTitle,
 .bounty {
@@ -48,34 +47,38 @@
 }
 
 .bounty {
+  font-family: "Gilroy Bold";
   float: right;
 }
 
-.username {
+.userInfo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   margin-top: 10rpx;
 }
 
 .remainTaskNum {
-  float: right;
-  color: rgba(136, 136, 136, 1);
-  font-size: 28rpx;
-  margin-top: 19rpx;
+  color: #888;
 }
 
 .labelBox {
-  height: 50rpx;
-  margin-top: 2rpx;
+  margin-top: 10rpx;
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: -20rpx;
 
-  // “剩余x份”上移19rpx 距离标签20rpx 。。。
   .label {
-    float: right;
+    display: inline-block;
+    height: 50rpx;
+    line-height: 50rpx;
     background-color: rgba(239, 246, 204, 1);
     color: rgba(148, 176, 54, 1);
     font-size: 24rpx;
     margin-left: 10rpx;
     border-radius: 10rpx;
-    padding: 8rpx 20rpx 8rpx 20rpx;
     font-weight: bold;
+    padding: 0 20rpx;
   }
 
   .redlabel {
@@ -90,44 +93,18 @@
   clear: both;
 }
 
-.illstrate {
-  margin-top: 20rpx;
-  .illstrateText {
-    color: rgba(85, 85, 85, 1);
-    font-size: 28rpx;
-    margin-left: 20rpx;
-    margin-top: 18rpx;
-    width: 610rpx;
-    height: fit-content;
-    word-break: break-all;
+.timeBox {
+  display: flex;
+  align-items: center; // 垂直居中
+
+  .time {
+    position: relative;
+    //瞪
+    margin-left: 10rpx;
+    color: rgba(51, 51, 51, 1);
   }
 }
 
-.ddl {
-  margin-top: 34rpx;
-
-  .timeBox {
-    margin-top: 24rpx;
-    height: 40rpx;
-
-    image {
-      margin-left: 20rpx;
-      display: inline-flex;
-      width: 30rpx;
-      height: 30rpx;
-    }
-
-    .time {
-      position: relative;
-      top: -4rpx;
-      //瞪
-      margin-left: 10rpx;
-      color: rgba(51, 51, 51, 1);
-      font-size: 28rpx;
-      display: inline-flex;
-    }
-  }
-}
 
 .getCondition {
   margin-top: 40rpx;
@@ -149,108 +126,121 @@
   }
 }
 
-.request {
-  margin-top: 40rpx;
-  .requestText {
-    color: rgba(85, 85, 85, 1);
-    font-size: 28rpx;
-    margin-left: 20rpx;
-    margin-top: 18rpx;
-    width: 610rpx;
-    height: fit-content;
-    word-break: break-all;
-  }
-}
-
 .bottomButtons {
-  position: fixed;
-  bottom: 0rpx;
-  left: 0rpx;
-  height: 188rpx;
+  height: 120rpx;
   width: 100%;
   background-color: #fff;
-  padding-left: 50rpx;
-  padding-right: 50rpx;
-  box-sizing: border-box;
-  .putDownTask {
+
+  .publisherBtn {
     height: 100rpx;
-    width: 612rpx;
     color: rgba(255, 183, 0, 1);
-    background-color: rgba(255, 240, 201, 1);
+    background-color: #fff0c9;
     border-radius: 20rpx;
     font-size: 36rpx;
-    line-height: 66rpx;
+    margin-bottom: 20rpx;
+
+    &:active {
+      background-color: #ffecbb;
+    }
   }
 
-  image {
-    position: relative;
-    top : -12rpx;
-    margin-top: 46rpx;
-    width: 50rpx;
-    height: 50rpx;
+  .receiverBtn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
   }
+
+  .collect {
+    &:active {
+      background-color: #eee;
+    }
+  }
+
   .getToDoTask {
-    
-    display: inline-block;
-    margin-left: 236rpx;
-    background-color: rgba(255, 207, 86, 1);
+    background-color: #ffcf56;
     color: #fff;
     border-radius: 20rpx;
     font-size: 36rpx;
     width: 360rpx;
     height: 80rpx;
+    margin: 0;
+
+    &:active {
+      background-color: #ffc430;
+    }
   }
 }
 
+.mask {
+  position: fixed;
+  z-index:200;
+  left:0;
+  top:0;
+  width:100vw;
+  height:100vh;
+  background-color: rgba(0, 0, 0, 0.1);
+}
 
-.dialogBackground {
+.dialog {
   position: fixed;
   bottom: 0;
-  height: 100%;
-  z-index: 9000;
-  background-color: rgba(0,0,0,0.1);
-  // opacity: 0.9;
-  // 透明度误差±1
-  
-  .dialog {
-    position: relative;
-    top: 59.8%;
-    background-color: #fff;
-    border-radius: 60rpx 60rpx 0 0 ;
-    height: 602rpx;
-    z-index: 9999;
-    padding-top: 60rpx;
-    padding-left:  70rpx;
-    padding-right:  70rpx;
-    .title {
-      font-size: 48rpx;
-      font-weight: bold;
-    }
-    .text {
-      font-size: 32rpx;
-      margin-top: 34rpx;
-      color: rgba(85, 85, 85, 1);
-      height: 320rpx;
-    }
-    .buttons {
-      button {
-        font-size: 40rpx;
-        border-radius: 20rpx;
-        width: 280rpx;
-        height: 100rpx;
-        display: inline-block;
-      }
-      .btnNO {
-        margin-right: 50rpx;
-        background-color: rgba(230, 230, 230, 1);
-        color: rgba(85, 85, 85, 1);
-      }
-      .btnYes {
-        background-color:rgba(255, 207, 86, 1);
-        color: #fff;
-      }
-    }
-    
+  left: 0;
+  width:100vw;
+  height: 600rpx;
+  background-color: #fff;
+  z-index: 300;
+  border-radius: 60rpx 60rpx 0 0;
+  box-sizing: border-box;
+  padding:60rpx 70rpx 0 70rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  .title {
+    font-size: 48rpx;
+    font-weight: bold;
+  }
 
+  .text {
+    font-size: 32rpx;
+    margin-top: 34rpx;
+    color: rgba(85, 85, 85, 1);
+    height: 320rpx;
+    line-height: 52rpx;
+    flex:1;
+  }
+
+  .buttons {
+    margin-bottom: 20rpx;
+    display: flex;
+    width:100%;
+    justify-content: space-between;
+    button {
+      font-size: 40rpx;
+      border-radius: 20rpx;
+      width: 280rpx;
+      height: 100rpx;
+      display: inline-block;
+      margin:0;
+      &:active{
+        background-color: #ffc430;
+      }
+    }
+
+    .btnNO {
+      background-color: #e6e6e6;
+      color: rgba(85, 85, 85, 1);
+      &:active{
+        background-color: #ddd;
+      }
+    }
+
+    .btnYes {
+      background-color: rgba(255, 207, 86, 1);
+      color: #fff;
+      &:active{
+        background-color: #ffc430;
+      }
+    }
   }
 }

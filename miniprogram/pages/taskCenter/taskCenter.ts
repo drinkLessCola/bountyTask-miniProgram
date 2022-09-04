@@ -67,7 +67,7 @@ Page({
         this.setTaskArea(data as TaskObj[])
         this.setData({ taskArray: data as TaskObj[] })
       })
-      .catch((err) => console.log(err))
+      .catch((errCode) => wx.showToast({icon:'none', title:'获取任务列表失败' + errCode}))
   },
 
   // task对象这还得处理 后端的“泰山区” “华山区” 什么的在label里
@@ -156,7 +156,7 @@ Page({
     // 首页带参跳转
     const { keyword } = app.globalData
     app.globalData.keyword = ''
-    if( keyword ) this.setData({ keyword: keyword })
+    if(keyword) this.setData({ keyword: keyword })
     this.getTask()
   },
 })

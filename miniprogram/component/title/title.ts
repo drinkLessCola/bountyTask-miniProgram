@@ -4,6 +4,7 @@ Component({
    * 组件的属性列表
    */
   properties: {
+    title:String,
     underlineColor:String,
   },
 
@@ -11,15 +12,10 @@ Component({
    * 组件的初始数据
    */
   data: {
-    underlineColor: ''
   },
 
   lifetimes: {
-    attached: function () {
-      this.setData({
-        underlineColor:this.properties.underlineColor
-      })
-    },
+    attached: function () { },
     moved: function () { },
     detached: function () { },
   },

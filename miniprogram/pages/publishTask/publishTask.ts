@@ -305,7 +305,7 @@ Page({
   async submit() {
     // 校验必填项
     this.validateAllData()
-    if (!this.isValid()) return false
+    if (!this.isValid()) return
 
     const userid = await this.hasLogin()
     // 时间格式处理

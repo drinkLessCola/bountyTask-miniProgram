@@ -34,6 +34,52 @@ interface publishTaskObj {
   total: number,
   category:string,
 }
+interface TaskDetailObj {
+  bounty:number,
+  contact:string,
+  deadline:string,
+  // finishNum:number,
+  id:number,
+  illustrate:string,
+  labels:string[],
+  request:string,
+  number:number,
+  title:string,
+  //total:number,
+  //category:string,
+  //startTime:string,
+  //taskStatus:number,
+}
+interface UnhandledTaskDetail {
+  bounty:number,
+  contact:string,
+  deadline:string,
+  id:number,
+  illustrate:string,
+  label:string,
+  request:string,
+  getNum:number,
+  taskNumber:number,
+  title:string,
+  total:number,
+  category:string,
+  startTime:string,
+  taskStatus:number,
+}
+interface TaskUser {
+  id:number,
+  nickName:string,
+  avatarUrl:string,
+  status:string | number,
+}
+interface TaskStatusObj {
+  id:number,
+  taskId:number,
+  status:number,
+  role:number,
+  user:TaskUser
+}
+
 interface TaskCollectionOption {
   data: {
     height:number,
