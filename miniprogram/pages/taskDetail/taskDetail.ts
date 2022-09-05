@@ -155,7 +155,7 @@ Page({
       id  =  e.currentTarget.dataset.info
       // 执行方可没这个info id 
     }else{
-      id = this.data.userid
+      id = {id:this.data.userid}
       // 执行方的finisherId就是自己的
     }
     

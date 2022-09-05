@@ -2,6 +2,7 @@
 
 import { submitTask,getTaskById,submitImage,delImage,getImage } from "../../API/finish";
 const appf = getApp()
+const BASE_URL = "http://43.138.254.32"
 Page({
 
   /**
@@ -62,7 +63,7 @@ Page({
         var tempFiles = res.tempFiles
         const fileManager = wx.getFileSystemManager();
         const base64 = fileManager.readFileSync(tempFiles[0].tempFilePath, 'base64');
-        console.log(base64.toString());
+        // console.log(base64.toString());
         let base64Array =  _this.data.base64Array
         let imgArray =  _this.data.imgArray
         base64Array.push(base64.toString())
@@ -96,7 +97,7 @@ Page({
   submit: function () {
     console.log("submit");
     let flag = true //判定是否提交成功
-    this.data.base64Array.forEach(e => {
+    this.data.imgArray.forEach(e => {
       
       let string_e = e.toString()
       console.log({
@@ -106,15 +107,36 @@ Page({
       });
       
       if(e != ''){
-      submitImage(this.data.taskid,this.data.userid,string_e)
-      // 擦，后端似乎不能强行接收base64
-        .then((data) => {
-          console.log(data+'SI');
-        })
-        .catch((err) => {
-          flag = false
-          console.log(err+'SI');
-        })
+      
+
+      //   let imgSArray = this.spliceToShortString(string_e)
+      // submitImage(this.data.taskid,this.data.userid,string_e)
+      // // 擦，后端似乎不能强行接收base64
+      //   .then((data) => {
+      //     console.log(data+'SI');
+      //   })
+      //   .catch((err) => {
+      //     flag = false
+      //     console.log(err+'SI');
+      //   })
+
+      wx.uploadFile({
+        url:BASE_URL + '/haha',
+        filePath : e,
+        name : "image",
+        formData:{
+          taskid:this.data.taskid,
+          userid:this.data.userid,
+        },
+        success: res => {
+          console.log(res,'上传成功');
+        },
+        fail: err => {
+          console.log(err, '寄')
+        }
+      })
+
+
       }
     })
     submitTask(this.data.taskid,this.data.userid)
@@ -141,6 +163,20 @@ Page({
         })
       }
   },
+
+  spliceToShortString(img:string){
+    let stringArray = [];
+    let length = img.length
+    for(let i=0;i<length;i+=65535){
+      stringArray.push(img.substring(i, length >= i+65536 ? i+65536 :length ))
+    }
+    console.log(stringArray);
+    return stringArray;
+    
+  },
+
+
+
   /**
    * 生命周期函数--监听页面加载
    */

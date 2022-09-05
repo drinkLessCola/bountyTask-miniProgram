@@ -1,6 +1,6 @@
 // pages/confirmCompleted/confirmCompleted.ts
 import {getImage,getUserInfo,confirmeTask,rejectTask,taskStatus} from "../../API/confirmCompleted";
-
+const BASE_URL = "http://43.138.254.32"
 const appcC = getApp()
 Page({
     
@@ -112,6 +112,8 @@ Page({
     //调用接口 查找该用户在该任务中提交的证明图片
     const that = this
     let imgInfo = this.data.imgInfo
+      console.log(userid.toString()+' '+ taskid.toString());
+      
      getImage(userid.toString(),taskid.toString())
       .then ((data) => {
         console.log(data + "GI");
@@ -120,9 +122,8 @@ Page({
           this.setData({
             imgInfo:imgInfo as any
           })
-        console.log("GISUCCESS:  "+ that.data.imgInfo);
-        
-          that.transformImgArray()
+          console.log("GISUCCESS:  "+ that.data.imgInfo);
+          that.transformImgArrayURL()
         }
         
       })
@@ -144,6 +145,23 @@ Page({
       })
     }
   },
+
+  transformImgArrayURL() {
+    let imgInfo = this.data.imgInfo
+    const addString = BASE_URL+'/'
+    let newString
+    for(let index=0 ; index < imgInfo.data.length;index++){
+      newString = addString+imgInfo.data[index]
+      imgInfo.imgArray[index] = newString 
+      
+      
+    }
+    this.setData({
+      imgInfo:imgInfo
+    })
+    console.log( this.data.imgInfo.imgArray);
+  },
+
 
   getTaskStatus(userid:number,taskid:number) {
     taskStatus(userid,taskid)
@@ -176,7 +194,7 @@ Page({
       }
       that.setData({
         task:task,
-        finisherId:data.finisherId,
+        finisherId:data.finisherId.id,
         isPublisher:data.isPublisher,
         userid:data.userid
       })

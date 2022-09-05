@@ -15,11 +15,19 @@ export async function getTaskById (taskId:string) {
 
 // 上传证明图片 额，这用户上传的图片是url？
 // 好像确实有点奇怪
-export async function submitImage(taskid:number,userid:number,image:string) {
+// export async function submitImage(taskid:number,userid:number,image:string) {
+//   const data = {userid, taskid,image}
+//   const res = await postRequest(`/prove/submit`,data)
+//   return res
+// }
+
+
+export async function submitImage(taskid:number,userid:number,image:string[]) {
   const data = {userid, taskid,image}
   const res = await postRequest(`/prove/submit`,data)
   return res
 }
+
 
 // 删除某个证明图片 (额，所以是哪个。。。。)
 export async function delImage(userid:number, taskid:number) {
