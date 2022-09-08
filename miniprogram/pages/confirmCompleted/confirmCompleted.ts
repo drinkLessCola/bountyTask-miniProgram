@@ -179,6 +179,7 @@ Page({
 
   imgView(e:any){
     let i = e.currentTarget.dataset.id
+    // console.log(e.currentTarget.dataset);
     wx.previewImage({
       urls:this.data.imgInfo.imgArray,
       current:this.data.imgInfo.imgArray[i]

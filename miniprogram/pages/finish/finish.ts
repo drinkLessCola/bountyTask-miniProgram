@@ -64,6 +64,7 @@ Page({
         // const fileManager = wx.getFileSystemManager();
         // const base64 = fileManager.readFileSync(tempFiles[0].tempFilePath, 'base64');
         let addImgPath 
+        let imgArray =  _this.data.imgArray
         // console.log(base64.toString());
         wx.compressImage({
           src:tempFiles[0].tempFilePath,
@@ -71,6 +72,13 @@ Page({
           compressedWidth:750,
           success:(res) => {
             addImgPath=res.tempFilePath
+            console.log(addImgPath);
+            imgArray.push(addImgPath)
+            console.log(imgArray);
+           _this.setData({
+            // base64Array:base64Array,
+           imgArray:imgArray
+        })
           },
           fail: ()=> {
             console.log('压缩失败');
@@ -78,14 +86,10 @@ Page({
         })
 
         // let base64Array =  _this.data.base64Array
-        let imgArray =  _this.data.imgArray
+        
         // base64Array.push(base64.toString())
-        imgArray.push(addImgPath)
-        // console.log(_this.data.imgArray);
-        _this.setData({
-          // base64Array:base64Array,
-          imgArray:imgArray
-        })
+        // imgArray.push(tempFiles[0].tempFilePath)
+        
       },
       fail: function() {
         console.log("chooseError");
