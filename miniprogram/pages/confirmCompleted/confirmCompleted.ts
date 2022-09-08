@@ -177,6 +177,14 @@ Page({
       })
   },
 
+  imgView(e:any){
+    let i = e.currentTarget.dataset.id
+    wx.previewImage({
+      urls:this.data.imgInfo.imgArray,
+      current:this.data.imgInfo.imgArray[i]
+    })
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */

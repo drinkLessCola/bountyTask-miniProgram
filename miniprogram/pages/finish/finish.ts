@@ -61,16 +61,29 @@ Page({
       // 压缩图片
       success: function(res) {
         var tempFiles = res.tempFiles
-        const fileManager = wx.getFileSystemManager();
-        const base64 = fileManager.readFileSync(tempFiles[0].tempFilePath, 'base64');
+        // const fileManager = wx.getFileSystemManager();
+        // const base64 = fileManager.readFileSync(tempFiles[0].tempFilePath, 'base64');
+        let addImgPath 
         // console.log(base64.toString());
-        let base64Array =  _this.data.base64Array
+        wx.compressImage({
+          src:tempFiles[0].tempFilePath,
+          compressHeight:1333,
+          compressedWidth:750,
+          success:(res) => {
+            addImgPath=res.tempFilePath
+          },
+          fail: ()=> {
+            console.log('压缩失败');
+          },
+        })
+
+        // let base64Array =  _this.data.base64Array
         let imgArray =  _this.data.imgArray
-        base64Array.push(base64.toString())
-        imgArray.push(tempFiles[0].tempFilePath)
+        // base64Array.push(base64.toString())
+        imgArray.push(addImgPath)
         // console.log(_this.data.imgArray);
         _this.setData({
-          base64Array:base64Array,
+          // base64Array:base64Array,
           imgArray:imgArray
         })
       },
@@ -121,7 +134,8 @@ Page({
       //   })
 
       wx.uploadFile({
-        url:BASE_URL + '/haha',
+        // url:BASE_URL + '/haha',
+        url:BASE_URL + '/prove/submit',
         filePath : e,
         name : "image",
         formData:{
