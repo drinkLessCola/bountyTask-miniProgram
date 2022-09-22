@@ -2,6 +2,7 @@
 
 import { deleteCollectedTasksById } from "../../API/taskCollection"
 import { addCollectTask, getTaskById, getTaskStatus, isCollected, offlineTask, takeTask } from "../../API/taskDetail"
+import recipe from '../../utils/cook'
 const app = getApp()
 type ReceivedStatus = '未接受' | '未提交' | '已提交'
 const STATUS = ['','进行中', '待确认']
@@ -10,6 +11,8 @@ Page({
    * 页面的初始数据
    */
   data: {
+    show:app.globalData.isRelease,
+    recipe: {} as RecipeObj,
     taskid: 0,   // 任务 id 
     userid: 0,   // 当前用户 id
     isPublisher: true,  // 0是发布者 1不是 (感觉好像反了哈哈，直接用 boolean 吧
@@ -254,6 +257,13 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(option: any) {
+    if(!this.data.show) {
+      const { id } = option
+      this.setData({
+        recipe: recipe.filter(r => r.name === id)[0]
+      })
+      return
+    }
     const taskid = +option.taskid,
       userid = +option.userid
     this.setData({ taskid, userid })

@@ -2,39 +2,34 @@
 <!-- 这个page1234按照“小程序.pdf”下方tabbar从左到右顺序 -->
 <!-- 我也不知道他该叫什么名字 home 还是首页。。算了 -->
 <!-- 没有监听 -->
-<nav-bar 
-  showCapsule="{{false}}" 
-  title="" 
-></nav-bar>
+<view wx:if="{{show}}">
+  <nav-bar showCapsule="{{false}}" title=""></nav-bar>
 
-<view class="topBlock" >
-<!-- 搜索框 -->
-  <!-- <view class="search">
-    <image src="/images/home/search.png" mode="aspectFill" style="width:40rpx;height:40rpx" bindtap="search"></image>
-    <input type="titleText" placeholder="something" bindinput="inputSearch" />
-  </view> -->
-  <search mode="white" width="520" bind:search="search"></search>
-<!-- 铃铛 -->
-  <view class="msg home-msg-icon" bindtap="toMsg"></view>
-</view>
-<!-- 这两个黑字标题样式一样 -->
-<view class="titleText">寻求帮助</view>
-<!-- bigBox “口”-》两个typeBox “日” 把右边的浮起来 最后变成 “田” 然后-->
-<view class="bigBox">
-  <view class="typeBox">
-    <button id="fetch" data-name="取物" bindtap="btnPublishTask"><text>取物</text></button>
-    <button id="helpBuy" data-name="代购" bindtap="btnPublishTask">代购</button>
+  <view class="topBlock">
+    <!-- 搜索框 -->
+    <search mode="white" width="520" bind:search="search"></search>
+    <!-- 铃铛 -->
+    <view class="msg home-msg-icon" bindtap="toMsg"></view>
   </view>
-  <view class="typeBox">
-    <button id="vote" data-name="投票" bindtap="btnPublishTask">投票</button>
-    <button id="other" data-name="其他" bindtap="btnPublishTask">其他</button>
+  <!-- 这两个黑字标题样式一样 -->
+  <view class="titleText">寻求帮助</view>
+  <view class="bigBox">
+    <view class="typeBox">
+      <button id="fetch" data-name="取物" bindtap="btnPublishTask"><text>取物</text></button>
+      <button id="helpBuy" data-name="代购" bindtap="btnPublishTask">代购</button>
+    </view>
+    <view class="typeBox">
+      <button id="vote" data-name="投票" bindtap="btnPublishTask">投票</button>
+      <button id="other" data-name="其他" bindtap="btnPublishTask">其他</button>
+    </view>
   </view>
-</view>
 
-<view class="titleText">推荐任务</view>
-<!-- 这个1rpx的view是用于不让他们的margin重合的，懒得写多一层view了 -->
-<view style="height: 1rpx;"></view> 
-<view class="missions" wx:for="{{taskArray}}" wx:key="id"  data-id="{{item.id}}" bindtap="toTaskDetail">
-  <task taskData="{{item}}"></task>
+  <view class="titleText">推荐任务</view>
+  <!-- 这个1rpx的view是用于不让他们的margin重合的，懒得写多一层view了 -->
+  <view style="height: 1rpx;"></view>
+  <view class="missions" wx:for="{{taskArray}}" wx:key="id" data-id="{{item.id}}" bindtap="toTaskDetail">
+    <task taskData="{{item}}"></task>
+  </view>
+  <view class="shift"></view>
 </view>
-<view class="shift"></view>
+<home wx:else></home>

@@ -7,6 +7,7 @@ interface IAppOption {
     tabBarBottom:number,
     bottomBarHeight:number,
     searchKeyword:string,
+    isRelease:boolean,
   }
   userInfoReadyCallback?: WechatMiniprogram.GetUserInfoSuccessCallback,
 }
@@ -118,4 +119,11 @@ interface Object {
 interface UserLoginInfo {
   encryptedData: any,
   iv: any
+}
+
+interface RecipeObj {
+  name:string,
+  food:string[],
+  quantity:string[],
+  step:string[]
 }

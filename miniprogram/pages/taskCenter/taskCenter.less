@@ -1,4 +1,4 @@
-page {
+.taskCenter {
   background-color: #F6F6F6;
   height:100vh;
   display: flex;
@@ -107,4 +107,44 @@ page {
 }
 .missions {
   margin:20rpx 0;
+}
+
+.cook {
+  width:100vw;
+  height:100vh;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  padding:40rpx;
+  padding-top:200rpx;
+
+  .recipe {
+    height:200rpx;
+    background-color: rgb(255, 199, 94);
+    border-radius: 20rpx;
+    margin:10rpx 0;
+    padding: 30rpx 40rpx;
+    box-sizing: border-box;
+    color:#fff;
+    border: 1px solid #333;
+    display: flex;
+    flex-direction: column;
+    &:active {
+      background-color: #ffbd5b;
+    }
+  }
+  .food {
+    overflow: hidden;
+     white-space: nowrap;
+     text-overflow: ellipsis;/*溢出部分用...省略号代替*/
+  }
+  .name {
+    font-size: 40rpx;
+    font-weight: 800;
+    background-color: #333;
+    width:fit-content;
+    padding:10rpx 16rpx;
+    border-radius:20rpx;
+    margin-bottom: 10rpx;
+  }
 }

@@ -1,4 +1,5 @@
 <!--pages/confirmCompleted/confirmCompleted.wxml-->
+<view wx:if="{{show}}">
 <nav-bar 
   showCapsule="{{true}}" 
   title="完成情况" 
@@ -59,3 +60,4 @@
   <button class="btnYes" bindtap="confirm">确认完成</button>
 </view>
 
+</view>

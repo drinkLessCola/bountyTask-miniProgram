@@ -3,11 +3,12 @@
 import { getCollectedTasksById } from "../../API/taskCollection"
 
 // import {icon_time, icon_address} from '../../utils/icon'
-const apptc = getApp()
+const app = getApp()
 
 Page({
   data: {
-    height:apptc.globalData.navBarHeight,
+    show:app.globalData.isRelease,
+    height:app.globalData.navBarHeight,
     //task的数组，以后应该是后端给一个task数组，直接把给来的数组setData就好
 
     // 目前已发现需要的接口:
@@ -46,11 +47,11 @@ Page({
    let clearIdArray = []
    const now = new Date(Date.now()).getTime()
 
-   taskArr.forEach(element => {
-      if(element.deadline.getTime() < now){
-        clearIdArray.push(element.id)
-      }
-   })
+  //  taskArr.filter(element => {
+  //     if(element.deadline.getTime() < now){
+  //       clearIdArray.push(element.id)
+  //     }
+  //  })
    //调用对应接口
     
   },
@@ -63,7 +64,7 @@ Page({
   },
 
   getCollection(userid:string) {
-    getCollectedTasksById(userid)
+    getCollectedTasksById(+userid)
     .then(data =>{
       this.setData({
         taskArray: data as TaskObj[]

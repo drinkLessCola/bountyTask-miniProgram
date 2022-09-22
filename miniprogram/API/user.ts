@@ -1,22 +1,28 @@
-import {getRequest, postRequest } from '../utils/request' 
+import FormData from '../utils/formdata'
+import {formDataRequest, getRequest, postRequest } from '../utils/request' 
 interface LoginData {
   code:string,
   encryptedData:any,
   iv:any,
 }
 /**
- * 登录
- * @param d LoginData 登录所需的数据
+ * 通过 token 登录
+ * @param {string} token
  */
-export async function onLogin(data:LoginData){
-  // const data = new FormData()
-  // data.appendAll(d)
-  // const formData = data.getData()
-  // 'Content-Type': formData.contentType,
-  const res = postRequest('/login', data)
+export async function tokenLogin(token:string){
+  const formData = new FormData()
+  formData.append('token', token)
+  const data = formData.getData()
+  const res = await formDataRequest('/token', data)
   return res
 }
-
+/**
+  * @param d LoginData 登录所需的数据
+  */
+export async function onLogin(d:LoginData) {
+  const res = await postRequest('/login', d)
+  return res
+}
 /**
  * 根据用户角色和任务状态查询任务
  * @param userId 用户 id

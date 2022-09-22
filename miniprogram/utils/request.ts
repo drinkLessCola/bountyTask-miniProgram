@@ -1,5 +1,4 @@
-const BASE_URL = "http://43.138.254.32"
-// 需要备案，否则腾讯云不解析。。😡
+const BASE_URL = "https://summerblink.site/api"
 
 interface ResultObject {
   data:{
@@ -33,9 +32,9 @@ const errorInterceptor = (err:WechatMiniprogram.GeneralCallbackResult) => {
 }
 
 
-export const postRequest = async (url:string, unhandleData:string | object | ArrayBuffer, header?:object) => {
+export const postRequest = async (url:string, unhandleData:string | object | ArrayBuffer, jsonify:boolean = true, header?:object) => {
   wx.showLoading({title:"加载中", mask:true})
-  const data = JSON.stringify(unhandleData)
+  const data = jsonify? JSON.stringify(unhandleData) : unhandleData
   const result = await new Promise((resolve:(res:Promise<Object>) => void, reject:(res:Promise<PromiseRejectedResult> | undefined) => void) => {
     wx.request({
       url: BASE_URL + url,
@@ -91,4 +90,30 @@ export const putRequest = async (url:string, unhandleData:string | object) => {
     })
   })
 }
+interface FormData {
+  contentType: string;
+  buffer: ArrayBufferLike;
+}
+export const formDataRequest = async (url:string, data: FormData) => {
+  wx.showLoading({title:"加载中", mask:true})
+  const result = await new Promise((resolve:(res:Promise<Object>) => void, reject:(res:Promise<PromiseRejectedResult> | undefined) => void) => {
+    const {buffer, contentType} = data
+    wx.request({
+      url: BASE_URL + url,
+      data:buffer,
+      method:'POST',
+      header:{
+        'charset':'utf-8',
+        'Content-Type': contentType
+      },
+      success(response:ResultObject) {
+        resolve(dataInterceptor(response))
+      },
+      fail(err) {
+        reject(errorInterceptor(err))
+      }
+    })
+  })
 
+  return result;
+}

@@ -8,13 +8,16 @@ App<IAppOption>({
     tabBarBottom:0,
     bottomBarHeight:0,
     searchKeyword:'',
+    isRelease: true,
   },
   onLaunch() {
     // 展示本地存储能力
-    const logs = wx.getStorageSync('logs') || []
-    logs.unshift(Date.now())
-    wx.setStorageSync('logs', logs)
-
+    const accountInfo = wx.getAccountInfoSync();
+    accountInfo.miniProgram.envVersion = 'release';
+    const isRelease = (accountInfo.miniProgram.envVersion === 'release') 
+    this.globalData.isRelease = isRelease
+    console.log(this.globalData.isRelease)
+    
     wx.getSystemInfo({
       success:(res)=>{
         // 这个整的挺好的👍

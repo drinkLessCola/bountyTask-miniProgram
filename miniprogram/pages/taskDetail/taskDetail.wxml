@@ -5,7 +5,7 @@
 <!-- 页面颜色设置 -->
 <!-- 额，想了一下这不太妙 -->
 <!-- 可以用 CSS 变量 -->
-
+<view wx:if="{{show}}" class="taskDetail">
 <nav-bar showCapsule="{{true}}" title="任务详情"></nav-bar>
 <image class="topImg" wx:if="{{!isPublisher}}" mode="aspectFill"></image>
 
@@ -105,3 +105,32 @@
 </button> 
 <input type="nickname" class="weui-input" placeholder="请输入昵称"/> -->
 <!-- api文档最新的获取头像昵称方法 -->
+
+</view>
+<view wx:else class="cook">
+  <nav-bar showCapsule="{{true}}" title="食谱详情"></nav-bar>
+  <h1 class="title">{{recipe.name}}</h1>
+  <title title="准备材料">
+    <ul class="list">
+      <li wx:for="{{recipe.food}}" wx:key="item">
+        {{item}}
+      </li>
+    </ul>
+  </title>
+  <title title="用量">
+    <ul class="list">
+      <li wx:for="{{recipe.quantity}}" wx:key="item">
+        {{item}}
+      </li>
+    </ul>
+  </title>
+  <title title="步骤">
+    <ul class="list">
+      <li wx:for="{{recipe.step}}" wx:key="item">
+        <span class="idx">{{index}}</span>
+        {{item}}
+      </li>
+    </ul>
+  </title>
+  
+</view>

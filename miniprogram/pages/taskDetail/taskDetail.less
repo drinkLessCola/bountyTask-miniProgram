@@ -1,6 +1,6 @@
 /* miniprogram.wxss */
-page {
-  height: 100%;
+.taskDetail{
+  height: 100vh;
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -263,5 +263,37 @@ page {
         background-color: #ffc430;
       }
     }
+  }
+}
+
+.cook {
+  margin-top: 60rpx;
+  padding:0 40rpx;
+  .title {
+    font-size: 46rpx;
+    font-weight: 600;
+    background-color: #333;
+    color:#fff;
+    padding:12rpx 20rpx;
+    border-radius: 20rpx 20rpx;
+  }
+  .list {
+    display: flex;
+    flex-direction: column;
+    li {
+      margin:10rpx 0;
+      font-size: 32rpx;
+    }
+  }
+  .idx {
+    display: inline-block;
+    background-color: #333;
+    line-height: 40rpx;
+    width:40rpx;
+    height:40rpx;
+    border-radius:50%;
+    color:#fff;
+    text-align: center;
+    margin-right: 10rpx;
   }
 }

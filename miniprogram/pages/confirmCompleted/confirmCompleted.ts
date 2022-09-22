@@ -1,7 +1,7 @@
 // pages/confirmCompleted/confirmCompleted.ts
 import {getImage,getUserInfo,confirmeTask,rejectTask,taskStatus} from "../../API/confirmCompleted";
-const BASE_URL = "http://43.138.254.32"
-const appcC = getApp()
+const app = getApp()
+const BASE_URL = 'https://summerblink.site'
 Page({
     
   /**
@@ -9,8 +9,8 @@ Page({
    */
   
   data: {
-    height:  appcC.globalData.navBarHeight,
-
+    height:app.globalData.navBarHeight,
+    show:app.globalData.isRelease,
     userid:1,
     publisherId:1,
     finisherId:1,
@@ -150,11 +150,9 @@ Page({
     let imgInfo = this.data.imgInfo
     const addString = BASE_URL+'/'
     let newString
-    for(let index=0 ; index < imgInfo.data.length;index++){
-      newString = addString+imgInfo.data[index]
+    for(let index = 0; index < imgInfo.data.length;index++){
+      newString = addString + imgInfo.data[index]
       imgInfo.imgArray[index] = newString 
-      
-      
     }
     this.setData({
       imgInfo:imgInfo

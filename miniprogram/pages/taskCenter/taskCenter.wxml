@@ -1,3 +1,4 @@
+<view wx:if="{{show}}" class="taskCenter">
 <nav-bar 
   showCapsule="{{false}}" 
   title="" 
@@ -36,13 +37,15 @@
 
 <!-- task为任务object,后端似乎返回的是一个task对象的数组 -->
 <main class="missions-container">
-<view class="missions" wx:for="{{taskArray}}" wx:key="id">
-  <!-- 重新改了一下，直接传入整个对象即可 -->
-  <task 
-    taskData="{{item}}"
-    bindtap="taskTap" 
-    data-id="{{item.id}}"
-  ></task>
-</view>
+  <view class="missions" wx:for="{{taskArray}}" wx:key="id">
+    <!-- 重新改了一下，直接传入整个对象即可 -->
+    <task 
+      taskData="{{item}}"
+      bindtap="taskTap" 
+      data-id="{{item.id}}"
+    ></task>
+  </view>
 </main>
 <!-- 感觉把这个列表解耦出来会好一点，但是 好像没办法把这个列表单独列在后台与后端通信，用的时候放进页面 吧。。 可以👍 -->
+</view>
+<center wx:else></center>

@@ -1,0 +1,12 @@
+<!--miniprogram.wxml-->
+<view class="center" wx:if="{{showComponent}}">
+  <h1 class="title">我的备忘</h1>
+  <main>
+    <ul class="list">
+      <li wx:for="{{memos}}" wx:key="item" class="memo">
+        <div class="text">{{item.memo}}</div>
+        <span class="emer">{{item.emergent}}</span>
+      </li>
+    </ul>
+  </main>
+</view>

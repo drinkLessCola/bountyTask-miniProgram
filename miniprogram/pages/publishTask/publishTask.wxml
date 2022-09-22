@@ -1,4 +1,5 @@
 <!--miniprogram.wxml-->
+<view wx:if="{{show}}" class="PublishTask">
 <nav-bar showCapsule="{{true}}" title="发布任务" bgColor="white"></nav-bar>
 <view class="formArea">
   <form-item title="标题" tip="标题不能为空" valid="{{valid.title}}">
@@ -113,3 +114,4 @@
   <!-- 字体自适应大小，避免>=1000的数字或者带小数的数字放不下 -->
   <button form-type="submit" bindtap="submit">发布任务</button>
 </section>
+</view>

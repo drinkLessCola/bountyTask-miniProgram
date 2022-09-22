@@ -2,25 +2,16 @@
   "pages": [
     "pages/home/home",
     "pages/confirmCompleted/confirmCompleted",
-    
     "pages/finish/finish",
     "pages/message/message",
-    
     "pages/guide/guide",
     "pages/version/version",
     "pages/opinion/opinion",
-    
     "pages/publishTask/publishTask",
-    
     "pages/taskDetail/taskDetail",
-    
     "pages/taskCenter/taskCenter",
     "pages/userCenter/userCenter",
-    "pages/taskCollection/taskCollection",
-    
-    
-   
-    "pages/logs/logs"
+    "pages/taskCollection/taskCollection"
   ],
   "window": {
     "navigationStyle": "custom",
@@ -48,6 +39,9 @@
       "text":"个人中心"
     }]
   },
-  "usingComponents": {},
+  "usingComponents": {
+    "home":"/component/home/home",
+    "center":"/component/center/center"
+  },
   "sitemapLocation": "sitemap.json"
 }

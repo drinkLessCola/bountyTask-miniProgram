@@ -1,3 +1,4 @@
+<view wx:if="{{show}}">
 <nav-bar showCapsule="{{true}}" title="完成任务"></nav-bar>
 <!-- 自定义导航栏，抄来的,看上去有点抽象 -->
 <!-- 获取小程序提供的 api，通过胶囊的坐标信息与状态栏（每个手机都不一样）的高度
@@ -35,4 +36,5 @@
 
 <view class="buttonBox">
   <button bindtap="submit">提交</button>
+</view>
 </view>

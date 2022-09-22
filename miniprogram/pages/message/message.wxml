@@ -1,3 +1,4 @@
+<view wx:if="{{show}}">
 <nav-bar 
   showCapsule="{{false}}"
   title="" 
@@ -29,3 +30,4 @@
 
 
 <view style="height:188rpx"></view>
+</view>

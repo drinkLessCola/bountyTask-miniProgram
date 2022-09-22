@@ -36,6 +36,7 @@ Component({
     // 返回键，触发自定义事件，将返回的事件交给父级页面来分情况定义
     _navback() {
       // this.triggerEvent('goBack')
+      console.log('?')
       wx.navigateBack()
     }
   }

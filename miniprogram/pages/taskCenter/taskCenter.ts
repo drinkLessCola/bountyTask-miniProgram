@@ -1,11 +1,12 @@
 // index.ts
 
 import { searchTask } from "../../API/taskCenter";
+import recipe from "../../utils/cook"
 const app = getApp()
 // import { icon_time, icon_address } from '../../utils/icon'
 Page({
   data: {
-
+    show:app.globalData.isRelease,
     // 目前发现需要的接口:
     // 按关键词/标签搜索，并按照条件进行排序 自动调用(推荐任务)和手动调用都有
     keyword: '',
@@ -43,7 +44,8 @@ Page({
       deadline: '',
       startTime: '',
       bounty: 20
-    }] as TaskObj[]
+    }] as TaskObj[],
+    recipe:[] as RecipeObj[],
   },
   setKeyword(e: any) {
     this.setData({
@@ -139,6 +141,10 @@ Page({
     })
     this.getTask()
   },
+  toRecipeDetail(e:any) {
+    const {currentTarget:{dataset:{id}}} = e
+    wx.navigateTo({url: `/pages/taskDetail/taskDetail?id=${id}`})
+  },
   //这抄来的
 
   onLoad() {
@@ -153,11 +159,19 @@ Page({
         selected: 2
       })
     }
+
+    if(!this.data.show) { 
+      this.setData({
+        recipe
+      })
+    }
     // 首页带参跳转
     const { keyword } = app.globalData
     app.globalData.keyword = ''
     if(keyword) this.setData({ keyword: keyword })
     this.getTask()
+
+
   },
 })
 

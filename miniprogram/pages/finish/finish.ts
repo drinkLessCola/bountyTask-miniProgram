@@ -1,7 +1,7 @@
 // pages/finish/finish.ts
 
 import { submitTask,getTaskById,submitImage,delImage,getImage } from "../../API/finish";
-const appf = getApp()
+const app = getApp()
 const BASE_URL = "http://43.138.254.32"
 Page({
 
@@ -9,8 +9,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    height:  appf.globalData.navBarHeight,
-    // 目前发现需要的接口
+    height:app.globalData.navBarHeight,
+    show:app.globalData.isRelease,    // 目前发现需要的接口
     // 根据任务id查询
     // 上传证明图片 多次调用
     // 删除某个证明图片 额,似乎是全删

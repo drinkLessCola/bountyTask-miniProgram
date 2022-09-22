@@ -1,8 +1,9 @@
 // index.ts
-
+const app = getApp()
 Page({
   data: {
     // select:0,
+    show:app.globalData.isRelease,
     userid:0,
 
     select:[{

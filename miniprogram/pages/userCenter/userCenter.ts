@@ -1,12 +1,13 @@
 // miniprogram.ts
 import { login } from '../../utils/login'
-
+const app = getApp()
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    show:app.globalData.isRelease,
     encryptedData:null,
     uid:'',
     nickName: '',
@@ -16,8 +17,7 @@ Page({
   handleLogin() {
     login()
     .then(() => {
-      const avatarUrl = wx.getStorageSync('avatarUrl'),
-      nickName = wx.getStorageSync('nickName')
+      const { avatarUrl, nickName } = wx.getStorageSync('user')
       this.setData({
         avatarUrl,
         nickName,
@@ -26,10 +26,7 @@ Page({
   },
   // 登出
   logout() {
-    wx.removeStorageSync('uid')
-    wx.removeStorageSync('avatarUrl')
-    wx.removeStorageSync('nickName')
-    wx.removeStorageSync('openId')
+    wx.removeStorageSync('user')
     this.setData({
       avatarUrl: '',
       nickName: '',
@@ -68,8 +65,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad() {
-    const avatarUrl = wx.getStorageSync('avatarUrl'),
-          nickName = wx.getStorageSync('nickName')
+    const { avatarUrl , nickName } = wx.getStorageSync('user')
 
     this.setData({
       avatarUrl,

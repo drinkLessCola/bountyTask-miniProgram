@@ -9,6 +9,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    show:app.globalData.isRelease,
     timestamp: 1660566722638,
     // 暂时使用时间戳以及其number类型代替ddl和提交时间
     // 目前发现需要的接口:

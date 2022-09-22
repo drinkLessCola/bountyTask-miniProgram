@@ -53,3 +53,26 @@ button{
 input[type=number]{
   font-family: 'Gilroy Bold';
 }
+
+radio .wx-radio-input {
+  background-color: #fff;
+  border-radius: 50%;
+  background: transparent;
+  border:1px solid #86593b;
+}
+radio .wx-radio-input.wx-radio-input-checked{
+  background-color: #fff;
+  border:1px solid #86593b;
+}
+radio .wx-radio-input.wx-radio-input-checked::before {
+  border-radius: 50%; /* 圆角 */
+  width: 26rpx; /* 选中后对勾大小，不要超过背景的尺寸 */
+  height: 26rpx; /* 选中后对勾大小，不要超过背景的尺寸 */
+  line-height: 26rpx;
+  text-align: center;
+  font-size: 0rpx; /* 对勾大小 30rpx */
+  color: transparent; /* 对勾颜色 白色 */
+  background: #ffc546;
+  transform: translate(-50%, -50%) scale(1);
+  -webkit-transform: translate(-50%, -50%) scale(1);
+}
