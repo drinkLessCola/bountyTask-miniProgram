@@ -14,92 +14,96 @@ Page({
       checked:false
     }],
 
-    publishShowMsgArray:[{
-      taskId:0,
-      taskTitle:'测试1',
-      number:2,
-      status:'领取',
-      time:'刚刚'
-    },{
-      taskId:1,
-      taskTitle:'测试2',
-      number:3,
-      status:'完成',
-      time:'3小时前'
-    },{
-      taskId:1,
-      taskTitle:'测试2',
-      number:3,
-      status:'完成',
-      time:'3小时前'
-    },{
-      taskId:1,
-      taskTitle:'测试2',
-      number:3,
-      status:'完成',
-      time:'3小时前'
-    },{
-      taskId:1,
-      taskTitle:'测试2',
-      number:3,
-      status:'完成',
-      time:'3小时前'
-    },{
-      taskId:1,
-      taskTitle:'测试2',
-      number:3,
-      status:'完成',
-      time:'3小时前'
-    },{
-      taskId:1,
-      taskTitle:'测试2',
-      number:3,
-      status:'完成',
-      time:'3小时前'
-    },{
-      taskId:1,
-      taskTitle:'测试2',
-      number:3,
-      status:'完成',
-      time:'3小时前'
-    },{
-      taskId:1,
-      taskTitle:'测试2',
-      number:3,
-      status:'完成',
-      time:'3小时前'
-    },{
-      taskId:1,
-      taskTitle:'测试2',
-      number:3,
-      status:'完成',
-      time:'3小时前'
-    },{
-      taskId:1,
-      taskTitle:'测试2',
-      number:3,
-      status:'完成',
-      time:'3小时前'
-    },{
-      taskId:1,
-      taskTitle:'测试2',
-      number:3,
-      status:'完成',
-      time:'3小时前'
-    },{
-      taskId:1,
-      taskTitle:'测试2',
-      number:3,
-      status:'完成',
-      time:'3小时前'
-    }],
+    publishShowMsgArray:[
+    // {
+    //   taskId:0,
+    //   taskTitle:'测试1',
+    //   number:2,
+    //   status:'领取',
+    //   time:'刚刚'
+    // },{
+    //   taskId:1,
+    //   taskTitle:'测试2',
+    //   number:3,
+    //   status:'完成',
+    //   time:'3小时前'
+    // },{
+    //   taskId:1,
+    //   taskTitle:'测试2',
+    //   number:3,
+    //   status:'完成',
+    //   time:'3小时前'
+    // },{
+    //   taskId:1,
+    //   taskTitle:'测试2',
+    //   number:3,
+    //   status:'完成',
+    //   time:'3小时前'
+    // },{
+    //   taskId:1,
+    //   taskTitle:'测试2',
+    //   number:3,
+    //   status:'完成',
+    //   time:'3小时前'
+    // },{
+    //   taskId:1,
+    //   taskTitle:'测试2',
+    //   number:3,
+    //   status:'完成',
+    //   time:'3小时前'
+    // },{
+    //   taskId:1,
+    //   taskTitle:'测试2',
+    //   number:3,
+    //   status:'完成',
+    //   time:'3小时前'
+    // },{
+    //   taskId:1,
+    //   taskTitle:'测试2',
+    //   number:3,
+    //   status:'完成',
+    //   time:'3小时前'
+    // },{
+    //   taskId:1,
+    //   taskTitle:'测试2',
+    //   number:3,
+    //   status:'完成',
+    //   time:'3小时前'
+    // },{
+    //   taskId:1,
+    //   taskTitle:'测试2',
+    //   number:3,
+    //   status:'完成',
+    //   time:'3小时前'
+    // },{
+    //   taskId:1,
+    //   taskTitle:'测试2',
+    //   number:3,
+    //   status:'完成',
+    //   time:'3小时前'
+    // },{
+    //   taskId:1,
+    //   taskTitle:'测试2',
+    //   number:3,
+    //   status:'完成',
+    //   time:'3小时前'
+    // },{
+    //   taskId:1,
+    //   taskTitle:'测试2',
+    //   number:3,
+    //   status:'完成',
+    //   time:'3小时前'
+    // }
+  ],
 
-    getShowMsgArray:[{
-      taskId:0,
-      taskTitle:'测试A',
-      status:'任务未通过',
-      time:'5小时前'
-    }],
+    getShowMsgArray:[
+    //   {
+    //   taskId:0,
+    //   taskTitle:'测试A',
+    //   status:'任务未通过',
+    //   time:'5小时前'
+    // }
+  ],
     // 发布的任务消息数组和领取的任务消息数组（处理后的）,展示用
 
     publishMsgArray:[{

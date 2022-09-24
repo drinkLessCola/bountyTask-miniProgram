@@ -36,44 +36,60 @@ page {
 }
 
 
-.bigBox button{
+.typeBox .nav{
+  display:inline-block;
+  position:relative;
   color: #FFF;
   border-radius: 20rpx;
   font-size: 52rpx;
   font-weight: bold;
   height: 200rpx;
-  // padding-top: 20rpx;
+  box-sizing: border-box;
+  .img {
+    width:100%;
+    height:100%;
+    position:absolute;
+    left:0;
+    top:0;
+  }
 }
 
-#fetch {
-  background-color:rgb(243,194,175);
-  text-align: left;
+.fetch {
   width: 394rpx;
-  padding-left: 30rpx;
+  .label {
+    position:absolute;
+    left:32rpx;
+    top:20rpx;
+  }
 }
 
-#helpBuy{
-  background-color:rgb(236,226,225);
+.helpBuy{
   width: 226rpx;
-  text-align: right;
-  padding-right: 20rpx;
+  .label {
+    position:absolute;
+    right:16rpx;
+    top:20rpx;
+  }
 }
 
-#vote {
-  background-color:rgb(200,213,185);
+.vote {
   width: 260rpx;
   margin-top: 40rpx;
-  text-align: left;
-  padding-left: 30rpx;
+  .label {
+    position:absolute;
+    left:30rpx;
+    top:20rpx;
+  }
 }
 
-#other {
-  background-color:rgb(212,224,155);
+.other {
   width: 350rpx;
   margin-top: 40rpx;
-  margin-top: 40rpx;
-  text-align: left;
-  padding-left: 45rpx;
+  .label {
+    position:absolute;
+    left:48rpx;
+    top:20rpx;
+  }
 }
 
 .missions {

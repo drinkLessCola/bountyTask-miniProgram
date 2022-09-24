@@ -2,17 +2,17 @@ import { onLogin, tokenLogin } from "../API/user"
 
 export async function login() {
   // 有用户信息，就返回
+  console.log('1')
   const user = wx.getStorageSync('user')
   if (user) return
-
+  console.log('2')
   const token = wx.getStorageSync('token')
- 
+  console.log('3')
   // 先使用 token 登录！
   if (token) {
     wx.showLoading({ title: '登录中' })
     try {
       const data = await tokenLogin(token)
-      console.log(data)
       wx.showToast({
         icon: 'success',
         title: '登录成功！'
@@ -27,7 +27,7 @@ export async function login() {
       wx.showToast({ title: '登录状态已过期，请重新登录', icon: 'none' })
     }
   }
-
+  console.log('4')
   // 没有 token / token 过期
   // 取 user_code
   wx.login({
@@ -41,36 +41,34 @@ export async function login() {
       wx.setStorageSync('user_code', res.code)
     }
   })
+  console.log('5')
   // 取得用户授权
-  wx.getUserProfile({
-    desc: '必须授权才能使用',
-    success: async res => {
-      const code = wx.getStorageSync('user_code')
-      const encryptedData = res.encryptedData
-      const iv = res.iv
-      wx.removeStorageSync('user_code')
+  return new Promise((resolve, reject) => {
+    wx.getUserProfile({
+      desc: '必须授权才能使用',
+      success: res => {
+        const code = wx.getStorageSync('user_code')
+        const encryptedData = res.encryptedData
+        const iv = res.iv
+        wx.removeStorageSync('user_code')
 
-      // 登录
-      onLogin({
-        code: code,
-        encryptedData: encryptedData,
-        iv: iv
-      })
-        .then(data => {
-          return handleLoginSuccess(data)
+        // 登录
+        onLogin({
+          code: code,
+          encryptedData: encryptedData,
+          iv: iv
         })
-        .catch(err => {
-          console.log(err)
-          throw err
-        })
-    },
-    fail: (err) => {
-      wx.showToast({
-        icon: 'none',
-        title: '登录失败！'
-      })
-      throw err
-    }
+          .then(data => {
+            resolve(handleLoginSuccess(data))
+          })
+          .catch(err => {
+            reject(err)
+          })
+      },
+      fail: (err) => {
+        reject(err)
+      }
+    })
   })
 }
 

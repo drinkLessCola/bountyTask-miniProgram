@@ -1,10 +1,16 @@
-const BASE_URL = "ws://43.138.254.32/"
+const BASE_URL = "wss://summerblink.site/api/websocket"
 type EventListener = (e: any) => void
 class HeartBeat {
+  public status: boolean = false
   private timeout: number = 10000
   private timer: number | null = null
   private serverTimer: number | null = null
-
+  private socketTask!: WechatMiniprogram.SocketTask
+  private userId!: number
+  constructor(socketTask: WechatMiniprogram.SocketTask, userId:number) {
+    this.socketTask = socketTask
+    this.userId = userId
+  }
   reset() {
     if(this.timer)  clearTimeout(this.timer)
     if(this.serverTimer) clearTimeout(this.serverTimer)
@@ -13,7 +19,37 @@ class HeartBeat {
   start(){
     this.timer = setTimeout(() => {
       console.log("发送 ping")
-      
+    })
+  }
+    /**
+   * 心跳检查重置
+   */
+  resetHeartBeat() {
+    this.timer && clearTimeout(this.timer)
+  }
+  /**
+   * 心跳检查开始
+   */
+  startHeartBeat() {
+    this.timer = setInterval(() => {
+      this.sendTestMessage()
+    }, this.timeout)
+  }
+  /**
+   * 发送hearBeat测试信息
+   */
+  sendTestMessage() {
+    const that = this
+    const ping = JSON.stringify({ "toUserId": this.userId, "contentText":"ping" })
+    this.socketTask.send({
+      // 心跳发送的信息应由前后端商量后决定
+      data: ping,
+      success(res) {
+      },
+      fail(err) {
+        console.log('发送测试信息失败', err)
+        that.resetHeartBeat()
+      }
     })
   }
 }
@@ -24,17 +60,16 @@ export default class WebSocket {
   private timeout: number = 15000  // 心跳检测频率
   private timer!: number           // 计时器ID
   private connectNum: number       // 当前重连次数
-  private heartBeat = new HeartBeat()            // 心跳检测和断线重连开关
+  private heartBeat !: HeartBeat            // 心跳检测和断线重连开关
       
   private userId: number
   private message: EventListener
   private socketTask!: WechatMiniprogram.SocketTask
 
-  constructor(heartBeat: boolean, userId: number, onMessage: EventListener) {
+  constructor(userId: number, onMessage: EventListener) {
     this.connected = false
     this.networkState = true
     this.connectNum = 0
-    this.heartBeat = heartBeat
     this.userId = userId
     // 回调监听
     this.message = onMessage
@@ -59,7 +94,7 @@ export default class WebSocket {
             return
           }
           that.socketTask = wx.connectSocket({
-            url: `${BASE_URL}${userId}`,
+            url: `${BASE_URL}/${userId}`,
             success(res) {
               console.log('socket连接成功', res)
               that.connected = true
@@ -68,6 +103,7 @@ export default class WebSocket {
               console.log('socket连接失败', err)
             }
           })
+          that.heartBeat = new HeartBeat(that.socketTask, that.userId)
           // 监听 WebSocket 连接打开事件
           that.onSocketOpened()
           // 监听 WebSocket 连接关闭事件
@@ -94,47 +130,17 @@ export default class WebSocket {
       console.log('socketTask.onOpen', res)
       // 检查心跳
       if (this.heartBeat) {
-        this.resetHeartBeat()
-        this.startHeartBeat()
+        this.heartBeat.resetHeartBeat()
+        this.heartBeat.startHeartBeat()
       }
-      this.sendTestMessage()
+      this.heartBeat.sendTestMessage()
       this.onReceivedMsg()
       // 网络状态
       this.networkState = true
     }
     )
   }
-  /**
-   * 心跳检查重置
-   */
-  resetHeartBeat() {
-    this.timer && clearTimeout(this.timer)
-  }
-  /**
-   * 心跳检查开始
-   */
-  startHeartBeat() {
-    this.timer = setInterval(() => {
-      this.sendTestMessage()
-    }, this.timeout)
-  }
-  /**
-   * 发送hearBeat测试信息
-   */
-  sendTestMessage() {
-    const that = this
-    this.socketTask.send({
-      // 心跳发送的信息应由前后端商量后决定
-      data: 'ping',
-      success(res) {
-        console.log('发送测试信息成功', res)
-      },
-      fail(err) {
-        console.log('发送测试信息失败', err)
-        that.resetHeartBeat()
-      }
-    })
-  }
+
   /**
      * 监听websocket连接关闭
      */
@@ -144,7 +150,7 @@ export default class WebSocket {
       const { code, reason } = result
       console.log(`连接已关闭,信息:${code}-${reason}`)
       // 停止心跳连接
-      if (this.heartBeat) this.resetHeartBeat()
+      if (this.heartBeat) this.heartBeat.resetHeartBeat()
       // 更新已连接状态
       this.connected = false
     })
@@ -156,7 +162,7 @@ export default class WebSocket {
   reconnect(options: Object) {
     if(this.lockReconnect) return
     this.lockReconnect = true
-    clearTimeout(this.timer)
+    this.heartBeat.resetHeartBeat()
     if (this.connectNum < 20) {
       setTimeout(() => {
         this.initWebSocket(options)
@@ -220,7 +226,7 @@ export default class WebSocket {
     this.socketTask.close({
       success(res) {
         console.log('关闭socket成功', res)
-        that.heartBeat = false
+        that.heartBeat.status = false
       },
       fail(err) {
         console.log('关闭socket失败', err)

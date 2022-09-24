@@ -12,15 +12,25 @@ Page({
     uid:'',
     nickName: '',
     avatarUrl:'',
+    publishNum: 0,
+    passRate:0,
   },
   // 登录
   handleLogin() {
     login()
     .then(() => {
-      const { avatarUrl, nickName } = wx.getStorageSync('user')
+      const { avatarUrl, nickName, postNum:publishNum, settleNum } = wx.getStorageSync('user')
       this.setData({
         avatarUrl,
         nickName,
+        publishNum,
+        passRate: settleNum / publishNum
+      })
+    })
+    .catch(err => {
+      wx.showToast({
+        icon: 'none',
+        title: '登录失败！'
       })
     })
   },

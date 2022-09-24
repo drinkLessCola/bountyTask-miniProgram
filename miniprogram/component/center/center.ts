@@ -1,4 +1,3 @@
-import recipe from '../../utils/cook'
 interface Memo {
   memo:string,
   emergent:string

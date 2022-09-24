@@ -1,10 +1,5 @@
-<!--pages/page1/page1.wxml-->
-<!-- 这个page1234按照“小程序.pdf”下方tabbar从左到右顺序 -->
-<!-- 我也不知道他该叫什么名字 home 还是首页。。算了 -->
-<!-- 没有监听 -->
 <view wx:if="{{show}}">
   <nav-bar showCapsule="{{false}}" title=""></nav-bar>
-
   <view class="topBlock">
     <!-- 搜索框 -->
     <search mode="white" width="520" bind:search="search"></search>
@@ -15,18 +10,30 @@
   <view class="titleText">寻求帮助</view>
   <view class="bigBox">
     <view class="typeBox">
-      <button id="fetch" data-name="取物" bindtap="btnPublishTask"><text>取物</text></button>
-      <button id="helpBuy" data-name="代购" bindtap="btnPublishTask">代购</button>
+      <view class="nav fetch" data-name="fetch" bindtap="toIntro">
+        <image class="img" src="/images/home/fetch.png" mode="aspectFill"></image>
+        <text class="label">取物</text>
+      </view>
+      <view class="nav helpBuy" data-name="buy" bindtap="toIntro">
+        <image class="img" src="/images/home/buy.png" mode="aspectFill"></image>
+        <text class="label">代购</text>
+      </view>
     </view>
     <view class="typeBox">
-      <button id="vote" data-name="投票" bindtap="btnPublishTask">投票</button>
-      <button id="other" data-name="其他" bindtap="btnPublishTask">其他</button>
+      <view class="nav vote" data-name="vote" bindtap="toIntro">
+        <image class="img" src="/images/home/vote.png" mode="aspectFill"></image>
+        <text class="label">投票</text>
+      </view>
+      <view class="nav other" data-name="other" bindtap="toIntro">
+        <image class="img" src="/images/home/other.png" mode="aspectFill"></image>
+        <text class="label">其他</text>
+      </view>
     </view>
   </view>
 
   <view class="titleText">推荐任务</view>
   <!-- 这个1rpx的view是用于不让他们的margin重合的，懒得写多一层view了 -->
-  <view style="height: 1rpx;"></view>
+  <view></view>
   <view class="missions" wx:for="{{taskArray}}" wx:key="id" data-id="{{item.id}}" bindtap="toTaskDetail">
     <task taskData="{{item}}"></task>
   </view>

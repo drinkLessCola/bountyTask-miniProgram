@@ -1,5 +1,4 @@
 // pages/page1/page1.ts
-
 import { searchTask } from "../../API/taskCenter";
 // 额,忘记把这个接口写在home里了，不过反正是一个东西就不管了
 const app = getApp()
@@ -55,10 +54,10 @@ Page({
     })
   },
 
-  btnPublishTask(e:any) {
-    const category = e.currentTarget.dataset.name
+  toIntro(e:any) {
+    const type = e.currentTarget.dataset.name
     // console.log(category);
-    let url = '/pages/publishTask/publishTask?category='+category
+    let url = '/pages/intro/intro?type='+type
     wx.navigateTo({
       url:url
     })

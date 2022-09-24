@@ -6,8 +6,6 @@
   bgColor="white"
 ></nav-bar>
 <view class="titleBox" style="margin-top:0;">
-  <!-- <view class="title">任务收藏夹</view> -->
-  <!-- 擦，这个在导航栏上 -->
   <text class="taskNumber" space="nbsp">共 {{taskArray.length}} 个任务</text>
   <button class='clearButton' bindtap="clearExpireTask">清除过期任务</button>
 </view>
@@ -16,11 +14,6 @@
 <!-- task为任务object,后端似乎返回的是一个task对象的数组 -->
 <view class="missions" wx:for="{{taskArray}}" wx:key="id" bindtap="toTaskDetail" data-id="{{item.id}}">
   <task taskData="{{item}}" ></task>
-
-  <!-- <task title='{{item.task.title}}' bounty='{{item.task.bounty}}' timestamp='{{item.task.timestamp}}' area='{{item.task.area}}' deadline='{{item.task.timestamp}}' bindtap="taskTap" data-task="{{item.task}}" wx:if="{{item.task.bounty == '已过期'}}" class='task-overdue'></task> -->
-
-  <!-- '已过期'还是交给task处理吧，外部去改变组件样式有点难搞 -->
-  <!-- task不是我的不方便改 -->
 </view>
 <!-- 感觉把这个列表解耦出来会好一点，但是 好像没办法把这个列表单独列在后台与后端通信，用的时候放进页面 吧。。  -->
 </view>

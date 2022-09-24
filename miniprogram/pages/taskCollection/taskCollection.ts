@@ -9,27 +9,11 @@ Page({
   data: {
     show:app.globalData.isRelease,
     height:app.globalData.navBarHeight,
-    //task的数组，以后应该是后端给一个task数组，直接把给来的数组setData就好
-
-    // 目前已发现需要的接口:
-    // 查询用户收藏的任务
-    // 删除收藏任务 多次调用
-
-    // -------------------------------警告，现在写在前端测试用的task对象的属性和后端不一样-------------------------------------
     taskArray:[] as TaskObj[]
-    // [{
-    //     id: 0,
-    //     title: '测试',
-    //     area: '泰山区',
-    //     deadline: 1660566722638,
-    //     startTime: 1660566722638,
-    //     bounty: 5
-    // }]
-    
   },
 
   toTaskDetail(e:any) {
-    const userid = wx.getStorageSync('uid')
+    const { id:userid } = wx.getStorageSync('user')
     const id = e.currentTarget.dataset.id
     let url =  "/pages/taskDetail/taskDetail?taskid="+ id +"&userid=" +userid
     wx.navigateTo({
@@ -58,14 +42,15 @@ Page({
 
   
   
-  onLoad(options) {
-    const {userid} = options
+  onLoad() {
+    const { id:userid } = wx.getStorageSync('user')
     this.getCollection(userid as string)
   },
 
   getCollection(userid:string) {
     getCollectedTasksById(+userid)
     .then(data =>{
+      console.log('!', data)
       this.setData({
         taskArray: data as TaskObj[]
       })

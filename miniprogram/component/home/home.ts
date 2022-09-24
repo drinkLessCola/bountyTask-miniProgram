@@ -1,4 +1,3 @@
-import recipe from '../../utils/cook'
 Component({
   behaviors: [],
   // 使用模板时传入的数据在这里定义

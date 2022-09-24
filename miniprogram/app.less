@@ -20,8 +20,14 @@ input {
 button::after {
   border: none;
 }
-
-
+// 提高图片清晰度
+image {
+  image-rendering:-moz-crisp-edges;
+  image-rendering:-o-crisp-edges;
+  image-rendering:-webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+  -ms-interpolation-mode:nearest-neighbor;
+}
 
 button[type = primary].btn {
   background-color: #FFCF56;

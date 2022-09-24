@@ -26,6 +26,7 @@
   <view class='msg' wx:for="{{select[0].checked ? publishShowMsgArray : getShowMsgArray}}" wx:key="{{taskId}}" bindtap="toDetail"  data-id = "{{item.taskId}}" data-index = "{{item.index}}">
   <taskMessage title="{{item.taskTitle}}" time="{{item.time}}" statusBar="{{item.status}}"></taskMessage>
   </view>
+  <view class="empty-tip" wx:if="{{select[0].checked ? !publishShowMsgArray.length : !getShowMsgArray.length}}">这里空空如也~</view>
 </scroll-view>
 
 

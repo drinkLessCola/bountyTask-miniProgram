@@ -1,0 +1,62 @@
+/* miniprogram.wxss */
+.intro {
+  position: relative;
+  padding: 0 50rpx;
+  box-sizing: border-box;
+  font-size: 32rpx;
+  display: flex;
+  height: 100vh;
+  flex-direction: column;
+  justify-content: space-between;
+
+  .header {
+    display: flex;
+    justify-content: flex-end;
+    width: 612rpx;
+    height: 200rpx;
+    border-radius: 20rpx;
+    margin:0 auto;
+    .img {
+      height:100%;
+    }
+  }
+
+  .main {
+    height: 100%;
+    padding-top:36rpx;
+  }
+}
+
+.p {
+  word-break: keep-all;
+  white-space: pre-line;
+  color: #666;
+  line-height: 1.5;
+}
+
+.btn {
+  width: 100%;
+  height:120rpx;
+  color: #fff;
+  background-color: rgb(255, 207, 86);
+  border-radius: 20rpx;
+  margin: 0 auto;
+  &:active {
+    background-color: #ffc430;
+  }
+}
+
+.fetch {
+  background-color: #fbc6b3;
+}
+.buy {
+  background-color: #ffbf75;
+}
+
+.vote {
+  background-color: #c8d5b9;
+}
+
+.other {
+  background-color: #d4e09b;
+}

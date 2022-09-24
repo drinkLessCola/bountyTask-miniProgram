@@ -11,7 +11,8 @@
     "pages/taskDetail/taskDetail",
     "pages/taskCenter/taskCenter",
     "pages/userCenter/userCenter",
-    "pages/taskCollection/taskCollection"
+    "pages/taskCollection/taskCollection",
+    "pages/intro/intro"
   ],
   "window": {
     "navigationStyle": "custom",
