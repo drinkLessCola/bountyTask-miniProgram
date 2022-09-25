@@ -111,7 +111,8 @@ Page({
       .then((data) => {
         console.log(data)
         const { id, title, illustrate, taskNumber, taskStatus, getNum, deadline: ddl, bounty, contact, label, request } = data as UnhandledTaskDetail
-        const number = taskNumber - getNum,
+       // const number = taskNumber - getNum, 这里不用减的。。后端已经减过了
+       const number = taskNumber,
               labels = label ? label.split(',') : [],
               deadline = this.formatTime(ddl),
               isOffline = taskStatus === 1,
@@ -237,6 +238,7 @@ Page({
   receiveTask: function () {
     // 调用接口:接任务
     const {taskid, userid} = this.data
+    console.log("接任务")
     takeTask(taskid, userid)
     .then((data) => {
       console.log(data)

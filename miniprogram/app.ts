@@ -17,7 +17,8 @@ App<IAppOption>({
     const accountInfo = wx.getAccountInfoSync();
     // accountInfo.miniProgram.envVersion = 'release';
     const isRelease = (accountInfo.miniProgram.envVersion === 'release') 
-    this.globalData.isRelease = isRelease
+    //this.globalData.isRelease = isRelease
+    this.globalData.isRelease = true
     
     wx.getSystemInfo({
       success:(res)=>{
