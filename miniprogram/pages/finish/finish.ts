@@ -2,7 +2,7 @@
 
 import { submitTask,getTaskById,submitImage,delImage,getImage } from "../../API/finish";
 const app = getApp()
-const BASE_URL = "http://43.138.254.32"
+const BASE_URL = "https://summerblink.site/api"
 Page({
 
   /**
@@ -72,9 +72,18 @@ Page({
           compressedWidth:750,
           success:(res) => {
             addImgPath=res.tempFilePath
+            let getFile = wx.getFileSystemManager()
+           /* let read = getFile.getFileInfo({
+              filePath:addImgPath,
+              success:(res) => {
+                console.log(res.size);
+                
+              }
+            });*/
+            
             console.log(addImgPath);
             imgArray.push(addImgPath)
-            console.log(imgArray);
+            //console.log(imgArray);
            _this.setData({
             // base64Array:base64Array,
            imgArray:imgArray
@@ -120,7 +129,7 @@ Page({
       console.log({
         taskid:this.data.taskid,
         userid:this.data.userid,
-        img:string_e
+        img:e
       });
       
       if(e != ''){
@@ -136,7 +145,8 @@ Page({
       //     flag = false
       //     console.log(err+'SI');
       //   })
-
+        
+        
       wx.uploadFile({
         // url:BASE_URL + '/haha',
         url:BASE_URL + '/prove/submit',

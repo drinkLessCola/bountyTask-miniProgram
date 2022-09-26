@@ -162,6 +162,8 @@ Page({
 
 
   getTaskStatus(userid:number,taskid:number) {
+    console.log(userid,taskid);
+    
     taskStatus(userid,taskid)
       .then((data) => {
         console.log(data);
@@ -206,9 +208,17 @@ Page({
         userid:data.userid
       })
       console.log(data,"我被传过来了");
+      if(this.data.isPublisher==true) {
+        this.getUserInfo(this.data.finisherId)
+      }else{
+        this.getTaskStatus(this.data.userid,this.data.task.id)
+      }
+      console.log(this.data.finisherId,this.data.task.id + ' FTinfo' );
+      
+      this.getProveImg(this.data.finisherId,this.data.task.id)
     });
     console.log(eventChannel);
-    
+    //该死 eventChannel得等 等的时候会跑去执行之后的代码。。。。
 
   },
 
@@ -223,14 +233,8 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
-    if(this.data.isPublisher==true) {
-      this.getUserInfo(this.data.finisherId)
-    }else{
-      this.getTaskStatus(this.data.userid,this.data.task.id)
-    }
-    console.log(this.data.finisherId,this.data.task.id + ' FTinfo' );
+
     
-    this.getProveImg(this.data.finisherId,this.data.task.id)
 
   },
 
