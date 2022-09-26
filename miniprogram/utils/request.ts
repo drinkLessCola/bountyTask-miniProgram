@@ -14,13 +14,14 @@ const dataInterceptor = (response:ResultObject) => {
   wx.hideLoading()
   console.log("response:", response);
   const {data, code, message} = response.data
-    if(code) return Promise.resolve(data)
+  console.log(message)
+    if(code === 200) return Promise.resolve(data)
     else {
       wx.showToast({
         icon:'none',
         title:message
       })
-      return Promise.reject(response.statusCode)
+      return Promise.reject({ code, message })
     }
 }
 const errorInterceptor = (err:WechatMiniprogram.GeneralCallbackResult) => {

@@ -15,7 +15,7 @@ interface Valid {
 const rules: ValidateRule = {
   title: ["required"], 
   illustrate: ["required"],
-  bounty: ["required", "positive"],
+  bounty: ["required", "non-negative"],
   deadline: ["required", "deadline"],
   tasknumber: ["required", "positive"],
 }
@@ -255,7 +255,7 @@ Page({
    * 校验
    */
   validateData(name: string, val: any) {
-    const isVaild = validate(val, rules[name])
+    const isVaild = validate(`${val}`, rules[name])
     this.setData({
       [`valid.${name}`]: isVaild
     })
@@ -353,10 +353,6 @@ Page({
       })
       .catch(err => {
         console.log(err)
-        wx.showToast({
-          icon: 'none',
-          title: "发布失败！请重试！"
-        })
       })
   },
   handleBlur(e: any) {
@@ -365,7 +361,7 @@ Page({
     if (name === 'bounty') {
       val = parseFloat(val)
       this.setData({
-        ["taskInfo.bounty"]: val
+        ["taskInfo.bounty"]: `${val}`
       })
     }
     if (name === 'tasknumber') {

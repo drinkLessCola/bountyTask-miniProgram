@@ -15,7 +15,7 @@ App<IAppOption>({
   onLaunch() {
     // 展示本地存储能力
     const accountInfo = wx.getAccountInfoSync();
-    // accountInfo.miniProgram.envVersion = 'release';
+    accountInfo.miniProgram.envVersion = 'release';
     const isRelease = (accountInfo.miniProgram.envVersion === 'release') 
     //this.globalData.isRelease = isRelease
     this.globalData.isRelease = true
