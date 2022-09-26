@@ -43,6 +43,7 @@ Page({
       nickName:'发布者',
       avatarUrl:'http://tmp/ny1Hd2Fgrql4d21c915c93b7255357d06571d729118e.jpeg',
       // lzh的头像
+      status:''
     },
 
     // 待会要改这东西
@@ -209,7 +210,11 @@ Page({
       })
       console.log(data,"我被传过来了");
       if(this.data.isPublisher==true) {
-        this.getUserInfo(this.data.finisherId)
+        //this.getUserInfo(this.data.finisherId)
+        that.setData({
+          userinfos : data.finisherId
+        })
+        /*额 实际上传过来的时候已经userinfo全传过来了 */
       }else{
         this.getTaskStatus(this.data.userid,this.data.task.id)
       }

@@ -3,7 +3,7 @@ import { deleteCollectedTasksById } from "../../API/taskCollection"
 import { addCollectTask, getTaskById, getTaskStatus, isCollected, offlineTask, takeTask } from "../../API/taskDetail"
 const app = getApp()
 type ReceivedStatus = '未接受' | '未提交' | '已提交'
-const STATUS = ['','进行中', '待确认']
+const STATUS = ['已完成','进行中', '待确认']
 Page({
   /**
    * 页面的初始数据
@@ -154,6 +154,8 @@ Page({
     if(this.data.isPublisher){
       // const {info:{id}} = e.currentTarget.dataset
       id  =  e.currentTarget.dataset.info
+      console.log(id);
+      
       // 执行方可没这个info id 
     }else{
       id = {id:this.data.userid}

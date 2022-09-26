@@ -55,7 +55,7 @@
 
 <view style="height: 188rpx;"></view>
 <!-- 把按钮栏顶开 -->
-<view class="buttonBox" wx:if="{{isPublisher}}">
+<view class="buttonBox" wx:if="{{isPublisher && userinfos.status !='已完成'}}">
   <button class="btnNo" bindtap="refuse">认定无效</button>
   <button class="btnYes" bindtap="confirm">确认完成</button>
 </view>
