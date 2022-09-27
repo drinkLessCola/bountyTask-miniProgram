@@ -2,12 +2,9 @@ import { onLogin, tokenLogin } from "../API/user"
 
 export async function login() {
   // 有用户信息，就返回
-  console.log('1')
   const user = wx.getStorageSync('user')
   if (user) return
-  console.log('2')
   const token = wx.getStorageSync('token')
-  console.log('3')
   // 先使用 token 登录！
   if (token) {
     wx.showLoading({ title: '登录中' })
@@ -27,7 +24,6 @@ export async function login() {
       wx.showToast({ title: '登录状态已过期，请重新登录', icon: 'none' })
     }
   }
-  console.log('4')
   // 没有 token / token 过期
   // 取 user_code
   wx.login({
@@ -41,7 +37,6 @@ export async function login() {
       wx.setStorageSync('user_code', res.code)
     }
   })
-  console.log('5')
   // 取得用户授权
   return new Promise((resolve, reject) => {
     wx.getUserProfile({

@@ -14,7 +14,7 @@
       <li class="line"></li>
       <li class="user-data-item">
         <span class="title">任务通过率</span>
-        <view class="data">{{passRate || '-'}}</view>
+        <view class="data">{{passRate}}</view>
       </li>
     </ul>
   </header>

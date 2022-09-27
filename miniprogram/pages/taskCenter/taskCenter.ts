@@ -1,6 +1,7 @@
 // index.ts
 import { searchTask } from "../../API/taskCenter";
 const app = getApp()
+const POSITION = ['泰山区', '华山区', '燕山区', '黑山区', '主校区', '启林南', '启林北', '校外']
 // import { icon_time, icon_address } from '../../utils/icon'
 Page({
   data: {
@@ -17,7 +18,7 @@ Page({
     ],
 
     //picker的选项
-    array: ['全部', '泰山区', '华山区', '启林北', '启林南', '黑山区', '校外'],
+    array: POSITION,
     // objectArray抄来的,看上去是方便与后端连接的？
     objectArray: [
       { id: 0, name: '全部' },
@@ -74,8 +75,12 @@ Page({
   setTaskArea(taskArray: TaskObj[]) {
     taskArray.forEach(element => {
       console.log(element)
-      element.area = element.label.split(',').filter((label: string) => label !== '紧急').join(', ')
-      console.log(element.area)
+      element.area = 
+      element.label
+        .split(',')
+        .filter((label: string) => label !== '紧急' && POSITION.includes(label))
+        .join(', ') || '校内'
+      
       // if(element.labels[0]!='紧急'){
       //   element.area=element.labels[0]
       // }else if(element.labels[1]){

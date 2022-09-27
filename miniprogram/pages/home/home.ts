@@ -1,6 +1,7 @@
 // pages/page1/page1.ts
 import { searchTask } from "../../API/taskCenter";
 // 额,忘记把这个接口写在home里了，不过反正是一个东西就不管了
+const POSITION = ['泰山区', '华山区', '燕山区', '黑山区', '主校区', '启林南', '启林北', '校外']
 const app = getApp()
 Page({
 
@@ -95,8 +96,11 @@ Page({
   setTaskArea(taskArray: TaskObj[]) {
     taskArray.forEach(element => {
       console.log(element)
-      element.area = element.label.split(',').filter((label: string) => label !== '紧急').join(', ')
-      console.log(element.area)
+      element.area = 
+      element.label
+        .split(',')
+        .filter((label: string) => label !== '紧急' && POSITION.includes(label))
+        .join(', ') || '校内'
       // if(element.labels[0]!='紧急'){
       //   element.area=element.labels[0]
       // }else if(element.labels[1]){

@@ -75,7 +75,6 @@ interface CollectObj {
  */
 export async function isCollected (userid:number, taskid:number):Promise<boolean> {
   const collectList = await getCollectedTasksById(userid)
-  console.log(collectList)
-  const tasks = (collectList as CollectObj[]).map((task) => task.taskId)
+  const tasks = (collectList as CollectObj[]).map((task) => task.id)
   return tasks.includes(taskid)
 }

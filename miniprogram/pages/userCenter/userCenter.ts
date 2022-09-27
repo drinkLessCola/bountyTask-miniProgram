@@ -1,4 +1,5 @@
 // miniprogram.ts
+import { getUserInfo } from '../../API/confirmCompleted'
 import { login } from '../../utils/login'
 const app = getApp()
 Page({
@@ -13,18 +14,20 @@ Page({
     nickName: '',
     avatarUrl:'',
     publishNum: 0,
-    passRate:0,
+    passRate:'-',
   },
   // 登录
   handleLogin() {
+    if(this.data.nickName && this.data.avatarUrl) return
     login()
     .then(() => {
       const { avatarUrl, nickName, postNum:publishNum, settleNum } = wx.getStorageSync('user')
+      const passRate = publishNum ? `${Math.floor(settleNum / publishNum * 100)}%` : '-'
       this.setData({
         avatarUrl,
         nickName,
         publishNum,
-        passRate: settleNum / publishNum
+        passRate
       })
     })
     .catch(err => {
@@ -100,6 +103,21 @@ Page({
         selected: 4
       })
     }
+    const {id} = wx.getStorageSync('user')
+    if(!id) return
+    getUserInfo(id)
+    .then((data) => {
+      const { /*getNum, finishNum,*/ postNum:publishNum, settleNum } = data as UserInfo
+      const passRate = publishNum ? `${Math.floor(settleNum / publishNum * 100)}%` : '-'
+      this.setData({
+        passRate,
+        publishNum
+      })
+    })
+    .catch(err => {
+      console.log(err)
+      wx.showToast({ icon:'none', title:'获取用户任务信息失败'})
+    })
   },
 
   /**

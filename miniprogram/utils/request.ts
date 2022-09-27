@@ -15,7 +15,7 @@ const dataInterceptor = (response:ResultObject) => {
   console.log("response:", response);
   const {data, code, message} = response.data
   console.log(message)
-    if(code === 200) return Promise.resolve(data)
+    if(code === 200) return Promise.resolve(data || message)
     else {
       wx.showToast({
         icon:'none',
@@ -91,10 +91,7 @@ export const putRequest = async (url:string, unhandleData:string | object) => {
     })
   })
 }
-interface FormData {
-  contentType: string;
-  buffer: ArrayBufferLike;
-}
+
 export const formDataRequest = async (url:string, data: FormData) => {
   wx.showLoading({title:"加载中", mask:true})
   const result = await new Promise((resolve:(res:Promise<Object>) => void, reject:(res:Promise<PromiseRejectedResult> | undefined) => void) => {

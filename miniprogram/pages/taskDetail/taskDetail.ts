@@ -1,15 +1,17 @@
 // miniprogram.ts
 import { deleteCollectedTasksById } from "../../API/taskCollection"
 import { addCollectTask, getTaskById, getTaskStatus, isCollected, offlineTask, takeTask } from "../../API/taskDetail"
-const app = getApp()
+import { login } from "../../utils/login"
+
 type ReceivedStatus = '未接受' | '未提交' | '已提交'
-const STATUS = ['','进行中', '待确认']
+const app = getApp()
+const STATUS = ['已确认', '进行中', '待确认']
 Page({
   /**
    * 页面的初始数据
    */
   data: {
-    show:app.globalData.isRelease,
+    show: app.globalData.isRelease,
     taskid: 0,   // 任务 id 
     userid: 0,   // 当前用户 id
     isPublisher: true,  // 0是发布者 1不是 (感觉好像反了哈哈，直接用 boolean 吧
@@ -85,86 +87,99 @@ Page({
   /**
    * 获取任务详情
    * @param taskid 任务 id
+   * @param userid 用户 id
    */
-  getTaskDetail(taskid: number, userid: number) {
-    let isPublisher:boolean = false
+  async getTaskDetail(taskid: number, userid: number) {
+    let isPublisher: boolean = false
     wx.showLoading({ title: "加载中…" })
-    getTaskStatus(taskid)
-      .then((data) => {
-        console.log('taskStatus', data)
-        // data[0] 为发布者
-        const [publisher, ...receivers] = data as TaskStatusObj[]
-        const { user } = publisher
-        const receiverInfo = receivers.map((r) => {
-          console.log(r)
-          const {id, avatarUrl, nickName} = r.user
-          const status = STATUS[r.status]
-          return {id, avatarUrl, nickName, status }
-        })
-        const receiveSelf = receiverInfo.filter((r) => r.id === userid)[0],
-              receiveStatus = !receiveSelf ? '未接受' : 
-                (receiveSelf.status == '进行中' ? '未提交' : '已提交') //只要接收了任务,那么这个receiveSelf.status就只会是进行中或者已提交，没接收任务的会被上一行判定赋值
-        isPublisher = userid === user.id
-        this.setData({ publisher: user, receiverInfo, isPublisher, receiveStatus })
-        return getTaskById(taskid)
+
+    try {
+      const taskStatus = await getTaskStatus(taskid)
+      console.log('taskStatus', taskStatus)
+      // taskStatus[0] 为发布者
+      const [publisher, ...receivers] = taskStatus as TaskStatusObj[]
+      const { user } = publisher
+
+      // 处理接受任务者的数据
+      const receiverInfo = receivers.map((r) => {
+        const { id, avatarUrl, nickName } = r.user
+        const status = STATUS[r.status]
+        return { id, avatarUrl, nickName, status }
       })
-      .then((data) => {
-        console.log(data)
-        const { id, title, illustrate, taskNumber, taskStatus, getNum, deadline: ddl, bounty, contact, label, request } = data as UnhandledTaskDetail
-       // const number = taskNumber - getNum, 这里不用减的。。后端已经减过了
-       const number = taskNumber,
-              labels = label ? label.split(',') : [],
-              deadline = this.formatTime(ddl),
-              isOffline = taskStatus === 1,
-              isOutDate = new Date(ddl).getTime() < Date.now() 
-        console.log('isOffline', isOffline, isOutDate)
-        const task: TaskDetailObj = { id, title, illustrate, request, number, labels, deadline, bounty, contact }
-        this.setData({ task, isOffline, isOutDate })
-        if(!isPublisher) this.checkCollected()
+      // 当前用户是否是任务发布者 
+      isPublisher = userid === user.id
+      // receiveSelf 当前用户是否接受任务
+      // receiveStatus 接受任务的状态
+      const receiveSelf = receiverInfo.filter((r) => r.id === userid)[0],
+        receiveStatus = !receiveSelf ? '未接受' :
+          (receiveSelf.status == '进行中' ? '未提交' : '已提交')
+      //只要接收了任务,那么这个receiveSelf.status就只会是进行中或者已提交，没接收任务的会被上一行判定赋值
+      this.setData({ publisher: user, receiverInfo, isPublisher, receiveStatus })
+
+      const taskDetail = await getTaskById(taskid)
+      console.log('taskDetail', taskDetail)
+      const { id, title, illustrate, taskNumber, taskStatus: status, deadline: ddl, bounty, contact, label, request } = taskDetail as UnhandledTaskDetail
+      const number = taskNumber,
+        labels = label ? label.split(',') : [],
+        deadline = this.formatTime(ddl),
+        isOffline = status === 1,
+        isOutDate = new Date(ddl).getTime() < Date.now()
+      console.log('isOffline', isOffline, isOutDate)
+      const task: TaskDetailObj = { id, title, illustrate, request, number, labels, deadline, bounty, contact }
+      this.setData({ task, isOffline, isOutDate })
+
+      // 检查任务收藏情况
+      if (!isPublisher) this.checkCollected()
+    } catch (errCode) {
+      wx.showToast({
+        icon: "none",
+        title: `获取任务详情失败! errCode:${errCode}`,
+      }).then(() => {
+        wx.navigateBack()
       })
-      .catch((errCode) => {
-        wx.showToast({
-          icon: "none",
-          title: `获取任务详情失败! errCode:${errCode}`,
-        }).then(() => {
-          wx.navigateBack()
-        })
-      })
-    //调用 根据任务id查询 根据任务id返回发布者id
+    }
   },
+  /**
+   * 查询任务收藏情况
+   */
   checkCollected() {
-    const {taskid, userid} = this.data
+    const { taskid, userid } = this.data
+    if (!userid) return
+
     isCollected(userid, taskid)
-    .then(isCollect => {
-      console.log(isCollect)
-      this.setData({isCollect})
-    })
-    .catch(errCode => console.log("查询收藏信息失败！errCode:" + errCode))
+      .then(isCollect => {
+        this.setData({ isCollect })
+      })
+      .catch(errCode => console.log("查询收藏信息失败！errCode:" + errCode))
   },
+  /**
+   * 完成任务
+   */
   toFinish() {
-    const {taskid, userid} = this.data
-    wx.navigateTo({url:`/pages/finish/finish?taskid=${taskid}&userid=${userid}`})
+    const { taskid } = this.data
+    const { id: userid } = wx.getStorageSync('user')
+    wx.navigateTo({ url: `/pages/finish/finish?taskid=${taskid}&userid=${userid}` })
   },
 
 
 
   confirmTask: function (e: any) {
     console.log(e)
-    let id 
-    if(this.data.isPublisher){
+    let id
+    if (this.data.isPublisher) {
       // const {info:{id}} = e.currentTarget.dataset
-      id  =  e.currentTarget.dataset.info
+      id = e.currentTarget.dataset.info
       // 执行方可没这个info id 
-    }else{
-      id = {id:this.data.userid}
+    } else {
+      id = { id: this.data.userid }
       // 执行方的finisherId就是自己的
     }
-    
-    const {userid,taskid, isPublisher, task:{title, request}} = this.data 
+
+    const { userid, taskid, isPublisher, task: { title, request } } = this.data
     // console.log(t.info);
     // 跳转：确认完成界面 参数t.info.id(头像应该传不过去吧，太长了)
     let emitData = {
-      userid:userid,
+      userid: userid,
       isPublisher: isPublisher,
       finisherId: id,
       taskId: taskid,
@@ -178,86 +193,111 @@ Page({
       }
     })
   },
-  offlineTask: function() {
-    const {userid, taskid, receiverInfo} = this.data
+  offlineTask: function () {
+    const { userid, taskid, receiverInfo } = this.data
     const num = receiverInfo.reduce((res, r) => {
       return res + (r.status === '待确认' ? 1 : 0)
     }, 0)
-    if(num) {
-      wx.showToast({icon:"none", title:"不能下线有待确认的任务"})
+    if (num) {
+      wx.showToast({ icon: "none", title: "不能下线有待确认的任务" })
       return
     }
     //调用接口:下线任务
     offlineTask(userid, taskid)
-    .then(data => {
-      console.log(data)
-      this.getTaskDetail(taskid, userid)
-      wx.showToast({icon:"success", title:"任务下线成功！"})
-    }) 
-    .catch(errCode => {
-      wx.showToast({icon:"none", title:"任务下线失败！errCode:" + errCode})
-    })
+      .then(data => {
+        console.log(data)
+        this.getTaskDetail(taskid, userid)
+        wx.showToast({ icon: "success", title: "任务下线成功！" })
+      })
+      .catch(errCode => {
+        wx.showToast({ icon: "none", title: "任务下线失败！errCode:" + errCode })
+      })
   },
-  
+
   // ✔ 添加收藏
-  taskCollect: function () {
-    const {taskid, userid} = this.data
+  async taskCollect() {
+    // 未登录
+    if (!this.data.userid) {
+      const isLogin: boolean = await this.handleLogin()
+      if (!isLogin) return
+    }
+    const { taskid, userid } = this.data
+
     //调用接口:添加收藏任务
     addCollectTask(userid, taskid)
-    .then(() => {
-      this.checkCollected()
-      wx.showToast({ icon:"success", title:"收藏成功！"})
-    })
-    .catch(errCode => {
-      wx.showToast({ icon:'none', title:"添加收藏失败！errCode:" +  errCode})
-    })
+      .then(() => {
+        this.checkCollected()
+        wx.showToast({ icon: "success", title: "收藏成功！" })
+      })
+      .catch(errCode => {
+        wx.showToast({ icon: 'none', title: "添加收藏失败！errCode:" + errCode })
+      })
   },
   // ✔ 取消收藏
   delCollect: function () {
-    const {taskid, userid} = this.data
+    const { taskid, userid } = this.data
     //调用接口:删除收藏任务
     deleteCollectedTasksById(userid, taskid)
-    .then(() => {
-      this.checkCollected()
-      wx.showToast({ icon:"success", title:"取消收藏成功！"})
-    })
-    .catch(errCode => {
-      wx.showToast({ icon:"none", title:'取消收藏失败！errCode' + errCode})
-    })
+      .then(() => {
+        this.checkCollected()
+        wx.showToast({ icon: "success", title: "取消收藏成功！" })
+      })
+      .catch(errCode => {
+        wx.showToast({ icon: "none", title: '取消收藏失败！errCode' + errCode })
+      })
   },
 
   showDialog: function () {
     // 显示提示框
-    this.setData({ showDialog: true})
+    this.setData({ showDialog: true })
   },
   hideDialog: function () {
     // 关闭
     this.setData({ showDialog: false })
   },
 
-  receiveTask: function () {
+  async receiveTask() {
+    // 未登录
+    if (!this.data.userid) {
+      const isLogin: boolean = await this.handleLogin()
+      if (!isLogin) return
+    }
+
     // 调用接口:接任务
-    const {taskid, userid} = this.data
-    console.log("接任务")
+    const { taskid, userid } = this.data
     takeTask(taskid, userid)
-    .then((data) => {
-      console.log(data)
-      this.getTaskDetail(taskid, userid)
-      wx.showToast({icon:"success", title:"接受任务成功！"})
-    })
-    .catch(errCode => {
-      wx.showToast({icon:"none", title:"接受任务失败！errCode:" + errCode})
-    })
+      .then((data) => {
+        console.log(data)
+        this.getTaskDetail(taskid, userid)
+        wx.showToast({ icon: "success", title: "接受任务成功！" })
+      })
+      .catch(errCode => {
+        wx.showToast({ icon: "none", title: "接受任务失败！errCode:" + errCode })
+      })
     // 关闭
     this.hideDialog()
+  },
+  /**
+   * 处理未登录的情况
+   */
+  async handleLogin() {
+    wx.showToast({ icon: 'none', title: '请先登录' })
+    try {
+      const userid = await login()
+      this.setData({ userid })
+      return true
+    } catch (err) {
+      wx.showToast({ icon: 'none', title: '登陆失败！' })
+      return false
+    }
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(option: any) {
-    const taskid = +option.taskid,
-      userid = +option.userid
+    const taskid = +option.taskid
+    const { id: userid } = wx.getStorageSync('user')
     this.setData({ taskid, userid })
     this.getTaskDetail(taskid, userid)
   },

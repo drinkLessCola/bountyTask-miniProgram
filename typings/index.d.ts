@@ -48,3 +48,17 @@ interface UserLoginInfo {
   encryptedData: any,
   iv: any
 }
+
+interface UserInfo {
+  id: number,
+  money:number,
+  finishNum:number,
+  getNum:number,
+  postNum:number,
+  settleNum:number
+}
+
+interface FormData {
+  contentType: string,
+  buffer: ArrayBufferLike
+}
