@@ -74,6 +74,22 @@ export const getRequest = async(url:string) => {
   return result;
 }
 
+export const deleteRequest = async(url:string) => {
+  wx.showLoading({title:"加载中", mask:true})
+  const result = await new Promise((resolve, reject) => {
+    wx.request({
+      url: BASE_URL + url,
+      success(response:ResultObject) {
+        resolve(dataInterceptor(response))
+      },
+      fail(err) {
+        reject(errorInterceptor(err))
+      }
+    })
+  })
+  return result;
+}
+
 export const putRequest = async (url:string, unhandleData:string | object) => {
   wx.showLoading({title:"加载中", mask:true})
   const data = JSON.stringify(unhandleData)

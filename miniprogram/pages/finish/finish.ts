@@ -22,6 +22,7 @@ Page({
 
     base64Array:new Array(),
     imgArray: new Array(),
+    imgIDArray:new Array(),
 
     task: {
       title: '测试',
@@ -53,7 +54,7 @@ Page({
   addImg: function () {
     console.log("add");
     const _this =this
-    let Img 
+
     wx.chooseMedia({
       count:1,
       mediaType:['image'],
@@ -72,14 +73,14 @@ Page({
           compressedWidth:750,
           success:(res) => {
             addImgPath=res.tempFilePath
-            let getFile = wx.getFileSystemManager()
-           /* let read = getFile.getFileInfo({
-              filePath:addImgPath,
-              success:(res) => {
-                console.log(res.size);
+            // let getFile = wx.getFileSystemManager()
+            // let read = getFile.getFileInfo({
+            //   filePath:addImgPath,
+            //   success:(res) => {
+            //     console.log(res.size);
                 
-              }
-            });*/
+            //   }
+            // });
             
             console.log(addImgPath);
             imgArray.push(addImgPath)
@@ -110,12 +111,16 @@ Page({
     const index = e.currentTarget.dataset.id
     let imgArray = this.data.imgArray
     let base64Array = this.data.base64Array
+    let imgIDArray = this.data.imgIDArray
     imgArray.splice(index,1)
     base64Array.splice(index,1)
+    
+    /*base64这个现在不用*/ 
     this.setData({
       imgArray : imgArray,
       base64Array : base64Array
     })
+    delImage(imgIDArray[index]);//后端接口
   },
   
   // 删除图片？先不给你删[doge]
@@ -157,12 +162,21 @@ Page({
           userid:this.data.userid,
         },
         success: res => {
-          console.log(res,'上传成功');
+          console.log('AL',res,'上传成功');
+          //这个先不修..
+          // let imgIDArray = this.data.imgIDArray;
+          // imgIDArray.push(res.data.id)  ?????
+          // this.setData({
+          //   imgIDArray:imgIDArray
+          // })
+          //这个是post请求
+          //额 后端返回个图片id 现在无法测试后端 不知道该怎么把这个id拿出来
         },
         fail: err => {
           console.log(err, '寄')
         }
       })
+
 
 
       }
