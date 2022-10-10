@@ -84,11 +84,40 @@ Page({
             
             console.log(addImgPath);
             imgArray.push(addImgPath)
+            wx.uploadFile({
+              // url:BASE_URL + '/haha',
+              url:BASE_URL + '/prove/submit',
+              filePath : addImgPath,
+              name : "image",
+              formData:{
+                taskid:_this.data.taskid,
+                userid:_this.data.userid,
+              },
+              success: res => {
+                console.log('UPLOAD_IMG',res,'上传成功');
+                let obj = JSON.parse(res.data);
+                if(obj.code==200){
+                  //成功才setdata
+                  console.log(obj.data.id);
+                  //后端返回来的图片id
+                  let imgIDArray = _this.data.imgIDArray;
+                  imgIDArray.push(obj.data.id) 
+                  _this.setData({
+                    imgIDArray:imgIDArray,
+                    imgArray:imgArray
+                  })
+                }else{
+                  console.log("上传失败"+"code:"+obj.code);
+                }
+                
+              },
+              fail: err => {
+                console.log(err, '寄')
+              }
+            })
             //console.log(imgArray);
-           _this.setData({
-            // base64Array:base64Array,
-           imgArray:imgArray
-        })
+           
+
           },
           fail: ()=> {
             console.log('压缩失败');
@@ -105,22 +134,33 @@ Page({
         console.log("chooseError");
       }
     })
+
+    
   },
 
   delImg(e:any) {
-    const index = e.currentTarget.dataset.id
+    const index = e.currentTarget.dataset.index
     let imgArray = this.data.imgArray
-    let base64Array = this.data.base64Array
+    //let base64Array = this.data.base64Array
     let imgIDArray = this.data.imgIDArray
-    imgArray.splice(index,1)
-    base64Array.splice(index,1)
+    //base64Array.splice(index,1)
     
     /*base64这个现在不用*/ 
-    this.setData({
-      imgArray : imgArray,
-      base64Array : base64Array
-    })
-    delImage(imgIDArray[index]);//后端接口
+    console.log(index);
+    
+    if(imgIDArray[index]!=null){
+      this.setData({
+        imgArray : imgArray,
+       // base64Array : base64Array
+      })
+      imgArray.splice(index,1)
+      delImage(imgIDArray[index]);//后端接口
+      //该死,不知道为什么405错误。。已经在对应的位置上填好了图片id了
+    }
+    
+    
+    
+   
   },
   
   // 删除图片？先不给你删[doge]
@@ -128,7 +168,7 @@ Page({
   submit: function () {
     console.log("submit");
     let flag = true //判定是否提交成功
-    this.data.imgArray.forEach(e => {
+    /*this.data.imgArray.forEach(e => {
       
       let string_e = e.toString()
       console.log({
@@ -151,36 +191,8 @@ Page({
       //     console.log(err+'SI');
       //   })
         
-        
-      wx.uploadFile({
-        // url:BASE_URL + '/haha',
-        url:BASE_URL + '/prove/submit',
-        filePath : e,
-        name : "image",
-        formData:{
-          taskid:this.data.taskid,
-          userid:this.data.userid,
-        },
-        success: res => {
-          console.log('AL',res,'上传成功');
-          //这个先不修..
-          // let imgIDArray = this.data.imgIDArray;
-          // imgIDArray.push(res.data.id)  ?????
-          // this.setData({
-          //   imgIDArray:imgIDArray
-          // })
-          //这个是post请求
-          //额 后端返回个图片id 现在无法测试后端 不知道该怎么把这个id拿出来
-        },
-        fail: err => {
-          console.log(err, '寄')
-        }
-      })
-
-
-
       }
-    })
+    })*/
     submitTask(this.data.taskid,this.data.userid)
       .then((data) => {
         console.log(data)+'ST';

@@ -41,7 +41,7 @@ export async function submitImage(taskid:number,userid:number,image:string[]) {
 
 
 // 删除某个证明图片
-export async function delImage(imgID:number) {
+export async function delImage(imgID:string) {
   //const data = {imgID}
   const res = await deleteRequest(`/prove/del/${imgID}`, )
   return res

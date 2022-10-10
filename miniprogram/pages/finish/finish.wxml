@@ -19,10 +19,10 @@
 
     <!-- capture-bind:longpress="delImg 长按删除 -->
     <view class="imgBox" wx:for="{{imgArray}}">
-      <image wx:if="{{index%3 != 2}}" src='{{item}}' data-index='{{item.index}}' mode="aspectFit" class="img"></image>
+      <image wx:if="{{index%3 != 2}}" src='{{item}}' data-index='{{index}}' mode="aspectFit" class="img"></image>
       <!-- 每行的最后一个没有右margin -->
-      <image wx:else="" src='{{item}}'data-index='{{item.index}}' mode="aspectFit" class="img imglast"></image>
-      <view class="delete"  data-index='{{item.index}}' bindtap="delImg">×</view>
+      <image wx:else="" src='{{item}}'data-index='{{index}}' mode="aspectFit" class="img imglast"></image>
+      <view class="delete"  data-index='{{index}}' bindtap="delImg">×</view>
     </view>
     <view class="add addLast" wx:if="{{(imgArray.length)%3 == 2}}" bindtap="addImg">
       <image src='/images/finish/addImg.png' mode="aspectFit" class="addImg">

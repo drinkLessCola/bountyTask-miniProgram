@@ -79,6 +79,7 @@ export const deleteRequest = async(url:string) => {
   const result = await new Promise((resolve, reject) => {
     wx.request({
       url: BASE_URL + url,
+      method:'DELETE',
       success(response:ResultObject) {
         resolve(dataInterceptor(response))
       },
