@@ -149,12 +149,24 @@ Page({
     console.log(index);
     
     if(imgIDArray[index]!=null){
-      this.setData({
-        imgArray : imgArray,
-       // base64Array : base64Array
+      delImage(imgIDArray[index]).then((res) =>{
+        console.log('SuccessDEL');
+        imgArray.splice(index,1)
+        imgIDArray.splice(index,1);
+        this.setData({
+
+          imgArray : imgArray,
+         // base64Array : base64Array
+        })
+        
+      }).catch((err) => {
+        console.log('ERRDEL');
+        console.log(err);
       })
-      imgArray.splice(index,1)
-      delImage(imgIDArray[index]);//后端接口
+      //后端接口
+      
+      
+      
       //该死,不知道为什么405错误。。已经在对应的位置上填好了图片id了
     }
     
