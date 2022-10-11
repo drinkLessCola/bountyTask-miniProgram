@@ -1,4 +1,5 @@
-import {getRequest, putRequest, postRequest, formDataRequest } from '../utils/request' 
+import {getRequest, putRequest, postRequest,formDataRequest, deleteRequest} from '../utils/request' 
+
 // 提交任务
 export async function submitTask(taskid:number, userid:number) {
   const data = {userid, taskid}
@@ -10,6 +11,16 @@ export async function submitTask(taskid:number, userid:number) {
 
 export async function getTaskById (taskId:string) {
   const res = await getRequest(`/task/get/${taskId}`)
+  return res
+}
+
+export async function tokenLogin(filePath:string,taskid:number,userid:number){
+  const formData = new FormData()
+  formData.append('image', filePath)// ?
+  formData.append('taskid', taskid)
+  formData.append('userid', userid)
+  const data = formData.getData()
+  const res = await formDataRequest('/prove/submit', data)
   return res
 }
 
@@ -29,10 +40,10 @@ export async function submitImage(data:FormData) {
 }
 
 
-// 删除某个证明图片 (额，所以是哪个。。。。)
-export async function delImage(userid:number, taskid:number) {
-  const data = {userid, taskid}
-  const res = await putRequest(`/prove/del`, data)
+// 删除某个证明图片
+export async function delImage(imgID:string) {
+  //const data = {imgID}
+  const res = await deleteRequest(`/prove/del/${imgID}`, )
   return res
 }
 

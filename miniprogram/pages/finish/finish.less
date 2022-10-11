@@ -27,28 +27,51 @@ page {
     width: 650rpx;
     word-wrap: break-all;
   }
-  .img{
-    float: left;
-    // display: flex;
-    width: 210rpx;
-    height: 210rpx;
-    margin-right: 10rpx;
-    margin-bottom: 10rpx;
+  .imgBox{
+    display: inline-block;
+    .img{
+      //float: left;
+     display: inline-block;
+      width: 200rpx;
+      height: 200rpx;
+      margin-right: 10rpx;
+      margin-bottom: 10rpx;
+    }
+    .imglast {
+      margin-right: 0;
+    }
+    
   }
-  .imglast {
-    margin-right: 0;
+  
+  .delete{
+    position: absolute;
+    margin-top: -200rpx;
+    background-color: red;
+    color: white;
+    font-style:PingFang SC;
+    //？字体。。。
+    font-weight: 700;
+    font-size: 42rpx;
+    width: 42rpx;
+    height: 42rpx;
+    border-radius: 40rpx;
+    //padding-left: 6rpx;
+    line-height: 42rpx;
+    box-sizing: content-box;
   }
   
   .add {
-    float: left;
-    // display: flex;
-    width: 210rpx;
-    height: 210rpx;
+    //float: left;
+     display: inline-block;
+    width: 200rpx;
+    height: 200rpx;
     margin-right: 10rpx;
     margin-bottom: 10rpx;
     border: 1rpx dashed rgb(170,170,170);
     box-sizing: border-box;
+    
     .addImg {
+      float: left;
       margin-top: 80rpx;
       margin-left: 80rpx;
       width: 50rpx;
@@ -82,13 +105,11 @@ page {
     width: 612rpx;
     height: 100rpx;
     border-radius: 20rpx;
-    padding: 4rpx 74rpx 24rpx 74rpx ;
+    padding: 4rpx 74rpx 4rpx 74rpx ;
     font-size: 36rpx;
     font-weight: bold;
     background-color: rgb(255, 207, 86);
     color: #fff;
-
-
   }
 
 }

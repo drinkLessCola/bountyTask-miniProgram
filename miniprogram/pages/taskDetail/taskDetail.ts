@@ -81,7 +81,7 @@ Page({
     const [year, month, day] = date.split('-')
     const [h, minutes] = time.split(":")
     const hour = `0${+h > 12 ? +h % 12 : h}`.slice(-2)
-    const isAm = +h > 12
+    const isAm = +h < 12
     return `${year}年${+month}月${day}日 ${isAm ? '上午' : '下午'} ${hour}:${minutes}`
   },
   /**

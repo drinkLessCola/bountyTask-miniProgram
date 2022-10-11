@@ -137,6 +137,7 @@ Page({
       time: e.detail.value
     })
     if (this.data.date) this.validateTime()
+    console.log('@###########', this.data.date, this.data.time)
   },
 
 
@@ -263,8 +264,8 @@ Page({
   validateTime(): void {
     let { date: d, time } = this.data
     d = d.replace(/[年月]/gu, '-').replace(/日/, '')
-    const date = new Date(`${d} ${time}:00`)
-
+    const date = new Date(+new Date(`${d} ${time}:00`) + 8 * 3600 * 1000)
+    console.log('date', date)
     if (date.getTime() < Date.now()) {
       this.setData({
         ["valid.deadline"]: false
@@ -273,6 +274,7 @@ Page({
     }
 
     const deadline = date.toISOString().replace('T', ' ').slice(0, 19)
+    console.log(deadline)
     this.setData({
       ["taskInfo.deadline"]: deadline,
       ["valid.deadline"]: true
@@ -335,7 +337,7 @@ Page({
     // 可以这样
     const label = labelArray.filter(label => label.checked).map(obj => obj.name).join(',')
     const category = categorys.filter(cate => cate.checked)[0].name
-
+    console.log(this.data.taskInfo)
     const data = Object.assign({}, this.data.taskInfo, { label, request, category, userid })
     console.log(data)
 

@@ -54,7 +54,7 @@ Component({
       const time = new Date(t)
       const month = time.getMonth() + 1,
         date = time.getDate(),
-        isAm = time.getHours() > 12,
+        isAm = time.getHours() < 12,
         hour = time.getHours() > 12? time.getHours() % 12 : time.getHours(),
         min = time.getMinutes()
       return { month, date, isAm, hour, min }
