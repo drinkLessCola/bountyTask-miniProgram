@@ -298,6 +298,7 @@ Page({
       //     console.log(err+'SI');
       //   })
         
+<<<<<<< HEAD
 // <<<<<<< HEAD
         
       // wx.uploadFile({
@@ -319,6 +320,8 @@ Page({
     //   }
     // })
 // =======
+=======
+>>>>>>> develop
       }
     })*/
     submitTask(this.data.taskid,this.data.userid)

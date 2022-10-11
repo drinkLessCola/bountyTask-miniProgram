@@ -1,4 +1,5 @@
 import {getRequest, putRequest, postRequest,formDataRequest, deleteRequest} from '../utils/request' 
+import FormData from '../utils/formdata'
 
 // 提交任务
 export async function submitTask(taskid:number, userid:number) {
