@@ -1,3 +1,21 @@
+import { getTaskByStatus } from "../../../API/taskList"
+const STATUS_MAP = {
+  finished: 0,
+  processing: 1,
+  waitForConfirm: 2
+}
+
+const ROLE_MAP = {
+  publisher: 1,
+  receiver: 0
+}
+
+const OPTION_VALUE_MAP = {
+  '最近接受': 0,
+  '最早截止': 1,
+  '已截止': 2
+}
+const app = getApp()
 // miniprogram.ts
 Page({
 
@@ -5,7 +23,57 @@ Page({
    * 页面的初始数据
    */
   data: {
+    taskList: [] as TaskObj[],
+    switchOptions: [
+      { label: '最近接受', value: OPTION_VALUE_MAP['最近接受'] },
+      { label: '最早截止', value: OPTION_VALUE_MAP['最早截止'] },
+      { label: '已截止', value: OPTION_VALUE_MAP['已截止'] }
+    ],
+    switchIdx: 0,
+    bottomBarHeight: app.globalData.bottomBarHeight,
+  },
+  handleSwitch(e:any) {
+    const { detail:value } = e
+    this.getTaskList(value)
+  },
+  getTaskList(value:number) {
+    console.log(value)
+    this.setData({ switchIdx: value })
+    
+    const role = ROLE_MAP.receiver,
+          status = STATUS_MAP.processing
+    
+    this.getTaskListByStatus(role, status)
+      .then(data => {
+        const sortByDeadline = (a:TaskObj, b:TaskObj) => {
+          const deadlineA = new Date(a.deadline)
+          const deadlineB = new Date(b.deadline)
+          return deadlineA.getTime() > deadlineB.getTime() ? 1 : -1
+        }
+        const now = Date.now()
+        let taskList = (data as TaskObj[]).filter(task => {
+          const res = new Date(task.deadline).getTime() > now
+          return value === OPTION_VALUE_MAP['已截止'] ? !res : res
+        })
+        switch(value) {
+          case OPTION_VALUE_MAP['最早截止']: taskList.sort(sortByDeadline); break;
+          case OPTION_VALUE_MAP['最近接受']: taskList.reverse(); break;
+        }
+        console.log(taskList)
+        this.setData({
+          taskList
+        })
+      })
+      .catch(err => {
+        console.log(err)
+        wx.showToast({ title: '获取任务列表失败！', icon: 'none'})
+      })
 
+  },
+  getTaskListByStatus(role:number, status:number) {
+    const { id:userid } = wx.getStorageSync('user')
+    // 已完成的任务
+    return getTaskByStatus( userid, role, status ) 
   },
 
   /**
@@ -26,7 +94,8 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
-
+    console.log('!', this.data.switchIdx)
+    this.getTaskList(this.data.switchIdx)  
   },
 
   /**

@@ -1,4 +1,4 @@
-import {getRequest, putRequest, postRequest } from '../utils/request' 
+import {getRequest, putRequest, postRequest, formDataRequest } from '../utils/request' 
 // 提交任务
 export async function submitTask(taskid:number, userid:number) {
   const data = {userid, taskid}
@@ -22,9 +22,9 @@ export async function getTaskById (taskId:string) {
 // }
 
 
-export async function submitImage(taskid:number,userid:number,image:string[]) {
-  const data = {userid, taskid,image}
-  const res = await postRequest(`/prove/submit`,data)
+export async function submitImage(data:FormData) {
+  console.log(data)
+  const res = await formDataRequest(`/prove/submit`, data)
   return res
 }
 

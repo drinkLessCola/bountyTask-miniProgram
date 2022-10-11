@@ -1,8 +1,15 @@
 // pages/finish/finish.ts
 
 import { submitTask,getTaskById,submitImage,delImage,getImage } from "../../API/finish";
+import FormData from "../../utils/formdata";
 const app = getApp()
 const BASE_URL = "https://summerblink.site/api"
+interface ProveImg {
+  path:string
+  extension:string
+  fileName:string
+  id:number
+}
 Page({
 
   /**
@@ -21,7 +28,7 @@ Page({
     // userid看看从哪获取吧
 
     base64Array:new Array(),
-    imgArray: new Array(),
+    imgArray: new Array<ProveImg>(),
 
     task: {
       title: '测试',
@@ -48,62 +55,58 @@ Page({
     // console.log(this.data.submitData);
     
   },
-// 额，前端似乎不能把图片转url只能发base64，后端也不知道能不能把base64转url
-// 暂时搁置
-  addImg: function () {
-    console.log("add");
-    const _this =this
-    let Img 
-    wx.chooseMedia({
-      count:1,
-      mediaType:['image'],
-      sizeType:['compressed'],
-      // 压缩图片
-      success: function(res) {
-        var tempFiles = res.tempFiles
-        // const fileManager = wx.getFileSystemManager();
-        // const base64 = fileManager.readFileSync(tempFiles[0].tempFilePath, 'base64');
-        let addImgPath 
-        let imgArray =  _this.data.imgArray
-        // console.log(base64.toString());
-        wx.compressImage({
-          src:tempFiles[0].tempFilePath,
-          compressHeight:1333,
-          compressedWidth:750,
-          success:(res) => {
-            addImgPath=res.tempFilePath
-            let getFile = wx.getFileSystemManager()
-           /* let read = getFile.getFileInfo({
-              filePath:addImgPath,
-              success:(res) => {
-                console.log(res.size);
-                
-              }
-            });*/
-            
-            console.log(addImgPath);
-            imgArray.push(addImgPath)
-            //console.log(imgArray);
-           _this.setData({
-            // base64Array:base64Array,
-           imgArray:imgArray
-        })
-          },
-          fail: ()=> {
-            console.log('压缩失败');
-          },
-        })
+  /**
+   * 选择图片
+   */
+  async addImg() {
+    try {
+      // 用户选择的图片 未经压缩
+      const unhandledImgs = await wx.chooseMedia({
+        count:6,
+        mediaType:['image'],
+        sizeType:['compressed'],
+      })
+      // 加上后缀标记
+      const tempFiles = unhandledImgs.tempFiles.map(t => {
+        const { tempFilePath } = t
+        const extension = (tempFilePath.match(/\..*$/) as Array<string>)[0]
+        return Object.assign(t, { extension })
+      })
 
-        // let base64Array =  _this.data.base64Array
-        
-        // base64Array.push(base64.toString())
-        // imgArray.push(tempFiles[0].tempFilePath)
-        
-      },
-      fail: function() {
-        console.log("chooseError");
-      }
-    })
+      // 压缩图片
+      const pendingPromises = tempFiles.map(img => new Promise(async (resolve, reject) => {
+        const { tempFilePath:path, extension } = img
+        try {
+          const res = await wx.compressImage({
+            src:path,
+            quality:50,
+          })
+          const { tempFilePath } = res
+          resolve({ path:tempFilePath, extension})
+        } catch(err) {
+          console.log('图片压缩失败');
+          reject()
+        }
+      }))
+      const compressedImgs = await Promise.all(pendingPromises) as Array<ProveImg>
+      
+      // 上传图片
+      const uploadedImgs = await Promise.all(
+        compressedImgs.map(img => new Promise(async(resolve, reject) => {
+          const { extension, path } = img
+          const fileName = `bountyImage-${Date.now()}${extension}`
+          const { id } = await this.uploadProveImg(path, fileName )
+          resolve(Object.assign(img, { fileName, id }))
+        }))
+      ) as Array<ProveImg>
+
+      // 上传成功，更新 imgArray
+      const imgArray =  this.data.imgArray
+      imgArray.push(...uploadedImgs)
+      this.setData({ imgArray })
+    } catch (err) {
+      console.log("上传图片失败！" + err);
+    }
   },
 
   delImg(e:any) {
@@ -119,20 +122,40 @@ Page({
   },
   
   // 删除图片？先不给你删[doge]
-  
-  submit: function () {
-    console.log("submit");
-    let flag = true //判定是否提交成功
-    this.data.imgArray.forEach(e => {
+  /**
+   * 上传图片证明
+   */
+  uploadProveImg( imgPath:string, fileName:string ) {
+    const { taskid, userid } = this.data
+    const formData = new FormData()
+    formData.appendFile('image', imgPath, fileName)
+    formData.append("taskid", taskid)
+    formData.append("userid", userid)
+    const data = formData.getData()
+    return submitImage(data)
+  },
+
+  async submit(){ 
+    const { imgArray: imgs, taskid, userid } = this.data
+    submitTask(taskid, userid)
+    .then((res) => {
+      console.log(res)
+      wx.showToast({icon:'success', title:'提交成功！', duration:3000 }).then(() => wx.navigateBack())
+    })
+    .catch(err => {
+      wx.showToast({icon:'none', title:'提交失败' })
+      console.log(err)
+    })
+    
+    // let flag = true //判定是否提交成功
+    // this.data.imgArray.forEach(e => {
+    //   console.log({
+    //     taskid:this.data.taskid,
+    //     userid:this.data.userid,
+    //     img:e
+    //   });
       
-      let string_e = e.toString()
-      console.log({
-        taskid:this.data.taskid,
-        userid:this.data.userid,
-        img:e
-      });
-      
-      if(e != ''){
+      // if(e != ''){
       
 
       //   let imgSArray = this.spliceToShortString(string_e)
@@ -147,49 +170,24 @@ Page({
       //   })
         
         
-      wx.uploadFile({
-        // url:BASE_URL + '/haha',
-        url:BASE_URL + '/prove/submit',
-        filePath : e,
-        name : "image",
-        formData:{
-          taskid:this.data.taskid,
-          userid:this.data.userid,
-        },
-        success: res => {
-          console.log(res,'上传成功');
-        },
-        fail: err => {
-          console.log(err, '寄')
-        }
-      })
-
-
-      }
-    })
-    submitTask(this.data.taskid,this.data.userid)
-      .then((data) => {
-        console.log(data)+'ST';
-      })
-      .catch((err) => {
-        flag =false
-        console.log(err+'ST');
-      })
-      if(flag){
-        wx.showToast({
-          title:"提交成功"
-        })
-        // setTimeout(() => {
-        //   wx.navigateBack()
-        // },2000)
-        // 这里我无法判定是否成功。。。
-        
-      }else{
-        wx.showToast({
-          title:"提交失败",
-          icon:"error"
-        })
-      }
+      // wx.uploadFile({
+      //   // url:BASE_URL + '/haha',
+      //   url:BASE_URL + '/prove/submit',
+      //   filePath : e,
+      //   name : "image",
+      //   formData:{
+      //     taskid:this.data.taskid,
+      //     userid:this.data.userid,
+      //   },
+      //   success: res => {
+      //     console.log(res,'上传成功');
+      //   },
+      //   fail: err => {
+      //     console.log(err, '寄')
+      //   }
+      // })
+    //   }
+    // })
   },
 
   spliceToShortString(img:string){

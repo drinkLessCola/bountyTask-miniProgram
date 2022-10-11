@@ -64,41 +64,41 @@ Page({
     searchTask(keyword, null, campus, condition)
       .then((data) => {
         console.log(data)
-        this.setTaskArea(data as TaskObj[])
         this.setData({ taskArray: data as TaskObj[] })
       })
       .catch((errCode) => wx.showToast({icon:'none', title:'获取任务列表失败' + errCode}))
   },
 
+  // 移动到 task 组件统一处理
   // task对象这还得处理 后端的“泰山区” “华山区” 什么的在label里
   // 发布任务界面可选择多个校区。
-  setTaskArea(taskArray: TaskObj[]) {
-    taskArray.forEach(element => {
-      console.log(element)
-      element.area = 
-      element.label
-        .split(',')
-        .filter((label: string) => label !== '紧急' && POSITION.includes(label))
-        .join(', ') || '校内'
+  // setTaskArea(taskArray: TaskObj[]) {
+  //   taskArray.forEach(element => {
+  //     console.log(element)
+  //     element.area = 
+  //     element.label
+  //       .split(',')
+  //       .filter((label: string) => label !== '紧急' && POSITION.includes(label))
+  //       .join(', ') || '校内'
       
-      // if(element.labels[0]!='紧急'){
-      //   element.area=element.labels[0]
-      // }else if(element.labels[1]){
-      //   element.area=element.labels[1]
-      // }else{
-      //   element.area=''
-      // }
-    });
+  //     // if(element.labels[0]!='紧急'){
+  //     //   element.area=element.labels[0]
+  //     // }else if(element.labels[1]){
+  //     //   element.area=element.labels[1]
+  //     // }else{
+  //     //   element.area=''
+  //     // }
+  //   });
     // 由于后端的taskObj没有area属性 需要从labels里抠出来一个
     // 应急处理方法，严格来说应该得限制发布任务处选项互斥
     // 发布任务选标签有很多小bug，比如重复的自定义标签。。没有互斥判断。。可以不选标签。。可以创建空标签..
     // 使用到task组件的地方都可以用这个应急方法转换
     // 确认这么处理后再把这方法复制到home 和 taskCollection 去
     // !好细致，晕了，等会在发布任务的界面加一下限制条件
-    this.setData({
-      taskArray: taskArray
-    })
-  },
+    // this.setData({
+    //   taskArray: taskArray
+    // })
+  // },
 
   search() {
 
@@ -113,15 +113,6 @@ Page({
       keyword: string
     })
   },
-
-  taskTap(e: any) {
-    const userid = wx.getStorageSync('uid') //这玩意从哪搞来？
-    const id = e.currentTarget.dataset.id
-    let url = "/pages/taskDetail/taskDetail?taskid=" + id + "&userid=" + userid
-    wx.navigateTo({
-      url: url
-    })
-  },//跳转到任务详情(接收方)
 
   bindPickerChange: function (e: any) {
     // console.log('picker发送选择改变，携带值为', e.detail.value)

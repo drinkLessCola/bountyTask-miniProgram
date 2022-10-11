@@ -55,18 +55,21 @@
       <!--下线任务 发布方可见  -->
       <view wx:if="{{isPublisher}}" class="receiverBtn">
         <button wx:if="{{isOffline}}" class="disable-btn">已下线</button>
-        <button class="offline-btn" bindtap="offlineTask" wx:else>下线任务</button>
+        <button wx:if="{{!isOffline && isOutDate}}" class="disable-btn">已截止</button>
+        <button wx:if="{{!isOffline && !isOutDate}}" class="offline-btn" bindtap="offlineTask" >下线任务</button>
       </view>
 
       <!-- 收藏和接任务 接收方可见 -->
       <view wx:if="{{!isPublisher}}" class="receiverBtn">
-        <view wx:if="{{!isCollect}}" class="collect collect-icon" bindtap="taskCollect"></view>
-        <view wx:else class="collect collect-icon-active" bindtap="delCollect"></view>
+        <section wx:if="{{!isOutDate || receiveStatus === '已提交'}}">
+          <view wx:if="{{!isCollect}}" class="collect collect-icon" bindtap="taskCollect"></view>
+          <view wx:else class="collect collect-icon-active" bindtap="delCollect"></view>
+        </section>
 
         <button wx:if="{{!isOutDate && receiveStatus === '未接受'}}" class="receive-btn" bindtap="showDialog">接任务</button>
         <button wx:if="{{!isOutDate && receiveStatus === '未提交'}}" class="submit-btn" bindtap="toFinish">完成任务</button>
-        <button wx:if="{{!isOutDate && receiveStatus === '已提交'}}" class="finished-btn" bindtap="confirmTask">查看完成情况</button>
-        <button wx:if="{{isOutDate}}" class="disable-btn">已截止</button>
+        <button wx:if="{{receiveStatus === '已提交'}}" class="finished-btn" bindtap="confirmTask">查看完成情况</button>
+        <button wx:if="{{isOutDate && receiveStatus !== '已提交'}}" class="disable-btn">已截止</button>
 
       </view>
     </section>

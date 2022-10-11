@@ -66,6 +66,20 @@
           "query": "",
           "launchMode": "default",
           "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/taskList/finishedTask/finishedTask",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "进行中任务列表",
+          "pathName": "pages/taskList/processingTask/processingTask",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
         }
       ]
     }

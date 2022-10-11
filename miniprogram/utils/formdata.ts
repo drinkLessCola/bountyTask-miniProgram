@@ -23,7 +23,7 @@ class FormData {
     return true;
   }
 
-  appendFile(name: string, path: string) {
+  appendFile(name: string, path: string, fileName: string) {
     let buffer = this.fileManager.readFileSync(path);
     if (Object.prototype.toString.call(buffer).indexOf("ArrayBuffer") < 0) {
       return false;
@@ -31,7 +31,7 @@ class FormData {
     this.files.push({
       name: name,
       buffer: buffer,
-      fileName: getFileNameFromPath(path)
+      fileName
     });
     return true;
   }
@@ -39,11 +39,6 @@ class FormData {
   getData() {
     return convert(this.data, this.files)
   }
-}
-
-function getFileNameFromPath(path: string) {
-  let idx = path.lastIndexOf("/");
-  return path.substr(idx + 1);
 }
 
 function convert(data:Object, files:Object) {
@@ -65,6 +60,7 @@ function convert(data:Object, files:Object) {
       postArray = postArray.concat(formDataArray(boundary, file.name, file.buffer, file.fileName));
     }
   }
+  console.log(postArray)
   //结尾
   let endBoundaryArray = [];
   for (var i = 0; i < endBoundary.length; i++) { // 最后取出结束boundary的charCode

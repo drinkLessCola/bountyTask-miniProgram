@@ -6,7 +6,7 @@ interface ResultObject {
     data:Object,
     message:string
   },
-  errMsg:string,
+  errMsg:string, 
   statusCode:number
 }
 // 响应拦截器，抄的

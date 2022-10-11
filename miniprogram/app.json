@@ -12,7 +12,10 @@
     "pages/taskCenter/taskCenter",
     "pages/userCenter/userCenter",
     "pages/taskCollection/taskCollection",
-    "pages/intro/intro"
+    "pages/intro/intro",
+    "pages/taskList/finishedTask/finishedTask",
+    "pages/taskList/processingTask/processingTask",
+    "pages/taskList/publishedTask/publishedTask"
   ],
   "window": {
     "navigationStyle": "custom",

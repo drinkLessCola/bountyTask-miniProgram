@@ -3,53 +3,59 @@
 <nav-bar 
   showCapsule="{{true}}" 
   title="完成情况" 
+  bgColor="#fff"
 ></nav-bar>
 <!-- 自定义导航栏，抄来的,看上去有点抽象 -->
 <view class="taskTitle" style="margin-top:0;">{{task.title}}</view>
 
-<view><title title='任务要求'>
+<title title='任务要求'>
   <view class="taskRequire">{{task.request}}</view>
-</title></view>
+</title>
 
 
 <!-- 发布者和执行者两种界面！ -->
 
-<view  wx:if="{{isPublisher}}"><title title='帮手信息'>
-  <view class="helperinfo" wx:if="{{isPublisher}}">
-  <userinfo avatarUrl="{{userinfos.avatarUrl}}" nickname="{{userinfos.nickName}}" size="60">  </userinfo>
-  </view>
-</title></view>
-
-
-<view><title title='证明信息'></title></view>
-<view  class="confirmBox">
-  <!-- <p class="p">证明信息真的只有图片,加留言后端就爆炸了</p> -->
-  <!-- <view style="height: 20rpx;"></view> -->
-  <view class="imgBox" wx:for="{{imgInfo.imgArray}}" wx:key="{{imgInfo.imgArray.index}}">
-    <image wx:if="{{index%3 != 2}}" src='{{item}}' mode="aspectFit" class="img" bindtap="imgView" data-id='{{index}}'></image>
-    <!-- 每行的最后一个没有右margin -->
-    <image wx:else="" src='{{item}}'  mode="aspectFit" class="img imglast" bindtap="imgView" data-id='{{index}}'></image>
-  </view>
+<view  wx:if="{{isPublisher}}">
+  <title title='帮手信息'>
+    <view class="helperinfo" wx:if="{{isPublisher}}">
+      <userinfo avatarUrl="{{userinfos.avatarUrl}}" nickname="{{userinfos.nickName}}" size="60"></userinfo>
+    </view>
+  </title>
 </view>
+
+
+<title title='证明信息'>
+  <view class="confirmBox" >
+    <!-- <p class="p">证明信息真的只有图片,加留言后端就爆炸了</p> -->
+    <!-- <view style="height: 20rpx;"></view> -->
+    <view class="imgBox" wx:for="{{imgInfo.imgArray}}" wx:key="{{imgInfo.imgArray.index}}">
+      <image wx:if="{{index%3 != 2}}" src='{{item}}' mode="aspectFit" class="img" bindtap="imgView" data-id='{{index}}'></image>
+      <!-- 每行的最后一个没有右margin -->
+      <image wx:else="" src='{{item}}'  mode="aspectFit" class="img imglast" bindtap="imgView" data-id='{{index}}'></image>
+    </view>
+  </view>
+</title>
+
 
 <!-- 发布者和执行者两种界面！ -->
 
 <view class="submitStatus" wx:if="{{!isPublisher}}">
-  <view><title title='提交状态'><view class="title"></view></title></view>
-  <view class="statusNormal statusYes" wx:if="{{status.status == 0}}">
-    <view class="icon">✓</view>
-    <view class="text">已通过</view>
-  </view>
-  <view class="statusNormal statusNo" wx:if="{{status.status == -1}}">
-    <view class="icon">×</view>
-    <view class="text">未通过：任务未完成</view>
-  </view>
-  <view class="special" wx:if="{{status.status == 2}}"></view>
-  <!-- 画时钟icon用来遮挡的 -->
-  <view class="statusNormal statusLoad" wx:if="{{status.status == 2}}">
-    <view class="icon"><view>L</view></view>
-    <view class="text">等待确认中…</view>
-  </view>
+  <title title='提交状态'>
+    <view class="statusNormal statusYes" wx:if="{{status.status == 0}}">
+      <view class="icon">✓</view>
+      <view class="text">已通过</view>
+    </view>
+    <view class="statusNormal statusNo" wx:if="{{status.status == -1}}">
+      <view class="icon">×</view>
+      <view class="text">未通过：任务未完成</view>
+    </view>
+    <view class="special" wx:if="{{status.status == 2}}"></view>
+    <!-- 画时钟icon用来遮挡的 -->
+    <view class="statusNormal statusLoad" wx:if="{{status.status == 2}}">
+      <view class="icon"><view>L</view></view>
+      <view class="text">等待确认中…</view>
+    </view>
+  </title>
 </view>
 
 

@@ -1,6 +1,6 @@
 <!--miniprogram.wxml-->
 <view class="processing-task">
-  <nav-bar showCapsule="{{true}}" bgColor="#fff" title="领取的任务" ></nav-bar>
+  <nav-bar showCapsule="{{true}}" bgColor="#fff" title="发布的任务" ></nav-bar>
   <header class="switch-container">
     <switch options="{{switchOptions}}" activeIdx="{{switchIdx}}" bind:switch="handleSwitch"></switch>
   </header>

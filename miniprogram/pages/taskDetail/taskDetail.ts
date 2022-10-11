@@ -80,8 +80,8 @@ Page({
     const [date, time] = d.split(" ")
     const [year, month, day] = date.split('-')
     const [h, minutes] = time.split(":")
-    const hour = `0${+h % 12}`.slice(-2)
-    const isAm = +h >= 12
+    const hour = `0${+h > 12 ? +h % 12 : h}`.slice(-2)
+    const isAm = +h > 12
     return `${year}年${+month}月${day}日 ${isAm ? '上午' : '下午'} ${hour}:${minutes}`
   },
   /**
@@ -299,7 +299,6 @@ Page({
     const taskid = +option.taskid
     const { id: userid } = wx.getStorageSync('user')
     this.setData({ taskid, userid })
-    this.getTaskDetail(taskid, userid)
   },
 
   /**
@@ -313,6 +312,11 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
+    // const pages = getCurrentPages()
+    // const curPage = pages[pages.length - 1]
+    // const { options:{taskid, userid} } = curPage
+    const { taskid, userid } = this.data
+    this.getTaskDetail(taskid, userid)
   },
 
   /**

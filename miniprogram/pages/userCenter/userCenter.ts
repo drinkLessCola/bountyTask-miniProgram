@@ -73,6 +73,22 @@ Page({
       url:"/pages/opinion/opinion"
     })
   },
+  toFinishedTask() {
+    wx.navigateTo({
+      url:"/pages/taskList/finishedTask/finishedTask"
+    })
+  },
+  toProcessingTask() {
+    wx.navigateTo({
+      url:"/pages/taskList/processingTask/processingTask"
+    })
+  },
+  toPublished() {
+    wx.navigateTo({
+      url:"/pages/taskList/publishedTask/publishedTask"
+    })
+  },
+
 
   /**
    * 生命周期函数--监听页面加载
@@ -103,7 +119,7 @@ Page({
         selected: 4
       })
     }
-    const {id} = wx.getStorageSync('user')
+    const { id } = wx.getStorageSync('user')
     if(!id) return
     getUserInfo(id)
     .then((data) => {

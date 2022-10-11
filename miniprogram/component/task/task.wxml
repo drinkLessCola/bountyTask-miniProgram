@@ -1,5 +1,5 @@
 <!--miniprogram.wxml-->
-<view class="task">
+<view class="task" bindtap="toTaskDetail" data-id="{{taskData.id}}">
   <header class="task-header">
     <span>{{taskData.title}}</span>
     <span class="bounty">¥{{taskData.bounty}}</span>
@@ -7,7 +7,7 @@
   <main class="task-main">
     <ul class="task-info">
       <li class="info">
-        <span class="icon icon-address"></span>{{taskData.area}}
+        <span class="icon icon-address"></span>{{area}}
       </li>
       <li class="info">
       <span class="icon icon-time"></span>

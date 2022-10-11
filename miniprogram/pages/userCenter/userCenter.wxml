@@ -22,19 +22,19 @@
 
   <!-- 中间的那一栏 -->
   <ul class="tabbar" wx:if="{{show}}">
-    <li class="tabbar-item">
+    <li class="tabbar-item" bindtap="toPublished">
       <view class="icon processing-icon"></view>
       <span class="title">进行中</span>
     </li>
-    <li class="tabbar-item">
+    <li class="tabbar-item" bindtap="toPublished">
       <view class="icon finished-icon"></view>
       <span class="title">已完成</span>
     </li>
-    <li class="tabbar-item">
+    <li class="tabbar-item" bindtap="toProcessingTask">
       <view class="icon received-task-icon"></view>
       <span class="title">领取的任务</span>
     </li>
-    <li class="tabbar-item">
+    <li class="tabbar-item" bindtap="toFinishedTask">
       <view class="icon finished-task-icon"></view>
       <span class="title">完成的任务</span>
     </li>
