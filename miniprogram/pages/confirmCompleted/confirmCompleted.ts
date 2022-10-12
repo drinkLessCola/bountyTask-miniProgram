@@ -219,8 +219,9 @@ Page({
         this.getTaskStatus(this.data.userid,this.data.task.id)
       }
       console.log(this.data.finisherId,this.data.task.id + ' FTinfo' );
-      
-      this.getProveImg(this.data.finisherId,this.data.task.id)
+      if(this.data.userinfos.status != "进行中"){
+        this.getProveImg(this.data.finisherId,this.data.task.id)
+      }
     });
     console.log(eventChannel);
     //该死 eventChannel得等 等的时候会跑去执行之后的代码。。。。

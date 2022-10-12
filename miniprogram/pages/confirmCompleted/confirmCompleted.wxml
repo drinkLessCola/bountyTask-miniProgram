@@ -28,11 +28,13 @@
   <view class="confirmBox" >
     <!-- <p class="p">证明信息真的只有图片,加留言后端就爆炸了</p> -->
     <!-- <view style="height: 20rpx;"></view> -->
-    <view class="imgBox" wx:for="{{imgInfo.imgArray}}" wx:key="{{imgInfo.imgArray.index}}">
+    <view class="imgBox"  wx:if="{{userinfos.status !='进行中'}}" wx:for="{{imgInfo.imgArray}}" wx:key="{{imgInfo.imgArray.index}}">
       <image wx:if="{{index%3 != 2}}" src='{{item}}' mode="aspectFit" class="img" bindtap="imgView" data-id='{{index}}'></image>
       <!-- 每行的最后一个没有右margin -->
       <image wx:else="" src='{{item}}'  mode="aspectFit" class="img imglast" bindtap="imgView" data-id='{{index}}'></image>
+      
     </view>
+    <view wx:if="{{userinfos.status =='进行中'}}" style="font-size: 40rpx;">任务在进行中</view>
   </view>
 </title>
 
@@ -61,7 +63,7 @@
 
 <view style="height: 188rpx;"></view>
 <!-- 把按钮栏顶开 -->
-<view class="buttonBox" wx:if="{{isPublisher && userinfos.status !='已完成'}}">
+<view class="buttonBox" wx:if="{{isPublisher && userinfos.status =='待确认'}}">
   <button class="btnNo" bindtap="refuse">认定无效</button>
   <button class="btnYes" bindtap="confirm">确认完成</button>
 </view>
