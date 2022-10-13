@@ -31,6 +31,8 @@ Page({
       { id: 6, name: '启林南' },
       { id: 7, name: '启林北' },
       { id: 8, name: '校外' },
+     // { id: 9, name: '校内' },
+     // 校内不是标签
     ],
     // picker默认是第一个
     index: 0,

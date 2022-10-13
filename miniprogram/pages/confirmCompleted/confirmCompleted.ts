@@ -87,6 +87,14 @@ Page({
     rejectTask(this.data.finisherId,this.data.task.id)
     .then ((data) => {
       console.log(data);
+      wx.showToast({
+        icon:"success",
+        title:'认定无效',
+        duration:1500
+      })
+      setTimeout(() => {
+        wx.navigateBack()
+      },1500)
       
     })
     .catch((err) => {
@@ -101,7 +109,14 @@ Page({
     confirmeTask(this.data.finisherId,this.data.task.id)
     .then ((data) => {
       console.log(data);
-      
+      wx.showToast({
+        icon:"success",
+        title:'确认完成',
+        duration:1500
+      })
+      setTimeout(() => {
+        wx.navigateBack()
+      },1500)
     })
     .catch((err) => {
       console.log(err);
