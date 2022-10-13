@@ -377,7 +377,7 @@ Page({
     this.validateData(name, val)
   },
   hasLogin() {
-    const uid = wx.getStorageSync('uid')
+    const {id: uid} = wx.getStorageSync('user')
     console.log(uid)
     if (!uid) {
       console.log('?')

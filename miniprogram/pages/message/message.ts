@@ -6,6 +6,25 @@ const ROLE_OPTION_MAP = {
   publisher: 1,
   receiver: 0
 }
+
+const STATUS_MAP = <const>[
+  '已查看',
+  {
+    [ROLE_OPTION_MAP.publisher]: '领取',
+    [ROLE_OPTION_MAP.receiver]: '确认',
+  },
+  {
+    [ROLE_OPTION_MAP.publisher]: '完成',
+    [ROLE_OPTION_MAP.receiver]: '认定无效',
+  }
+]
+
+interface TaskMsg {
+  taskId: number
+  number?: number
+  status: STATUS
+  time: number
+}
 Page({
   data: {
     bottomBarHeight:app.globalData.bottomBarHeight,
@@ -24,7 +43,7 @@ Page({
     //   status:'领取',
     //   time:'刚刚'
     // },
-  ],
+  ] as Message[],
 
     getShowMsgArray:[
     //   {
@@ -35,13 +54,9 @@ Page({
     // }
   ],
     // 发布的任务消息数组和领取的任务消息数组（处理后的）,展示用
-    publishMsgArray:[{
+    publishMsgArray:[] as TaskMsg[],
 
-    }],
-
-    getMsgArray:[{
-
-    }],
+    receiveMsgArray:[] as TaskMsg[],
     
     // 发布的任务消息数组和领取的任务消息数组,存储后端数据用
   },
@@ -92,7 +107,7 @@ Page({
     }
     else {
       // 领取的任务
-      const taskObj = this.data.getMsgArray[t.index]
+      const taskObj = this.data.receiveMsgArray[t.index]
       // taskObj.status 此ts新增，因为后端  根据用户角色和任务状态查询  需要根据进行中还是已完成的状态去查
       if(0){
         // ------------------------------------------------需要看一下表才能确认
@@ -130,11 +145,76 @@ Page({
     // console.log(this.data.select[0].checked);
     
   },
-
-
-
+  subscribeMsg() {
+    console.log('?')
+    const msgArr = [{
+      createTime: 1665657970000,
+      finishNum: 0,
+      getNum: 1,
+      id: 1,
+      role: 1,
+      status: 1,
+      taskId: 1,
+      userId: 1
+    }]
+    const publish = msgArr
+      .filter(msg => msg.role === ROLE_OPTION_MAP.publisher)
+      .map(msg => {
+        const { createTime: time, finishNum, getNum, status:statusCode, role, taskId } = msg
+        const status = STATUS_MAP[statusCode][role]
+        const number = finishNum || getNum
+        return { time, number, status, taskId } as TaskMsg
+      })
+    const receiver = msgArr
+      .filter(msg => msg.role === ROLE_OPTION_MAP.receiver)
+      .map(msg => {
+        const { createTime: time, status:statusCode, role, taskId } = msg
+        const status = STATUS_MAP[statusCode][role]
+        return { time, status, taskId } as TaskMsg
+      })
+      console.log('publish', publish)
+    this.setData({
+      publishMsgArray: publish,
+      receiveMsgArray: receiver
+    })
+    app.subscribe('message', (msgArr:Message[]) => {
+      msgArr = [{
+        createTime: 1665657970000,
+        finishNum: 0,
+        getNum: 1,
+        id: 1,
+        role: 1,
+        status: 1,
+        taskId: 1,
+        userId: 1
+      }]
+      if(msgArr.length) return
+      const publish = msgArr
+        .filter(msg => msg.role === ROLE_OPTION_MAP.publisher)
+        .map(msg => {
+          const { createTime: time, finishNum, getNum, status:statusCode, role, taskId } = msg
+          const status = STATUS_MAP[statusCode][role]
+          const number = finishNum || getNum
+          return { time, number, status, taskId } as TaskMsg
+        })
+      const receiver = msgArr
+        .filter(msg => msg.role === ROLE_OPTION_MAP.receiver)
+        .map(msg => {
+          const { createTime: time, status:statusCode, role, taskId } = msg
+          const status = STATUS_MAP[statusCode][role]
+          return { time, status, taskId } as TaskMsg
+        })
+      this.setData({
+        publishMsgArray: publish,
+        receiveMsgArray: receiver
+      })
+      // 清空数据！
+      app.globalData.clearMsg()
+    })
+  },
   onLoad() {
     const {id} = wx.getStorageSync('user')
+    this.subscribeMsg()
     this.setData({ userid: id })
   },
   onShow() {
@@ -144,7 +224,5 @@ Page({
         selected: 3
       })
     }
-
-    this.getMessage()
   },
 })

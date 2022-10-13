@@ -81,7 +81,7 @@ Page({
         try {
           const res = await wx.compressImage({
             src:path,
-            quality:50,
+            quality:40,
           })
           const { tempFilePath } = res
           resolve({ path:tempFilePath, extension})

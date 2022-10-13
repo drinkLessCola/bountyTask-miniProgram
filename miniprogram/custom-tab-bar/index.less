@@ -66,6 +66,7 @@
   }
   
   .icon {
+    position: relative;
     height:50rpx;
     width:55rpx;
     background-repeat: no-repeat;
@@ -73,6 +74,17 @@
     background-size: auto 50rpx;
     &:active{
       background-color:ivory;
+    }
+
+    .hasMsg {
+      width: 20rpx;
+      height: 20rpx;
+      position:absolute;
+      right:0;
+      top:0;
+      transform: translate(50%, -50%);
+      background-color: #ff971e;
+      border-radius: 50%;
     }
   }
 }
@@ -94,4 +106,8 @@
       border-radius: 10rpx;
     }
   }
+}
+
+.hide {
+  display: none;
 }

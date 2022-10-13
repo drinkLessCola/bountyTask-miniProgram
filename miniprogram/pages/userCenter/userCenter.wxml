@@ -9,12 +9,12 @@
     <ul class="user-data" wx:if="{{show}}">
       <li class="user-data-item">
         <span class="title">发布任务</span>
-        <view class="data">{{publishNum || '-'}}</view>
+        <view class="data">{{publishNum === -1 ? '-' : publishNum}}</view>
       </li>
       <li class="line"></li>
       <li class="user-data-item">
         <span class="title">余额</span>
-        <view class="data">{{money}}</view>
+        <view class="data">{{money === -1 ? '-' : money}}</view>
       </li>
     </ul>
   </header>

@@ -1,6 +1,7 @@
 /// <reference path="./types/index.d.ts" />
 /// <reference path="./task.d.ts"/>
 /// <reference path="../miniprogram/utils/socket.ts"/>
+/// <reference path="./message.d.ts"/>
 
 interface IAppOption {
   globalData: {
@@ -10,8 +11,11 @@ interface IAppOption {
     bottomBarHeight:number,
     searchKeyword:string,
     isRelease:boolean,
+    message:Array<Message>
   }
   handleMsg:(msg:any) => void,
+  subscribe:(prop:keyof IAppOption["globalData"], callback:any) => void,
+  clearMsg:() => void,
   userInfoReadyCallback?: WechatMiniprogram.GetUserInfoSuccessCallback,
 }
 

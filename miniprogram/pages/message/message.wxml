@@ -23,10 +23,10 @@
 
 
 <scroll-view  scroll-y="true" style="flex: 1; height: 65vh;">
-  <view class='msg' wx:for="{{select[0].checked ? publishShowMsgArray : getShowMsgArray}}" wx:key="{{taskId}}" bindtap="toDetail"  data-id = "{{item.taskId}}" data-index = "{{item.index}}">
-  <taskMessage title="{{item.taskTitle}}" time="{{item.time}}" statusBar="{{item.status}}"></taskMessage>
+  <view class='msg' wx:for="{{select[0].checked ? publishMsgArray : receiveMsgArray}}" wx:key="{{taskId}}" bindtap="toDetail"  data-id = "{{item.taskId}}" data-index="{{index}}">
+  <taskMessage time="{{item.time}}" status="{{item.status}}"></taskMessage>
   </view>
-  <view class="empty-tip" wx:if="{{select[0].checked ? !publishShowMsgArray.length : !getShowMsgArray.length}}">这里空空如也~</view>
+  <view class="empty-tip" wx:if="{{select[0].checked ? !publishMsgArray.length : !receiveMsgArray.length}}">这里空空如也~</view>
 </scroll-view>
 
 

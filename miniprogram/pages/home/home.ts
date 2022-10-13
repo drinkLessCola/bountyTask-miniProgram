@@ -10,6 +10,7 @@ Page({
    */
   data: {
     show:app.globalData.isRelease,
+    hasMessage: false,
     timestamp: 1660566722638,
     // 暂时使用时间戳以及其number类型代替ddl和提交时间
     // 目前发现需要的接口:
@@ -108,9 +109,13 @@ Page({
       taskArray: taskArray
     })
   },
-
-
-
+  subscribeMsg() {
+    app.subscribe('message', (msgArr:Message[]) => {
+      this.setData({
+        hasMessage: !!msgArr.length
+      })
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
@@ -118,6 +123,7 @@ Page({
     this.setData({
       timestamp: this.testtimestamp()
     })
+    this.subscribeMsg()
     //console.log(this.testtimestamp());
     this.getTask() 
   },

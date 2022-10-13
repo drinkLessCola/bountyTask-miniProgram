@@ -69,14 +69,13 @@ Component({
     handlePublishTime(time:string):string{
       time = time.replace(/-/g, '/') 
       const past = Math.ceil((Date.now() - new Date(time).getTime()) / 1000)
+      
       const {month, date} = this.getTimeInfo(time)
       let res = ''
-      switch(past){
-        case 60: res = '刚刚'; break
-        case 3600: res = `${Math.floor(past / 60)}分钟前`; break
-        case 86400: res = `${Math.floor(past / 1440)}小时前`; break
-        default: res = `${month}月${date}日`
-      }       
+      if(past < 60) res = '刚刚'
+      else if(past < 3600) res = `${Math.floor(past / 60)}分钟前`
+      else if(past < 86400) res = `${Math.floor(past / 1440)}小时前`
+      else res = `${month}月${date}日`
       return res
     },
     handleArea(label:string) {
@@ -85,7 +84,7 @@ Component({
                   .join(', ') || '校内'
     },
     toTaskDetail(e: any){
-      const userid = wx.getStorageSync('uid') //这玩意从哪搞来？
+      const {id:userid} = wx.getStorageSync('user') //这玩意从哪搞来？
       const id = e.currentTarget.dataset.id
       let url = "/pages/taskDetail/taskDetail?taskid=" + id + "&userid=" + userid
       wx.navigateTo({

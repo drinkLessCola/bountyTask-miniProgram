@@ -1,15 +1,12 @@
 // app.ts
 import WebSocket from "./utils/socket";
 let ws:WebSocket | null = null
-// 获取应用实例
-interface Message {
-  createTime: number,
-  id: number,
-  role: number,
-  status: number,
-  taskId: number,
-  userId: number
+const ROLE_MAP = {
+  receiver: 0,
+  publisher: 1
 }
+// 获取应用实例
+
 App<IAppOption>({
   globalData: {
     //自定义导航栏坐标信息
@@ -19,6 +16,7 @@ App<IAppOption>({
     bottomBarHeight:0,
     searchKeyword:'',
     isRelease: true,
+    message: [],
   },
   onLaunch() {
     // 展示本地存储能力
@@ -54,9 +52,34 @@ App<IAppOption>({
     ws = new WebSocket(id, this.handleMsg)
   },
   handleMsg(msg:any) {
-    const { role, status, taskId, userId } = msg as Message
-    console.log("收到消息", msg)
-
+    const {data} = msg
+    if(data === 'pong') console.log("heartBeat", msg)
+    else if(data === '连接成功') console.log("连接成功")
+    else {
+      console.log(data)
+      const message = JSON.parse(data)
+      this.globalData.message = message
+    }
+  },
+  clearMsg() {
+    this.globalData.message = []
+  },
+  // 订阅
+  subscribe(prop:keyof IAppOption["globalData"], callback:any) {
+    const globalData = this.globalData
+    let val = globalData[prop]
+    Object.defineProperty(globalData, prop, {
+      configurable: false,
+      enumerable: true,
+      set(value) {
+        val = value
+        // globalData[prop] = value
+        callback(value)
+      },
+      get() {
+        return val
+      }
+    })
   }
 })
 

@@ -1,8 +1,8 @@
 <!--component/taskMessage/taskMessage.wxml-->
 <view class="message" >
-  <view class="time">{{time}}</view>
+  <view class="time">{{msgTime}}</view>
   <view class="title">{{title}}</view>
-  <view class="status">{{statusBar}}</view>
+  <view class="status">{{subTitle}}</view>
 </view>
 <!-- 不保证后端无法实现目前返回数据的要求，暂时搁置 bylzh -->
 <!-- 后端似乎能实现 -->

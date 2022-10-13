@@ -13,8 +13,8 @@ Page({
     uid:'',
     nickName: '',
     avatarUrl:'',
-    money:0,
-    publishNum: 0,
+    money: -1,
+    publishNum: -1,
     passRate:'-',
   },
   // 登录
@@ -22,13 +22,14 @@ Page({
     if(this.data.nickName && this.data.avatarUrl) return
     login()
     .then(() => {
-      const { avatarUrl, nickName, postNum:publishNum, settleNum } = wx.getStorageSync('user')
+      const { avatarUrl, nickName, postNum:publishNum, settleNum, money = 0 } = wx.getStorageSync('user')
       const passRate = publishNum ? `${Math.floor(settleNum / publishNum * 100)}%` : '-'
       this.setData({
         avatarUrl,
         nickName,
         publishNum,
-        passRate
+        passRate,
+        money
       })
     })
     .catch(err => {
@@ -41,9 +42,13 @@ Page({
   // 登出
   logout() {
     wx.removeStorageSync('user')
+    wx.removeStorageSync('uid')
+    wx.removeStorageSync('token')
     this.setData({
       avatarUrl: '',
       nickName: '',
+      publishNum: -1,
+      money: -1
     })
     wx.showToast({
       title:'已登出',
@@ -51,7 +56,7 @@ Page({
     })
   },
   toTaskCollect() {
-    const uid = wx.getStorageSync('uid')
+    const {id:uid} = wx.getStorageSync('user')
     if(uid) {
       wx.navigateTo({
         url: "/pages/taskCollection/taskCollection?userid=" + uid
