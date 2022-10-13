@@ -396,7 +396,8 @@ Page({
     let taskinfo = this.data.taskInfo
     let category = option.category
     taskinfo.category = String(category)
-    const { date, time } = getFormatDate(new Date())
+    const { date, time } = getFormatDate(new Date(new Date(new Date().toLocaleDateString()).getTime()+24*60*60*1000-1))
+    //当天的23点59分59秒
     this.setData({
       startDate: date,
       startTime: time,

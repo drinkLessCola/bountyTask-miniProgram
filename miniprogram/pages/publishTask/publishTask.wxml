@@ -65,7 +65,7 @@
       start="{{startDate}}" end="2221-01-01" bindchange="bindDate"
     >
       <!-- 截止时间总不能是昨天吧 -->
-      <input type="text" value="{{date}}" />
+      <input type="text" disabled="true" value="{{date}}" />
     </picker>
     <picker 
       mode="time" 
@@ -75,7 +75,7 @@
       value="{{time}}" 
       bindchange="bindTime"
     >
-      <input type="text" value="{{time}}" />
+      <input type="text" disabled="true" value="{{time}}" />
     </picker>
   </form-item>
 
