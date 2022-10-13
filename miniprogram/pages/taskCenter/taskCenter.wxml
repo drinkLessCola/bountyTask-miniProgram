@@ -4,8 +4,6 @@
   title="" 
   bgColor="white"
 ></nav-bar>
-
-
 <view class="titleBox">
   <view class="title">任务中心</view>
   <view class="topBlock" >
@@ -36,12 +34,19 @@
 
 
 <!-- task为任务object,后端似乎返回的是一个task对象的数组 -->
-<main class="missions-container">
+<scroll-view 
+  class="missions-container" 
+  scroll-y="{{true}}" 
+  refresher-enabled="{{true}}"
+  refresher-triggered="{{isRefreshing}}"
+  bindrefresherrefresh="refresh"
+  bindrefresherrestore="refreshFinished"
+>
   <view class="missions" wx:for="{{taskArray}}" wx:key="id">
-    <!-- 重新改了一下，直接传入整个对象即可 -->
     <task taskData="{{item}}"></task>
   </view>
-</main>
+</scroll-view>
+<view style="height:{{bottomBarHeight}}px"></view>
 <!-- 感觉把这个列表解耦出来会好一点，但是 好像没办法把这个列表单独列在后台与后端通信，用的时候放进页面 吧。。 可以👍 -->
 </view>
 <center wx:else></center>

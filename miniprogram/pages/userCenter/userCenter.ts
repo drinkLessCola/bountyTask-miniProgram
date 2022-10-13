@@ -13,6 +13,7 @@ Page({
     uid:'',
     nickName: '',
     avatarUrl:'',
+    money:0,
     publishNum: 0,
     passRate:'-',
   },
@@ -83,9 +84,10 @@ Page({
       url:"/pages/taskList/processingTask/processingTask"
     })
   },
-  toPublished() {
+  toPublished(e:any) {
+    const { option } = e.currentTarget.dataset
     wx.navigateTo({
-      url:"/pages/taskList/publishedTask/publishedTask"
+      url:`/pages/taskList/publishedTask/publishedTask?option=${option}`
     })
   },
 
@@ -123,11 +125,13 @@ Page({
     if(!id) return
     getUserInfo(id)
     .then((data) => {
-      const { /*getNum, finishNum,*/ postNum:publishNum, settleNum } = data as UserInfo
+      const { /*getNum, finishNum,*/ money, postNum:publishNum, settleNum } = data as UserInfo
+      console.log(data)
       const passRate = publishNum ? `${Math.floor(settleNum / publishNum * 100)}%` : '-'
       this.setData({
         passRate,
-        publishNum
+        publishNum,
+        money
       })
     })
     .catch(err => {

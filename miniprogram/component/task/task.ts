@@ -49,6 +49,9 @@ Component({
   },
   // 定义组件方法
   methods: {
+    isOutDate(task:TaskObj) {
+      return new Date(task.deadline).getTime() > Date.now()
+    },
     getTimeInfo(t: string): TimeInfo {
       t = t.replace(/-/g, '/') 
       const time = new Date(t)

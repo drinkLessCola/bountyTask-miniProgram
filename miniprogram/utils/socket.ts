@@ -1,5 +1,6 @@
 const BASE_URL = "wss://summerblink.site/api/websocket"
 type EventListener = (e: any) => void
+
 class HeartBeat {
   public status: boolean = false
   private timeout: number = 10000

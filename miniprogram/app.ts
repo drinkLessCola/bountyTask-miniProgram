@@ -2,6 +2,14 @@
 import WebSocket from "./utils/socket";
 let ws:WebSocket | null = null
 // 获取应用实例
+interface Message {
+  createTime: number,
+  id: number,
+  role: number,
+  status: number,
+  taskId: number,
+  userId: number
+}
 App<IAppOption>({
   globalData: {
     //自定义导航栏坐标信息
@@ -46,7 +54,9 @@ App<IAppOption>({
     ws = new WebSocket(id, this.handleMsg)
   },
   handleMsg(msg:any) {
-    console.log(msg)
+    const { role, status, taskId, userId } = msg as Message
+    console.log("收到消息", msg)
+
   }
 })
 

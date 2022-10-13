@@ -113,9 +113,8 @@ Page({
     //调用接口 查找该用户在该任务中提交的证明图片
     const that = this
     let imgInfo = this.data.imgInfo
-      console.log(userid.toString()+' '+ taskid.toString());
       
-     getImage(userid.toString(),taskid.toString())
+     getImage(userid, taskid)
       .then ((data) => {
         console.log(data + "GI");
         if(data){
@@ -152,7 +151,7 @@ Page({
     const addString = BASE_URL+'/'
     let newString
     for(let index = 0; index < imgInfo.data.length;index++){
-      newString = addString + imgInfo.data[index]
+      newString = addString + (imgInfo.data[index] as any).image
       imgInfo.imgArray[index] = newString 
     }
     this.setData({

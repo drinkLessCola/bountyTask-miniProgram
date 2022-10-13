@@ -15,7 +15,7 @@ const dataInterceptor = (response:ResultObject) => {
   console.log("response:", response);
   const {data, code, message} = response.data
   console.log(message)
-    if(code === 200) return Promise.resolve(data || message)
+    if(code === 200 || message === '成功') return Promise.resolve(data || message)
     else {
       wx.showToast({
         icon:'none',

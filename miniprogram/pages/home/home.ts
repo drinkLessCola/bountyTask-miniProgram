@@ -64,17 +64,6 @@ Page({
     })
   },
 
-  toTaskDetail(e:any) {
-    const userid = wx.getStorageSync('uid')
-    const id = e.currentTarget.dataset.id
-    let url =  "/pages/taskDetail/taskDetail?taskid="+ id +"&userid=" + userid
-    wx.navigateTo({
-      url:url
-    })
-    // console.log(id);
-    
-  },
-
   getTask() {
     let condition: string | null = null
     let campus: string | null = null

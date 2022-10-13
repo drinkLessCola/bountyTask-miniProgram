@@ -5,9 +5,8 @@ import {getRequest, putRequest, postRequest } from '../utils/request'
  * @param userid 用户 id
  * @param role  用户角色
  */
-export async function getMsg(userid:string, role:string) {
+export async function getMsg(userid:number, role:number) {
   const res = await getRequest(`/info/get/${userid}/${role}`)
   return res
 }
 /*----------------------------------*/
-// 领取的任务 所需接口未出现。。

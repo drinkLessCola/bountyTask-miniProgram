@@ -13,8 +13,8 @@
       </li>
       <li class="line"></li>
       <li class="user-data-item">
-        <span class="title">任务通过率</span>
-        <view class="data">{{passRate}}</view>
+        <span class="title">余额</span>
+        <view class="data">{{money}}</view>
       </li>
     </ul>
   </header>
@@ -22,11 +22,11 @@
 
   <!-- 中间的那一栏 -->
   <ul class="tabbar" wx:if="{{show}}">
-    <li class="tabbar-item" bindtap="toPublished">
+    <li class="tabbar-item" bindtap="toPublished" data-option="{{1}}">
       <view class="icon processing-icon"></view>
       <span class="title">进行中</span>
     </li>
-    <li class="tabbar-item" bindtap="toPublished">
+    <li class="tabbar-item" bindtap="toPublished" data-option="{{3}}">
       <view class="icon finished-icon"></view>
       <span class="title">已完成</span>
     </li>

@@ -34,8 +34,9 @@
       <image wx:else="" src='{{item}}'  mode="aspectFit" class="img imglast" bindtap="imgView" data-id='{{index}}'></image>
       
     </view>
-    <view wx:if="{{userinfos.status =='进行中'}}" style="font-size: 40rpx;">任务在进行中</view>
+   
   </view>
+  <view wx:if="{{userinfos.status =='进行中'}}">任务仍在进行中……</view>
 </title>
 
 

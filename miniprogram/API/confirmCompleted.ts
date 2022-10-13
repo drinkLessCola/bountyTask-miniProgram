@@ -1,7 +1,7 @@
 import {getRequest, putRequest, postRequest } from '../utils/request' 
 
 // 查找该用户在该任务中提交的证明图片 both
-export async function getImage(userid:string,taskid:string) {
+export async function getImage(userid:number,taskid:number) {
   const res = await getRequest(`/prove/mget/${userid}/${taskid}`)
   return res
 }

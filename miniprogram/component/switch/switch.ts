@@ -9,10 +9,19 @@ interface SwitchOptionItem {
 Component({
   properties: {
     options: Array,
-    activeIdx: Number,
+    activeIdx: {
+      type:Number,
+      value:0,
+      observer(newval) {
+        console.log(newval)
+        this.setData({activeIdx: newval})
+        this.update()
+      }
+    }
   },
   // 组件用来储存内部私有数据
   data: {
+    activeIdx: 0,
   },
   // attached函数 当组件进入页面节点树时触发，可以使用setData，绝大多数初始化工作在这个时机进行
   attached: function () {
@@ -22,9 +31,9 @@ Component({
   methods: {
     switch(e: any) {
       const { value } = e.currentTarget.dataset
-      this.setData({
-        activeIdx: value
-      })
+      // this.setData({
+      //   activeIdx: value
+      // })
       this.update()
       this.triggerEvent('switch', value)
     },

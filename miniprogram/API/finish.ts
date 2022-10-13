@@ -1,5 +1,4 @@
 import {getRequest, putRequest, postRequest,formDataRequest, deleteRequest} from '../utils/request' 
-import FormData from '../utils/formdata'
 
 // 提交任务
 export async function submitTask(taskid:number, userid:number) {
@@ -15,25 +14,10 @@ export async function getTaskById (taskId:string) {
   return res
 }
 
-export async function tokenLogin(filePath:string,taskid:number,userid:number){
-  const formData = new FormData()
-  formData.append('image', filePath)// ?
-  formData.append('taskid', taskid)
-  formData.append('userid', userid)
-  const data = formData.getData()
-  const res = await formDataRequest('/prove/submit', data)
-  return res
-}
-
-// 上传证明图片 额，这用户上传的图片是url？
-// 好像确实有点奇怪
-// export async function submitImage(taskid:number,userid:number,image:string) {
-//   const data = {userid, taskid,image}
-//   const res = await postRequest(`/prove/submit`,data)
-//   return res
-// }
-
-
+/**
+ * 提交任务图片
+ * @param data 
+ */
 export async function submitImage(data:FormData) {
   console.log(data)
   const res = await formDataRequest(`/prove/submit`, data)
@@ -56,7 +40,8 @@ export async function mdelImage(ids:Array<number>) {
 }
 
 // 查找该用户在该任务中提交的证明图片 额，每上传一张就重新调用一次。。
-export async function getImage(userid:string,taskid:string) {
+// 不用的，onShow 的时候调用即可
+export async function getImage(userid:number, taskid:number) {
   const res = await getRequest(`/prove/mget/${userid}/${taskid}`)
   return res
 }

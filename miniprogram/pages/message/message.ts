@@ -1,19 +1,21 @@
+import { getMsg } from "../../API/message"
+
 // index.ts
 const app = getApp()
+const ROLE_OPTION_MAP = {
+  publisher: 1,
+  receiver: 0
+}
 Page({
   data: {
-    // select:0,
+    bottomBarHeight:app.globalData.bottomBarHeight,
     show:app.globalData.isRelease,
-    userid:0,
-
-    select:[{
-      name:"发布的任务",
-      checked:false
-    },{
-      name:"领取的任务",
-      checked:false
-    }],
-
+    userid: 0,
+    role: ROLE_OPTION_MAP.publisher,
+    select:[
+      { name:"发布的任务", checked:true, value:ROLE_OPTION_MAP.publisher },
+      { name:"领取的任务", checked:false, value:ROLE_OPTION_MAP.receiver }
+    ],
     publishShowMsgArray:[
     // {
     //   taskId:0,
@@ -21,79 +23,7 @@ Page({
     //   number:2,
     //   status:'领取',
     //   time:'刚刚'
-    // },{
-    //   taskId:1,
-    //   taskTitle:'测试2',
-    //   number:3,
-    //   status:'完成',
-    //   time:'3小时前'
-    // },{
-    //   taskId:1,
-    //   taskTitle:'测试2',
-    //   number:3,
-    //   status:'完成',
-    //   time:'3小时前'
-    // },{
-    //   taskId:1,
-    //   taskTitle:'测试2',
-    //   number:3,
-    //   status:'完成',
-    //   time:'3小时前'
-    // },{
-    //   taskId:1,
-    //   taskTitle:'测试2',
-    //   number:3,
-    //   status:'完成',
-    //   time:'3小时前'
-    // },{
-    //   taskId:1,
-    //   taskTitle:'测试2',
-    //   number:3,
-    //   status:'完成',
-    //   time:'3小时前'
-    // },{
-    //   taskId:1,
-    //   taskTitle:'测试2',
-    //   number:3,
-    //   status:'完成',
-    //   time:'3小时前'
-    // },{
-    //   taskId:1,
-    //   taskTitle:'测试2',
-    //   number:3,
-    //   status:'完成',
-    //   time:'3小时前'
-    // },{
-    //   taskId:1,
-    //   taskTitle:'测试2',
-    //   number:3,
-    //   status:'完成',
-    //   time:'3小时前'
-    // },{
-    //   taskId:1,
-    //   taskTitle:'测试2',
-    //   number:3,
-    //   status:'完成',
-    //   time:'3小时前'
-    // },{
-    //   taskId:1,
-    //   taskTitle:'测试2',
-    //   number:3,
-    //   status:'完成',
-    //   time:'3小时前'
-    // },{
-    //   taskId:1,
-    //   taskTitle:'测试2',
-    //   number:3,
-    //   status:'完成',
-    //   time:'3小时前'
-    // },{
-    //   taskId:1,
-    //   taskTitle:'测试2',
-    //   number:3,
-    //   status:'完成',
-    //   time:'3小时前'
-    // }
+    // },
   ],
 
     getShowMsgArray:[
@@ -105,7 +35,6 @@ Page({
     // }
   ],
     // 发布的任务消息数组和领取的任务消息数组（处理后的）,展示用
-
     publishMsgArray:[{
 
     }],
@@ -135,7 +64,16 @@ Page({
       })
     
   },
-
+  getMessage(){
+    const { role, userid } = this.data
+    getMsg(userid, role)
+    .then(data => {
+      console.log(data)
+    })
+    .catch(err => {
+      console.log(err)
+    })
+  },
   toDetail(e:any) {
     const t = e.currentTarget.dataset
     let userid = 'userid='+this.data.userid
@@ -196,11 +134,8 @@ Page({
 
 
   onLoad() {
-    let sel = this.data.select
-    sel[0].checked=true
-    this.setData({
-      select:sel
-    })
+    const {id} = wx.getStorageSync('user')
+    this.setData({ userid: id })
   },
   onShow() {
     //自定义的tabbar
@@ -209,5 +144,7 @@ Page({
         selected: 3
       })
     }
+
+    this.getMessage()
   },
 })
