@@ -1,6 +1,6 @@
 // index.ts
 
-import { getCollectedTasksById } from "../../API/taskCollection"
+import { deleteCollectedTasksById, getCollectedTasksById } from "../../API/taskCollection"
 
 // import {icon_time, icon_address} from '../../utils/icon'
 const app = getApp()
@@ -25,23 +25,25 @@ Page({
    * 清除过期任务
    */
   clearExpireTask() {
+    const {id:userid} = wx.getStorageSync('user')
     const taskArr:TaskObj[] = this.data.taskArray
     if(!taskArr.length) return
 
-   let clearIdArray = []
-   const now = new Date(Date.now()).getTime()
-
-  //  taskArr.filter(element => {
-  //     if(element.deadline.getTime() < now){
-  //       clearIdArray.push(element.id)
-  //     }
-  //  })
-   //调用对应接口
-    
+   Promise.all(
+     taskArr.filter(task => this.checkOutDate(task.deadline))
+      .map(task => deleteCollectedTasksById(userid, task.id))
+    )
+    .then(() => {
+      wx.showToast({ title: '清除成功！', icon: 'success'})
+    })
+    .catch(err => {
+      console.log(err)
+      wx.showToast({ title:'清除失败', icon: 'none' })
+    })
   },
-
-  
-  
+  checkOutDate(deadline:string):boolean {
+    return new Date(deadline).getTime() <= Date.now()
+  },
   onLoad() {
     const { id:userid } = wx.getStorageSync('user')
     this.getCollection(userid as string)

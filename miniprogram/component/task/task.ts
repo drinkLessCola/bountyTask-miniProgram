@@ -19,7 +19,8 @@ Component({
         this.setData({
           deadline:this.handleDeadline(deadline),
           publishTime: this.handlePublishTime(startTime),
-          area: this.handleArea(label)
+          area: this.handleArea(label),
+          isOutDate: this.checkOutDate(deadline)
         })
       }
     }
