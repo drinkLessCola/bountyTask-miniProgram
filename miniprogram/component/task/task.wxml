@@ -2,7 +2,7 @@
 <view class="task {{isOutDate ? 'outdate' : ''}}" bindtap="toTaskDetail" data-id="{{taskData.id}}">
   <header class="task-header">
     <span>{{taskData.title}}</span>
-    <span class="outdate-tip" wx:if="{{isOutDate}}">已过期</span>
+    <span class="outdate-tip" wx:if="{{isOutDate}}">已截止</span>
     <span class="bounty" wx:else>¥{{taskData.bounty}}</span>
   </header>
   <main class="task-main">
