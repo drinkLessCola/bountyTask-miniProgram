@@ -163,9 +163,11 @@ Page({
 
   transformImgArrayURL() {
     let imgInfo = this.data.imgInfo
+    console.log('imgInfo', imgInfo)
     const addString = BASE_URL+'/'
     let newString
     for(let index = 0; index < imgInfo.data.length;index++){
+
       newString = addString + (imgInfo.data[index] as any).image
       imgInfo.imgArray[index] = newString 
     }

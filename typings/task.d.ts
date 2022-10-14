@@ -6,6 +6,7 @@ interface TaskObj {
   label: string,         // 校区
   deadline: string,    // 截止时间
   area:string,
+  status?:number
 }
 interface publishTaskObj {
   userid: number,
@@ -72,4 +73,8 @@ interface TaskCollectionOption {
     height:number,
     taskArray:TaskObj[]
   }
+}
+
+interface TaskStatus {
+  status: string
 }

@@ -42,6 +42,7 @@ Page({
     })
   },
   checkOutDate(deadline:string):boolean {
+    deadline = deadline.replace(/-/g, '/') 
     return new Date(deadline).getTime() <= Date.now()
   },
   onLoad() {

@@ -8,4 +8,4 @@ interface Message {
   getNum?: number,
   finishNum?: number
 }
-type STATUS = '已查看' | '领取' | '确认' | '完成' | '认定无效'
+type STATUS = '已查看' | '领取' | '确认' | '完成' | '认定无效' | '截止提醒'

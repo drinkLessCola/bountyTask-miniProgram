@@ -54,6 +54,7 @@ Component({
   // 定义组件方法
   methods: {
     checkOutDate(deadline:string):boolean {
+      deadline = deadline.replace(/-/g, '/') 
       return new Date(deadline).getTime() <= Date.now()
     },
     getTimeInfo(t: string): TimeInfo {

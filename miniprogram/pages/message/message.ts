@@ -16,7 +16,8 @@ const STATUS_MAP = <const>[
   {
     [ROLE_OPTION_MAP.publisher]: '完成',
     [ROLE_OPTION_MAP.receiver]: '认定无效',
-  }
+  },
+  '截止提醒'
 ]
 
 interface TaskMsg {

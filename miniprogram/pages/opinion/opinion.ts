@@ -15,7 +15,7 @@ Page({
   },
   submit(){
     const { id:userid } = wx.getStorageSync('user'),
-          {msg} = this.data
+          { msg } = this.data
 
     console.log(userid, msg)
     submitOpinion(userid, msg)

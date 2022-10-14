@@ -47,13 +47,13 @@ Page({
       .then((data) => {
         if(data === '成功') data = []
         const sortByDeadline = (a:TaskObj, b:TaskObj) => {
-          const deadlineA = new Date(a.deadline)
-          const deadlineB = new Date(b.deadline)
+          const deadlineA = new Date(a.deadline.replace(/-/g, '/') )
+          const deadlineB = new Date(b.deadline.replace(/-/g, '/') )
           return deadlineA.getTime() > deadlineB.getTime() ? 1 : -1
         }
         const now = Date.now()
         let taskList = (data as TaskObj[]).filter(task => {
-          const res = new Date(task.deadline).getTime() > now
+          const res = new Date(task.deadline.replace(/-/g, '/') ).getTime() > now
           return value === OPTION_VALUE_MAP['已截止'] ? !res : res
         })
         switch(value) {

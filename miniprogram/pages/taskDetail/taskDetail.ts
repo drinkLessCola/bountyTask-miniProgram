@@ -121,9 +121,9 @@ Page({
       const { id, title, illustrate, taskNumber, taskStatus: status, deadline: ddl, bounty, contact, label, request } = taskDetail as UnhandledTaskDetail
       const number = taskNumber,
         labels = label ? label.split(',') : [],
-        deadline = this.formatTime(ddl),
+        deadline = ddl.replace(/-/g, '/'),
         isOffline = status === 1,
-        isOutDate = new Date(ddl).getTime() < Date.now()
+        isOutDate = new Date(deadline).getTime() < Date.now()
       console.log('isOffline', isOffline, isOutDate)
       const task: TaskDetailObj = { id, title, illustrate, request, number, labels, deadline, bounty, contact }
       this.setData({ task, isOffline, isOutDate })

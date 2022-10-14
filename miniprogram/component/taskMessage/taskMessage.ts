@@ -4,7 +4,8 @@ const SUB_TITLE_MAP = {
   '完成': '有人完成了任务！快来看看',
   '确认': '您提交的任务已被确认！',
   '认定无效': '您提交的任务未被通过qwq',
-  '已查看': '已查看'
+  '已查看': '已查看',
+  '截止提醒': '距离截止时间仅剩 12 小时，请尽快完成任务提交！',
 }
 Component({
   /**
@@ -73,6 +74,7 @@ Component({
         case '完成': msg = `${title} 被 ${number} 人完成`; break;
         case '确认': msg = `${title} 已确认`; break;
         case '认定无效': msg = `${title} 任务未通过`; break;
+        case '截止提醒': msg = `${title} 任务即将截止`; break;
       }
       return msg
     },

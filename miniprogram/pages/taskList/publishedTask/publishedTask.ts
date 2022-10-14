@@ -42,7 +42,7 @@ Page({
     this.getTaskList(value)
   },
   async getTaskList(value:number) {
-    console.log(value)
+    console.log('value', value)
     this.setData({ switchIdx: value })
     
     const role = ROLE_MAP.publisher
@@ -60,8 +60,11 @@ Page({
 
       // 不是 "全部" / "已下线" / "待确认"，则按照是否截止进行过滤
       if(![OPTION_VALUE_MAP['全部'], OPTION_VALUE_MAP['已下线'], OPTION_VALUE_MAP['待确认']].includes(value)) {
+        console.log('过滤出已截止', value === OPTION_VALUE_MAP['已截止'])
         taskList = taskList.filter(task => {
-          const res = new Date(task.deadline).getTime() > now
+          const deadline = task.deadline.replace(/-/g, '/') 
+          console.log(new Date(deadline).getTime(), now, new Date(deadline).getTime() > now)
+          const res = new Date(deadline).getTime() > now
           return value === OPTION_VALUE_MAP['已截止'] ? !res : res
         })
       }
