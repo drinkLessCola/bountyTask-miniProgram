@@ -1,3 +1,5 @@
+import { submitOpinion } from "../../API/opinion";
+
 // pages/opinion/opinion.ts
 Page({
 
@@ -5,17 +7,31 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    msg: ''
+  },
+  textInput(e: any) {
+    const msg = e.detail.value
+    this.setData({ msg })
   },
   submit(){
-    wx.showToast({
-      title:'提交成功',
-      icon:'success'
+    const { id:userid } = wx.getStorageSync('user'),
+          {msg} = this.data
+
+    console.log(userid, msg)
+    submitOpinion(userid, msg)
+    .then(() => {
+      wx.showToast({
+        title:'提交成功',
+        icon:'success'
+      })
+      setTimeout(() => {
+        wx.navigateBack()
+      }, 1000);
     })
-    setTimeout(() => {
-      wx.navigateBack()
-    }, 1000);
-    
+    .catch(err => {
+      console.log(err)
+      wx.showToast({ title: '提交失败', icon: 'none'})
+    })  
   },
   /**
    * 生命周期函数--监听页面加载

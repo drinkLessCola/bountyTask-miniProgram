@@ -16,7 +16,9 @@ App<IAppOption>({
     bottomBarHeight:0,
     searchKeyword:'',
     isRelease: true,
-    message: [],
+    message: {
+      get() { return []}
+    },
   },
   onLaunch() {
     // 展示本地存储能力
@@ -50,6 +52,9 @@ App<IAppOption>({
 
     const { id } = wx.getStorageSync('user')
     ws = new WebSocket(id, this.handleMsg)
+  },
+  onHide() {
+    if(ws instanceof WebSocket) ws.closeWebSocket()
   },
   handleMsg(msg:any) {
     const {data} = msg

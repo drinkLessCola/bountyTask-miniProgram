@@ -11,7 +11,7 @@ interface IAppOption {
     bottomBarHeight:number,
     searchKeyword:string,
     isRelease:boolean,
-    message:Array<Message>
+    message:Object,
   }
   handleMsg:(msg:any) => void,
   subscribe:(prop:keyof IAppOption["globalData"], callback:any) => void,

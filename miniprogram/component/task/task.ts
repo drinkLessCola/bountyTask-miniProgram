@@ -29,14 +29,17 @@ Component({
     deadline:'',
     publishTime:'',
     area:'',
+    isOutDate: false,
   }, 
   // 生命周期函数，可以为函数，或一个在methods段中定义的方法名
   lifetimes: {
     attached: function () {
+      const {deadline, startTime, label} = this.properties.taskData
       this.setData({
-        deadline:this.handleDeadline(this.properties.taskData.deadline),
-        publishTime: this.handlePublishTime(this.properties.taskData.startTime),
-        area: this.handleArea(this.properties.taskData.label)
+        deadline:this.handleDeadline(deadline),
+        publishTime: this.handlePublishTime(startTime),
+        area: this.handleArea(label),
+        isOutDate: this.checkOutDate(deadline)
       })
      },
     moved: function () { 
@@ -49,8 +52,8 @@ Component({
   },
   // 定义组件方法
   methods: {
-    isOutDate(task:TaskObj) {
-      return new Date(task.deadline).getTime() > Date.now()
+    checkOutDate(deadline:string):boolean {
+      return new Date(deadline).getTime() <= Date.now()
     },
     getTimeInfo(t: string): TimeInfo {
       t = t.replace(/-/g, '/') 
@@ -74,7 +77,7 @@ Component({
       let res = ''
       if(past < 60) res = '刚刚'
       else if(past < 3600) res = `${Math.floor(past / 60)}分钟前`
-      else if(past < 86400) res = `${Math.floor(past / 1440)}小时前`
+      else if(past < 86400) res = `${Math.floor(past / 3600)}小时前`
       else res = `${month}月${date}日`
       return res
     },

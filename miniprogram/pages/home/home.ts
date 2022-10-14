@@ -81,6 +81,10 @@ Page({
         this.setData({ taskArray: data as TaskObj[] })
       })
       .catch((err) => console.log(err))
+      .finally(() => {
+        // 停止下拉刷新
+        wx.stopPullDownRefresh()
+      })
   },
 
   setTaskArea(taskArray: TaskObj[]) {
@@ -171,8 +175,6 @@ Page({
    */
   onPullDownRefresh() {
     this.refresh();
-    console.log('PDR');
-    
   },
 
   /**

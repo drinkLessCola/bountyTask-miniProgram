@@ -44,7 +44,8 @@ Page({
           status = STATUS_MAP.processing
     
     this.getTaskListByStatus(role, status)
-      .then(data => {
+      .then((data) => {
+        if(data === '成功') data = []
         const sortByDeadline = (a:TaskObj, b:TaskObj) => {
           const deadlineA = new Date(a.deadline)
           const deadlineB = new Date(b.deadline)

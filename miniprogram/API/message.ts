@@ -9,4 +9,9 @@ export async function getMsg(userid:number, role:number) {
   const res = await getRequest(`/info/get/${userid}/${role}`)
   return res
 }
+
+export async function getTaskById (taskId:number) {
+  const res = await getRequest(`/task/get/${taskId}`)
+  return res
+}
 /*----------------------------------*/

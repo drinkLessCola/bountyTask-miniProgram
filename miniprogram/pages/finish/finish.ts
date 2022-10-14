@@ -300,6 +300,7 @@ Page({
   // 在 task 组件里面统一了跳转
   onLoad(option) {  
     const { taskid, userid } = option
+    console.log(taskid, userid)
     this.setData({
       taskid: Number(taskid),
       userid: Number(userid)
@@ -333,6 +334,9 @@ Page({
       console.log(data)
       const imgArray = (data as Array<any>).map(({id ,image}) => ({ path: `${BASE_URL}/${image}`, id }))
       this.setData({ imgArray: imgArray as ProveImg[], canAddImg: imgArray.length < IMG_LIMIT_NUM })
+    })
+    .catch(err => {
+      console.log(err)
     })
   },
 

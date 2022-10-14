@@ -40,9 +40,9 @@ Page({
     const role = ROLE_MAP.receiver,
           status = value === 0 /* 已完成 */ ? STATUS_MAP.finished : STATUS_MAP.waitForConfirm
     
-          this.getTaskListByStatus(role, status)
+    this.getTaskListByStatus(role, status)
       .then(data => {
-        console.log(data)
+        if(data === '成功') data = []
         const taskMap = new Map<string, Array<TaskObj>>();
         (data as TaskObj[]).forEach(task => {
           const { startTime } = task;

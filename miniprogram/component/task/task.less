@@ -7,6 +7,7 @@
 
 .task {
   display: flex;
+  position: relative;
   flex-direction: column;
   justify-content: space-between;
   width: 100%;
@@ -68,3 +69,19 @@
   width:10px;
 }
 
+
+.outdate {
+  .outdate-tip {
+    color: rgb(231, 75, 47);
+  }
+  &::after {
+    content: '';
+    position: absolute;
+    top:0;
+    left:0;
+    width: 100%;
+    height:100%;
+    background-color: #fff;
+    opacity: .3;
+  }
+}

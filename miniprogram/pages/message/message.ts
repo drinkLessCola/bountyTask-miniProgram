@@ -1,4 +1,4 @@
-import { getMsg } from "../../API/message"
+import { getMsg, getTaskById } from "../../API/message"
 
 // index.ts
 const app = getApp()
@@ -146,67 +146,42 @@ Page({
     
   },
   subscribeMsg() {
-    console.log('?')
-    const msgArr = [{
-      createTime: 1665657970000,
-      finishNum: 0,
-      getNum: 1,
-      id: 1,
-      role: 1,
-      status: 1,
-      taskId: 1,
-      userId: 1
-    }]
-    const publish = msgArr
-      .filter(msg => msg.role === ROLE_OPTION_MAP.publisher)
-      .map(msg => {
-        const { createTime: time, finishNum, getNum, status:statusCode, role, taskId } = msg
-        const status = STATUS_MAP[statusCode][role]
-        const number = finishNum || getNum
-        return { time, number, status, taskId } as TaskMsg
-      })
-    const receiver = msgArr
-      .filter(msg => msg.role === ROLE_OPTION_MAP.receiver)
-      .map(msg => {
-        const { createTime: time, status:statusCode, role, taskId } = msg
-        const status = STATUS_MAP[statusCode][role]
-        return { time, status, taskId } as TaskMsg
-      })
-      console.log('publish', publish)
-    this.setData({
-      publishMsgArray: publish,
-      receiveMsgArray: receiver
-    })
-    app.subscribe('message', (msgArr:Message[]) => {
-      msgArr = [{
-        createTime: 1665657970000,
-        finishNum: 0,
-        getNum: 1,
-        id: 1,
-        role: 1,
-        status: 1,
-        taskId: 1,
-        userId: 1
-      }]
-      if(msgArr.length) return
-      const publish = msgArr
-        .filter(msg => msg.role === ROLE_OPTION_MAP.publisher)
-        .map(msg => {
+    app.subscribe('message', async (msgArr:Message[]) => {
+      // msgArr = [{
+      //   createTime: 1665657970000,
+      //   finishNum: 0,
+      //   getNum: 1,
+      //   id: 1,
+      //   role: 1,
+      //   status: 1,
+      //   taskId: 1,
+      //   userId: 1
+      // }]
+      if(!msgArr.length) return
+      const publish = (await Promise.all(
+        msgArr.filter(msg => msg.role === ROLE_OPTION_MAP.publisher)
+        .map(msg => new Promise(async resolve => {
           const { createTime: time, finishNum, getNum, status:statusCode, role, taskId } = msg
           const status = STATUS_MAP[statusCode][role]
           const number = finishNum || getNum
-          return { time, number, status, taskId } as TaskMsg
-        })
-      const receiver = msgArr
-        .filter(msg => msg.role === ROLE_OPTION_MAP.receiver)
-        .map(msg => {
+          const {title} = await getTaskById(taskId) as TaskObj
+          resolve({ time, number, status, taskId, title } as TaskMsg)
+        }))
+      )) as TaskMsg[]
+      const receive = (await Promise.all(
+        msgArr.filter(msg => msg.role === ROLE_OPTION_MAP.receiver)
+        .map(msg => new Promise(async resolve => {
           const { createTime: time, status:statusCode, role, taskId } = msg
           const status = STATUS_MAP[statusCode][role]
-          return { time, status, taskId } as TaskMsg
-        })
+          const {title} = await getTaskById(taskId) as TaskObj
+          resolve({ time, status, taskId, title } as TaskMsg)
+        }))
+      )) as TaskMsg[]
+      console.log('publish', publish)
+      console.log('receive', receive)
       this.setData({
         publishMsgArray: publish,
-        receiveMsgArray: receiver
+        receiveMsgArray: receive
       })
       // 清空数据！
       app.globalData.clearMsg()

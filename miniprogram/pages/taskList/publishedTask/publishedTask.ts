@@ -56,7 +56,7 @@ Page({
     try {
       const data = await this.getTaskListByStatus(role, status)
       const now = Date.now()
-      let taskList = (data as TaskObj[])
+      let taskList = data === '成功' ? [] : (data as TaskObj[])
 
       // 不是 "全部" / "已下线" / "待确认"，则按照是否截止进行过滤
       if(![OPTION_VALUE_MAP['全部'], OPTION_VALUE_MAP['已下线'], OPTION_VALUE_MAP['待确认']].includes(value)) {
