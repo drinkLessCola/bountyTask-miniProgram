@@ -23,6 +23,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    show:app.globalData.isRelease,
     taskList: [] as TaskObj[],
     switchOptions: [
       { label: '最近接受', value: OPTION_VALUE_MAP['最近接受'] },
@@ -36,16 +37,19 @@ Page({
     const { detail:value } = e
     this.getTaskList(value)
   },
-  getTaskList(value:number) {
+  async getTaskList(value:number) {
     console.log(value)
     this.setData({ switchIdx: value })
     
     const role = ROLE_MAP.receiver,
           status = STATUS_MAP.processing
-    
+    const waitForConfirmTask = (await this.getTaskListByStatus(role, STATUS_MAP.waitForConfirm)) as TaskObj[]
+    const waitForConfirmTaskId = waitForConfirmTask.map(t => t.id)
+    console.log(waitForConfirmTaskId)
     this.getTaskListByStatus(role, status)
       .then((data) => {
-        if(data === '成功') data = []
+        if(data === '成功') data = [] as TaskStatusObj[]
+        data = (data as TaskStatusObj[]).filter((task:TaskStatusObj) => !waitForConfirmTaskId.includes(task.id))
         const sortByDeadline = (a:TaskObj, b:TaskObj) => {
           const deadlineA = new Date(a.deadline.replace(/-/g, '/') )
           const deadlineB = new Date(b.deadline.replace(/-/g, '/') )

@@ -25,8 +25,7 @@ App<IAppOption>({
     const accountInfo = wx.getAccountInfoSync();
     accountInfo.miniProgram.envVersion = 'release';
     const isRelease = (accountInfo.miniProgram.envVersion === 'release') 
-    //this.globalData.isRelease = isRelease
-    this.globalData.isRelease = true
+    this.globalData.isRelease = isRelease
     
     wx.getSystemInfo({
       success:(res)=>{
@@ -61,7 +60,7 @@ App<IAppOption>({
     if(data === 'pong') console.log("heartBeat", msg)
     else if(data === '连接成功') console.log("连接成功")
     else {
-      console.log(data)
+      console.log('收到消息', data)
       const message = JSON.parse(data)
       this.globalData.message = message
     }
@@ -74,7 +73,7 @@ App<IAppOption>({
     const globalData = this.globalData
     let val = globalData[prop]
     Object.defineProperty(globalData, prop, {
-      configurable: false,
+      configurable: true,
       enumerable: true,
       set(value) {
         val = value

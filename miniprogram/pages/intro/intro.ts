@@ -7,6 +7,7 @@ Page({
    */
   data: {
     show:app.globalData.isRelease,
+    bottomBarHeight: app.globalData.bottomBarHeight,
     type:'fetch',
     intro:{
       fetch:'你是否遇到了需要他人帮忙取物的情况？比如取快递、外卖。\n或者是否发生了U盘、耳机、钥匙落在教室里面的情况，但又不想再跑一趟?\nDon\'t Worry！发布一个小任务，让其他同学来帮助你。',
@@ -14,7 +15,6 @@ Page({
       vote:'还在随便一个群聊中用红包召集他人帮你投票吗？担心有人领了红包但是没有投票？\nDon\'t Worry！发布一个小任务，可以更加方便地让他人帮你投票。',
       other:'还有什么其他的需求，找临时的宠物照看?找兼职的同学?只要在法律允许的范围内，清晰地描述自己的需求。\n即可发布一个小任务，让其他同学来帮助你。'
     },
-    bottomBarHeight: app.globalData.bottomBarHeight,
     label:{
       fetch:'取物',
       buy:'代购',

@@ -21,18 +21,22 @@
   margin-top: 30rpx;
   padding: 0 50rpx;
   display: flex;
-  flex: 1;
+  flex:1;
+  overflow: auto;
+  box-sizing: border-box;
   flex-direction: column;
   justify-content: space-between;
   background-color: #fff;
 }
-
+.holder {
+  height: 250rpx;
+}
 .background-execute {
-  margin-top: 260rpx;
   padding: 0 50rpx;
   padding-top: 40rpx;
   border-radius: 40rpx 40rpx 0 0;
   display: flex;
+  // height:calc(100% - 30rpx);
   flex: 1;
   flex-direction: column;
   justify-content: space-between;
@@ -50,7 +54,9 @@
   font-family: "Gilroy Bold";
   float: right;
 }
-
+.main {
+  flex:1;
+}
 .userInfo {
   display: flex;
   align-items: center;

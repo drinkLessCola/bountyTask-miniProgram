@@ -263,7 +263,10 @@ Page({
   },
   validateTime(): void {
     let { date: d, time } = this.data
-    d = d.replace(/[年月]/gu, '-').replace(/日/, '')
+    console.log(d)
+    // d = d.replace(/-/g, '/') 
+    d = d.replace(/[年月]/gu, '/').replace(/日/, '')
+    console.log(d)
     const date = new Date(+new Date(`${d} ${time}:00`) + 8 * 3600 * 1000)
     console.log('date', date)
     if (date.getTime() < Date.now()) {

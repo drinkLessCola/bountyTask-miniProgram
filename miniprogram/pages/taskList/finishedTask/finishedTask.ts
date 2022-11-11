@@ -22,6 +22,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    show:app.globalData.isRelease,
     taskList: [['2022-10', []]] as [string, TaskObj[]][],
     switchOptions: [
       { label: '已完成', value: OPTION_VALUE_MAP['已完成'] },
@@ -47,21 +48,21 @@ Page({
     const status = value === 0 /* 已完成 */ ? STATUS_MAP.finished : STATUS_MAP.waitForConfirm
     
     try {
-      let finishedTaskList = (await this.getTaskListByStatus(role, 0 /* 已完成的任务 */)) as (TaskObj[] | '成功')
+      let finishedTaskList = (await this.getTaskListByStatus(role, status /* 已完成的任务 */)) as (TaskObj[] | '成功')
       if(finishedTaskList === '成功') finishedTaskList = [];
       console.log(finishedTaskList)
 
       const taskMap = new Map<string, TaskObj[]>();
 
-      const taskListWithStatus = (await Promise.all(
-        finishedTaskList.map((d) => new Promise(async (resolve, reject) => {
-          const taskid = d.id
-          const {status} = (await getUserTaskStatus(userid, taskid) ) as TaskStatus
-          resolve({...d, status })
-       }))
-      ))as TaskObj[]
-      
-      finishedTaskList = taskListWithStatus.filter(task => task.status === status)
+      // const taskListWithStatus = (await Promise.all(
+      //   finishedTaskList.map((d) => new Promise(async (resolve, reject) => {
+      //     const taskid = d.id
+      //     const {status} = (await getUserTaskStatus(userid, taskid) ) as TaskStatus
+      //     resolve({...d, status })
+      //  }))
+      // ))as TaskObj[]
+
+      // finishedTaskList = taskListWithStatus.filter(task => task.status === status)
       finishedTaskList.forEach((task: TaskObj) => {
         const { startTime } = task;
         const [month] = startTime.match(/(\d{4})-(\d{2})/g) || ['1970-01']

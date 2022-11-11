@@ -35,6 +35,7 @@ Page({
     )
     .then(() => {
       wx.showToast({ title: '清除成功！', icon: 'success'})
+      this.getCollection(userid as string)
     })
     .catch(err => {
       console.log(err)

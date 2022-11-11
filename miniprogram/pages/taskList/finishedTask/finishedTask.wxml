@@ -1,5 +1,5 @@
 <!--miniprogram.wxml-->
-<view class="finished-task">
+<view class="finished-task" wx:if="{{show}}">
   <nav-bar showCapsule="{{true}}" bgColor="#fff" title="已完成的任务" ></nav-bar>
   <header class="switch-container">
     <switch options="{{switchOptions}}" activeIdx="{{switchIdx}}" bind:switch="handleSwitch"></switch>

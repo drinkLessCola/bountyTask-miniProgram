@@ -1,7 +1,7 @@
 <view wx:if="{{show}}" class="taskDetail">
   <nav-bar showCapsule="{{true}}" title="任务详情"></nav-bar>
   <image class="topImg" wx:if="{{!isPublisher}}" mode="aspectFill"></image>
-
+  <view class="holder" wx:if="{{!isPublisher}}"></view>
   <view class="{{isPublisher? 'background-publisher' : 'background-execute'}}">
     <section class="main">
       <!-- 这个是白色的背景,发布方状态时暴力位移到手机屏幕顶端 -->
@@ -45,6 +45,10 @@
 
       <!-- 任务要求 执行方可见 -->
       <title title="任务要求" wx:if="{{!isPublisher}}">{{task.request === '无' ? '无':'完成后' + task.request}}</title>
+
+      <title title="联系方式" 
+        wx:if="{{!isPublisher && (receiveStatus === '未提交' || receiveStatus === '已提交') }}"
+      >{{ task.contact }}</title>
     </section>
 
 

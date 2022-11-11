@@ -1,9 +1,10 @@
 import { getTaskStatus } from "../../../API/taskDetail"
 import { getTaskByStatus } from "../../../API/taskList"
 const STATUS_MAP = {
-  offlined: 0,
+  finished: 0,
   processing: 1,
-  all: 5
+  all: 5,
+  waitForConfirm: 2,
 }
 
 const ROLE_MAP = {
@@ -26,6 +27,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    show:app.globalData.isRelease,
     taskList: [] as TaskObj[],
     switchOptions: [
       { label: '全部', value: OPTION_VALUE_MAP['全部']},
@@ -48,10 +50,11 @@ Page({
     const role = ROLE_MAP.publisher
     let status!:number
     switch(value) {
-      case OPTION_VALUE_MAP['已下线']: status = STATUS_MAP.offlined; break;
+      case OPTION_VALUE_MAP['已截止']:
       case OPTION_VALUE_MAP['全部']: status = STATUS_MAP.all; break;
-      // 待确认 + 已截止 + 进行中
-      default: status = STATUS_MAP.processing;
+      case OPTION_VALUE_MAP['进行中']: status = STATUS_MAP.processing; break;
+      case OPTION_VALUE_MAP['待确认']: status = STATUS_MAP.waitForConfirm; break;
+      case OPTION_VALUE_MAP['已下线']: status = STATUS_MAP.finished; break;
     }
     try {
       const data = await this.getTaskListByStatus(role, status)
@@ -70,20 +73,20 @@ Page({
       }
       console.log(taskList)
       // 过滤出含有待确认的任务
-      if(OPTION_VALUE_MAP['待确认'] === value) {
-        let promiseRes = await Promise.allSettled(
-          taskList.map((task) => new Promise(async(resolve) => {
-            const res = (await getTaskStatus(task.id)) as TaskStatusObj[];
-            res.splice(0, 1)
-            const waitTaskList = res.filter(task => {
-              return task.status === 2
-            })
-            resolve(!!waitTaskList.length)
-          }))
-        )
-        promiseRes = promiseRes.map((p:any) => p.value)
-        taskList = taskList.filter((task, idx) => promiseRes[idx])
-      }
+      // if(OPTION_VALUE_MAP['待确认'] === value) {
+      //   let promiseRes = await Promise.allSettled(
+      //     taskList.map((task) => new Promise(async(resolve) => {
+      //       const res = (await getTaskStatus(task.id)) as TaskStatusObj[];
+      //       res.splice(0, 1)
+      //       const waitTaskList = res.filter(task => {
+      //         return task.status === 2
+      //       })
+      //       resolve(!!waitTaskList.length)
+      //     }))
+        // )
+        // promiseRes = promiseRes.map((p:any) => p.value)
+        // taskList = taskList.filter((task, idx) => promiseRes[idx])
+      // }
       console.log(taskList)
       this.setData({ taskList })
     } catch (err) {

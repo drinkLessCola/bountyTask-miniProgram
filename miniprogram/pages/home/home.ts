@@ -66,11 +66,10 @@ Page({
   },
 
   getTask() {
-    let condition: string | null = null
+    let condition: string | null = '最新'
     let campus: string | null = null
     let keyword: string | null = null
 
-    if (condition === '最新') condition = null
     if (campus === '全部') campus = null
     if (!keyword) keyword = null
 
