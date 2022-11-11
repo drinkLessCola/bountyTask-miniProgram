@@ -1,23 +1,42 @@
-<!--index.wxml-->
-<view class="container">
-  <view class="userinfo">
-    <block wx:if="{{canIUseOpenData}}">
-      <view class="userinfo-avatar" bindtap="getUserProfile">
-        <open-data type="userAvatarUrl"></open-data>
+<view wx:if="{{show}}">
+  <nav-bar showCapsule="{{false}}" title=""></nav-bar>
+  <view class="topBlock">
+    <!-- 搜索框 -->
+    <search mode="white" width="520" bind:search="search"></search>
+    <!-- 铃铛 -->
+    <view class="msg {{hasMessage ? 'home-msg-icon' : 'home-no-msg-icon'}}" bindtap="toMsg"></view>
+  </view>
+  <!-- 这两个黑字标题样式一样 -->
+  <view class="titleText">寻求帮助</view>
+  <view class="bigBox">
+    <view class="typeBox">
+      <view class="nav fetch" data-name="fetch" bindtap="toIntro">
+        <image class="img" src="/images/home/fetch.png" mode="aspectFill"></image>
+        <text class="label">取物</text>
       </view>
-      <open-data type="userNickName"></open-data>
-    </block>
-    <block wx:elif="{{!hasUserInfo}}">
-      <button wx:if="{{canIUseGetUserProfile}}" bindtap="getUserProfile"> 获取头像昵称 </button>
-      <button wx:elif="{{canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
-      <view wx:else> 请使用1.4.4及以上版本基础库 </view>
-    </block>
-    <block wx:else>
-      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
-      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
-    </block>
+      <view class="nav helpBuy" data-name="buy" bindtap="toIntro">
+        <image class="img" src="/images/home/buy.png" mode="aspectFill"></image>
+        <text class="label">代购</text>
+      </view>
+    </view>
+    <view class="typeBox">
+      <view class="nav vote" data-name="vote" bindtap="toIntro">
+        <image class="img" src="/images/home/vote.png" mode="aspectFill"></image>
+        <text class="label">投票</text>
+      </view>
+      <view class="nav other" data-name="other" bindtap="toIntro">
+        <image class="img" src="/images/home/other.png" mode="aspectFill"></image>
+        <text class="label">其他</text>
+      </view>
+    </view>
   </view>
-  <view class="usermotto">
-    <text class="user-motto">{{motto}}</text>
+
+  <view class="titleText">推荐任务</view>
+  <!-- 这个1rpx的view是用于不让他们的margin重合的，懒得写多一层view了 -->
+  <view></view>
+  <view class="missions" wx:for="{{taskArray}}" wx:key="id" data-id="{{item.id}}">
+    <task taskData="{{item}}"></task>
   </view>
+  <view class="shift"></view>
 </view>
+<home wx:else></home>

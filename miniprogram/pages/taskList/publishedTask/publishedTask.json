@@ -1,0 +1,8 @@
+{
+  "usingComponents": {
+    "task":"/component/task/task",
+    "nav-bar":"/component/nav/nav",
+    "title":"/component/title/title",
+    "switch":"/component/switch/switch"
+  }
+}

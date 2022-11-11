@@ -1,9 +1,52 @@
-<header></header>
-<view class="main">
-  <!-- 使用自定义组件（component） -->
-  <!-- 要先在对应的 json 文件中定义要使用的 component 引用的标签名及所在的文件路径 -->
-  <task title="帮我拿一个快递" bounty="3" timestamp="1660477120324" area="泰山区" deadline="1668477455200"></task>
+<view wx:if="{{show}}" class="taskCenter">
+<nav-bar 
+  showCapsule="{{false}}" 
+  title="" 
+  bgColor="white"
+></nav-bar>
+<view class="titleBox">
+  <view class="title">任务中心</view>
+  <view class="topBlock" >
+  <!-- 搜索框,topBlock就只装着搜索框 -->
+    <search mode="grey" width="650" keyword="{{keyword}}" bind:search="setKeyword"></search>
+  </view>
+  
+  <view class="selectBox">
+    <!-- 选择按钮组 好像可以变组件-->
+    <!-- 这个是抄来的哈哈 -->
+    <view>
+      <block class='selectBlock' wx:for="{{selectParameter}}" wx:key="select_Parameter">
+        <view class='parameter {{item.checked?"checked_parameter":""}}' data-id='{{item.id}}' bindtap='parameterTap'>{{item.name}}</view>
+      </block>
+    </view>
+    <!-- picker这个select框也是抄来的,下拉框看上去有点复杂懒得研究 -->
+    <picker bindchange="bindPickerChange" value="{{index}}" range="{{array}}">
+      <view class="picker">
+        {{array[index]}}
+        <image src="/images/taskCenter/jiantou.png" mode="aspectFill" class="jiantouImg"></image>
+      </view>
+    </picker>
+
+  </view>
 </view>
 
+<!-- 搜索框看上去能变成组件，有空再弄 -->
 
 
+<!-- task为任务object,后端似乎返回的是一个task对象的数组 -->
+<scroll-view 
+  class="missions-container" 
+  scroll-y="{{true}}" 
+  refresher-enabled="{{true}}"
+  refresher-triggered="{{isRefreshing}}"
+  bindrefresherrefresh="refresh"
+  bindrefresherrestore="refreshFinished"
+>
+  <view class="missions" wx:for="{{taskArray}}" wx:key="id">
+    <task taskData="{{item}}"></task>
+  </view>
+</scroll-view>
+<view style="height:{{bottomBarHeight}}px"></view>
+<!-- 感觉把这个列表解耦出来会好一点，但是 好像没办法把这个列表单独列在后台与后端通信，用的时候放进页面 吧。。 可以👍 -->
+</view>
+<center wx:else></center>

@@ -1,3 +1,12 @@
 {
-  "usingComponents": {}
+  "usingComponents": {
+    "task":"/component/task/task",
+    "nav-bar":"/component/nav/nav",
+    "form-item":"/component/formItem/formItem"
+  },
+  "backgroundColor": "#F6F6F6",
+  "navigationBarBackgroundColor": "#fff",
+  "enablePullDownRefresh": false,
+  "navigationStyle": "custom"
+  
 }

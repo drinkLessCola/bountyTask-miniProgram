@@ -1,0 +1,63 @@
+/* component/title/title.wxss */
+@font-face {
+  font-family: 'Gilroy Bold';
+  src: url("https://gitee.com/zirina/font-family/raw/master/gilroy-bold-4.otf");
+}
+
+.titleView {
+  display: flex;
+  flex-direction: column;
+  // 一般将组件的宽度定义为 100%，
+  // 这样就可以在使用时通过改变父元素的宽度，自行设置组件的宽度
+  width: 100%;
+  margin: 40rpx 0;
+  .title {
+    width: fit-content;
+    position: relative; // 父相子绝
+    font-size: 36rpx;
+    font-family: "PingFang SC SemiBold";
+    font-weight: bold;
+    margin-bottom: 30rpx;
+    &::after {
+      // 伪元素一定要设置 content，即伪元素的内容，没有就写''，否则不会显示
+      content: '';
+      position: absolute; // 父相子绝，相对父元素定位
+      bottom: 0; // 离标题（父元素） 底部为 0
+      transform: translateY(100%); // 再向下（因为是正值）移动自身高度的 100%
+
+      height: 5px;
+      width: 80%;
+      // 设置与父元素水平居中，具体原理不太清楚
+      left: 0;
+      right: 0;
+      margin: 0 auto;
+      // 可以看成是一个很窄的矩形，设置了圆角
+      background-color: #FFCF56;
+      border-radius: 3px;
+    }
+  }
+
+  // 这种文字底下有一条的效果可以不用创建一个新的标签，可以使用伪元素 .xx::after
+  // 相当于在 .xx 这个元素的内部  -> < class="xx"> 这里！</ > 添加了一个标签
+  // 即伪元素::after 是 .xx 的一个子元素，利用【父相子绝】可以达到相对父元素（.xx）定位的效果
+
+  .decorateBox {
+    width: 100%;
+    padding-left: 12rpx;
+    padding-right: 12rpx;
+    box-sizing: border-box;
+
+    .decorate {
+      border: 6rpx solid;
+      border-color: rgb(255, 207, 87);
+      border-radius: 6rpx;
+    }
+  }
+  .content {
+    color: rgba(85, 85, 85, 1);
+    font-size: 28rpx;
+    height: fit-content;
+    word-break: break-all;
+    padding: 0 20rpx;
+  }
+}

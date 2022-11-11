@@ -1,0 +1,49 @@
+<view wx:if="{{show}}">
+<nav-bar showCapsule="{{true}}" title="完成任务"></nav-bar>
+<!-- 自定义导航栏，抄来的,看上去有点抽象 -->
+<!-- 获取小程序提供的 api，通过胶囊的坐标信息与状态栏（每个手机都不一样）的高度
+    计算得到导航栏的位置信息，使导航栏与胶囊垂直居中
+ -->
+<view class="taskTitle">{{task.title}}</view>
+
+<title title="任务要求">
+  <view class="taskRequire">{{task.request}}</view>
+</title>
+
+
+
+<title title="提交证明">
+  <view class="confirmBox">
+    <!-- <textarea type="text" class="input" placeholder="请输入" auto-height="true" bindinput="textInput"></textarea> -->
+    <!-- 输入文本，但后端没这功能 -->
+
+    <!-- capture-bind:longpress="delImg 长按删除 -->
+    <view class="imgBox" wx:for="{{imgArray}}">
+      <image wx:if="{{index%3 != 2}}" src='{{item.path}}' data-index='{{item.index}}' mode="aspectFit" class="img">
+        <view class="delete" data-id='{{item.id}}' bindtap="delImg">
+          <i class="close-icon"></i>
+        </view>
+      </image>
+      <image wx:else src='{{item.path}}' mode="aspectFit" class="img imglast">
+        <view class="delete" data-id='{{item.id}}' bindtap="delImg">
+          <i class="close-icon"></i>
+        </view>
+      </image> 
+    </view>
+    <view class="add addLast" wx:if="{{(imgArray.length)%3 == 2 && canAddImg}}" bindtap="addImg">
+      <image src='/images/finish/addImg.png' mode="aspectFit" class="addImg">
+      </image>
+    </view>
+    <view class="add" wx:if="{{(imgArray.length)%3 != 2 && canAddImg}}" bindtap="addImg">
+      <image src='/images/finish/addImg.png' mode="aspectFit" class="addImg"></image>
+    </view>
+  </view>
+</title>
+
+
+
+
+<view class="buttonBox">
+  <button bindtap="submit">提交</button>
+</view>
+</view>

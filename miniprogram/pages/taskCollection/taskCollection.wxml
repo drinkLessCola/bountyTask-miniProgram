@@ -1,0 +1,19 @@
+<!--pages/taskCollection/taskCollection.wxml-->
+<view wx:if="{{show}}">
+<nav-bar 
+  showCapsule="{{true}}" 
+  title="任务收藏夹" 
+  bgColor="white"
+></nav-bar>
+<view class="titleBox" style="margin-top:0;">
+  <text class="taskNumber" space="nbsp">共 {{taskArray.length}} 个任务</text>
+  <button class='clearButton' bindtap="clearExpireTask">清除过期任务</button>
+</view>
+
+
+<!-- task为任务object,后端似乎返回的是一个task对象的数组 -->
+<view class="missions" wx:for="{{taskArray}}" wx:key="id" bindtap="toTaskDetail" data-id="{{item.id}}">
+  <task taskData="{{item}}" ></task>
+</view>
+<!-- 感觉把这个列表解耦出来会好一点，但是 好像没办法把这个列表单独列在后台与后端通信，用的时候放进页面 吧。。  -->
+</view>

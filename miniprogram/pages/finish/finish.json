@@ -1,0 +1,9 @@
+{
+  "usingComponents": {
+    "task":"/component/task/task",
+    "nav-bar":"/component/nav/nav",
+    "title":"/component/title/title"
+  },
+  "backgroundColor": "#F6F6F6",
+  "navigationStyle": "custom"
+}

@@ -1,0 +1,14 @@
+<!--component/title/title.wxml-->
+<view class="titleView">
+  <!-- <header> -->
+  <span class="title">{{title}}</span>
+    <!-- <slot></slot> -->
+    <!-- 感觉如果只变动文字的话，用 prop 传值就可以了 
+    slot 是用来插入一段 html 结构的（比如加一个图片在前面这种会出现多个 DOM 元素的情况 
+    我感觉标题下方的内容使用 slot 就很合适 ↓
+  -->
+  <!-- </header> -->
+  <!-- 插入自定义的任意形态的内容，比如提交证明有很多的图片，任务要求只有文字 -->
+  <view class="content"><slot></slot></view>
+</view>
+

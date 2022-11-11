@@ -1,1 +1,229 @@
 /* miniprogram.wxss */
+
+.PublishTask {
+  position: relative;
+  height:100vh;
+  width:100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.formArea {
+  position: relative;
+  width:100%;
+  margin-top: 12rpx;
+  box-sizing: border-box;
+  padding:0 50rpx;
+  overflow: auto;
+}
+input {
+  background-color:#f6f6f6;
+  font-size: 32rpx;
+  border-radius: 20rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  padding:20rpx;
+}
+
+textarea {
+  position: relative;
+  background-color: #f6f6f6;
+  font-size: 32rpx;
+  border-radius: 20rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+  // height 是 content 的高度，需要减去 2 个 padding
+  // textarea 居然有默认的宽度，我看看怎么改🙇‍♂️
+  // unset nb!
+  min-height: 140rpx;
+  padding: 20rpx;
+}
+
+picker {
+  height: 80rpx;
+  background-color: #f6f6f6;
+  width: 272rpx;
+  border-radius: 20rpx;
+  margin-bottom: 20rpx;
+}
+
+// 这界面只有一个image
+// 以后要加别的图片样式直接层叠覆盖就好
+image {
+  width: 25.5rpx;
+  height: 16rpx;
+  float: right;
+  margin-top: 14rpx;
+  margin-right: 0rpx;
+}
+
+.generalTitle {
+  font-size: 28rpx;
+  color: rgb(136,136,136);
+  // width: 56rpx;
+  height: 40rpx;
+  margin-bottom: 10rpx;
+}
+//这界面就一个玩意要浮动。。
+.floatContentBox{
+  // 可以使用逗号，表示两个类都应用这段 css
+  .bountyAndNumber {
+    float: left;
+    .inputBounty, .inputNumber {
+      width: 272rpx;
+      font-family: 'Gilroy Bold';
+    }
+    // 这两东西不在同一个框里所以分开写
+    .inputBounty {
+      background-color: rgb(246,246,246);
+      border-radius: 20rpx;
+      font-family: "Gilroy Bold";
+      font-size:36rpx;
+      color: rgb(136,136,136);
+      padding:20rpx;
+      display: flex;
+      align-items: center;
+      margin-bottom:20rpx;
+      input {
+        margin:0;
+        padding:0;
+        padding-left: 5rpx;
+      }
+    }
+  }
+  
+
+
+  
+  .BAleft {
+    //上面那玩意的左边盒子，用来margin而
+    margin-right: 54rpx;
+    // float: unset;
+  }
+
+} 
+
+
+.yuan {
+  display: inline-block;
+  margin-right:10rpx;
+}
+
+.floatContentBox::after {
+  clear: both;
+  content: "";
+  display: block;
+}
+
+.inputDate {
+  width: fit-content;
+  display: inline-block;
+  font-family: 'Gilroy Bold';
+  input {
+    width: 272rpx;
+    text-align: center;
+  }
+}
+
+.inputTime {
+  font-family:"Gilroy Bold";
+  width: fit-content;
+  display: inline-block;
+  margin-left: 20rpx;
+  input {
+    width: 120rpx;
+    text-align: center;
+  }
+}
+
+.picker {
+  width: 272rpx;
+  box-sizing: border-box;
+  font-size: 32rpx;
+  border-radius: 20rpx;
+  color: rgb(51,51,51);
+  // margin-bottom: 20rpx;
+  padding: 20rpx;
+  
+}
+
+.labelBox {
+  height: fit-content;
+  .label {
+    float: left;
+    box-sizing: border-box;
+    border-radius: 20rpx;
+    border: 2rpx solid rgb(170,170,170);
+    width: fit-content;
+    height: 60rpx;
+    font-size: 24rpx;
+    padding: 12rpx 30rpx 12rpx 30rpx;
+    color: rgb(170,170,170);
+    margin: 5rpx;
+  }
+  .labelChecked {
+    border-color: rgb(255,151,30);
+    color: rgb(255,151,30);
+  }
+  .labelDefine {
+    border-style:  dashed;
+    // border-radius: 0;
+    // border-radius: 0rpx;
+    // border: 1px solid transparent;
+    // background: linear-gradient(to right, #fff 50%, #fff 100%, transparent 100%) padding-box,
+    // repeating-linear-gradient(45deg,rgb(170,170,170) 0rpx, rgb(170,170,170) 6rpx,white 0rpx,white 14rpx);
+    // 虚线边框不会 ,要不截个图放上去算了。。。
+    // 哈哈哈哈🤣，注释这一坨太有才了
+  }
+}
+
+.endEmptyArea::after {
+  content: "";
+  display: block;
+  height: 188rpx;// 这玩意的高度和下面的一样
+  clear: both;
+}
+
+.submitBox {
+  bottom: 0rpx;
+  left: 0rpx;
+  width: 100%;
+  height:120rpx;
+  box-sizing: border-box;
+  padding:0 50rpx;
+  background-color: #fff;
+
+  display:flex;
+  align-items: center;
+  justify-content: space-between;
+  view {
+    width: fit-content;
+    font-size: 32rpx;
+    color: rgb(136,136,136);
+  }
+  .sum {
+    display: flex;
+    align-items: center;
+    justify-content: left;
+  }
+  .totalBounty {
+    font-size: 48rpx;
+    color: rgb(51,51,51);
+    font-weight: bold
+  }
+
+  button {
+    width: 396rpx;
+    height: 80rpx;
+    color: #fff;
+    background-color: rgb(255,207,86);
+    border-radius: 20rpx;
+    margin:0;
+  }
+}
+
+[data-valid = "false"] {
+  outline:4rpx solid #ff8668;
+  transition:all 250 ease-in-out; 
+}

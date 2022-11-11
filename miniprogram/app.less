@@ -1,14 +1,85 @@
 /**app.wxss**/
+// 图标定义在 icon.less 可以直接给 view 加上类名使用图标
+@import './icon.less';
+@font-face {
+  font-family: 'Gilroy Bold';
+  src: url("https://gitee.com/zirina/font-family/raw/master/gilroy-bold-4.otf");
+}
+page {
+  // 根元素选择器，可以定义 css 变量
+  width: 100%;
+  font-family: "PingFang SC";
+}
+textarea {
+  width:unset;
+}
+input {
+  font-family: 'PingFang SC';
+  // font-family: unset;
+}
+button::after {
+  border: none;
+}
+// 提高图片清晰度
+image {
+  image-rendering:-moz-crisp-edges;
+  image-rendering:-o-crisp-edges;
+  image-rendering:-webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+  -ms-interpolation-mode:nearest-neighbor;
+}
 
-.container {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
+button[type = primary].btn {
+  background-color: #FFCF56;
+  height:100rpx;
+  &:active{
+    background-color: #ffc546;
+    box-shadow: 0 0 6px 1px #ffc546 ;
+  }
+}
+
+button{
+  display:flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 200rpx 0;
-  box-sizing: border-box;
-} 
- 
+  justify-content: center;
+}
+
+.btn.shadow {
+  box-shadow: 0 0 6px 1px rgba(255, 207, 86, 0.5000);
+}
 
 
+.primary-title {
+  font-size: 48rpx;
+  font-family: "PingFang SC";
+  font-weight: 700;
+  position: relative;
+  color:#333;
+}
+
+input[type=number]{
+  font-family: 'Gilroy Bold';
+}
+
+radio .wx-radio-input {
+  background-color: #fff;
+  border-radius: 50%;
+  background: transparent;
+  border:1px solid #86593b;
+}
+radio .wx-radio-input.wx-radio-input-checked{
+  background-color: #fff;
+  border:1px solid #86593b;
+}
+radio .wx-radio-input.wx-radio-input-checked::before {
+  border-radius: 50%; /* 圆角 */
+  width: 26rpx; /* 选中后对勾大小，不要超过背景的尺寸 */
+  height: 26rpx; /* 选中后对勾大小，不要超过背景的尺寸 */
+  line-height: 26rpx;
+  text-align: center;
+  font-size: 0rpx; /* 对勾大小 30rpx */
+  color: transparent; /* 对勾颜色 白色 */
+  background: #ffc546;
+  transform: translate(-50%, -50%) scale(1);
+  -webkit-transform: translate(-50%, -50%) scale(1);
+}

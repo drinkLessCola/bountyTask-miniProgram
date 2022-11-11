@@ -1,1 +1,305 @@
 /* miniprogram.wxss */
+.taskDetail{
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.topImg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 520rpx;
+  width: 100vw;
+  background-color: #FAF3DD;
+  z-index: -5;
+}
+
+.background-publisher {
+  margin-top: 30rpx;
+  padding: 0 50rpx;
+  display: flex;
+  flex:1;
+  overflow: auto;
+  box-sizing: border-box;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: #fff;
+}
+.holder {
+  height: 250rpx;
+}
+.background-execute {
+  padding: 0 50rpx;
+  padding-top: 40rpx;
+  border-radius: 40rpx 40rpx 0 0;
+  display: flex;
+  // height:calc(100% - 30rpx);
+  flex: 1;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: #fff;
+}
+
+.taskTitle,
+.bounty {
+  font-size: 48rpx;
+  color: rgba(51, 51, 51, 1);
+  font-weight: bold;
+}
+
+.bounty {
+  font-family: "Gilroy Bold";
+  float: right;
+}
+.main {
+  flex:1;
+}
+.userInfo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10rpx;
+}
+
+.remainTaskNum {
+  color: #888;
+}
+
+.labelBox {
+  margin-top: 10rpx;
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: -20rpx;
+
+  .label {
+    display: inline-block;
+    height: 50rpx;
+    line-height: 50rpx;
+    background-color: rgba(239, 246, 204, 1);
+    color: rgba(148, 176, 54, 1);
+    font-size: 24rpx;
+    margin-left: 10rpx;
+    border-radius: 10rpx;
+    font-weight: bold;
+    padding: 0 20rpx;
+  }
+
+  .redlabel {
+    background-color: rgba(255, 236, 227, 1);
+    color: rgba(255, 117, 59, 1);
+  }
+}
+
+.labelBox::after {
+  display: block;
+  content: none;
+  clear: both;
+}
+
+.timeBox {
+  display: flex;
+  align-items: center; // 垂直居中
+
+  .time {
+    position: relative;
+    //瞪
+    margin-left: 10rpx;
+    color: rgba(51, 51, 51, 1);
+  }
+}
+
+
+.perReceiver {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 15rpx; //可能是盒子带来的误差？ 直接换算过来多了3像素
+  &:active {
+    background-color:#fff8e8 ;
+  }
+  .status {
+    color: rgba(85, 85, 85, 1);
+    font-size: 24rpx;
+    font-weight: 400;
+  }
+}
+
+.bottomButtons {
+  height: 120rpx;
+  width: 100%;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+
+  .receiverBtn,
+  .publisherBtn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .collect {
+    &:active {
+      background-color: #eee;
+    }
+  }
+
+  button {
+    color: #fff;
+    border-radius: 20rpx;
+    font-size: 36rpx;
+    width: 360rpx;
+    height: 80rpx;
+    margin: 0;
+  }
+
+  .receive-btn,
+  .finished-btn {
+    background-color: #ffcf56;
+
+    &:active {
+      background-color: #ffc430;
+    }
+  }
+
+  .submit-btn {
+    background-color: #FF971E;
+
+    &:active {
+      background-color: #ff8e0d;
+    }
+  }
+
+  .disable-btn {
+    width: 100%;
+    height: 100rpx;
+    background-color: #ddd;
+    color: #888;
+  }
+
+  .offline-btn {
+    height: 100rpx;
+    width: 100%;
+    color: rgba(255, 183, 0, 1);
+    background-color: #fff0c9;
+    border-radius: 20rpx;
+
+    &:active {
+      background-color: #ffecbb;
+    }
+  }
+}
+
+.mask {
+  position: fixed;
+  z-index: 200;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.dialog {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100vw;
+  height: 600rpx;
+  background-color: #fff;
+  z-index: 300;
+  border-radius: 60rpx 60rpx 0 0;
+  box-sizing: border-box;
+  padding: 60rpx 70rpx 0 70rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  .title {
+    font-size: 48rpx;
+    font-weight: bold;
+  }
+
+  .text {
+    font-size: 32rpx;
+    margin-top: 34rpx;
+    color: rgba(85, 85, 85, 1);
+    height: 320rpx;
+    line-height: 52rpx;
+    flex: 1;
+  }
+
+  .buttons {
+    margin-bottom: 20rpx;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+
+    button {
+      font-size: 40rpx;
+      border-radius: 20rpx;
+      width: 280rpx;
+      height: 100rpx;
+      display: inline-block;
+      margin: 0;
+
+      &:active {
+        background-color: #ffc430;
+      }
+    }
+
+    .btnNO {
+      background-color: #e6e6e6;
+      color: rgba(85, 85, 85, 1);
+
+      &:active {
+        background-color: #ddd;
+      }
+    }
+
+    .btnYes {
+      background-color: rgba(255, 207, 86, 1);
+      color: #fff;
+
+      &:active {
+        background-color: #ffc430;
+      }
+    }
+  }
+}
+
+.cook {
+  margin-top: 60rpx;
+  padding:0 40rpx;
+  .title {
+    font-size: 46rpx;
+    font-weight: 600;
+    background-color: #333;
+    color:#fff;
+    padding:12rpx 20rpx;
+    border-radius: 20rpx 20rpx;
+  }
+  .list {
+    display: flex;
+    flex-direction: column;
+    li {
+      margin:10rpx 0;
+      font-size: 32rpx;
+    }
+  }
+  .idx {
+    display: inline-block;
+    background-color: #333;
+    line-height: 40rpx;
+    width:40rpx;
+    height:40rpx;
+    border-radius:50%;
+    color:#fff;
+    text-align: center;
+    margin-right: 10rpx;
+  }
+}

@@ -1,0 +1,12 @@
+<!--pages/opinion/opinion.wxml-->
+<nav-bar 
+  showCapsule="{{true}}"
+  title="意见反馈" 
+  nav-bgc-class='whiteBgc'
+></nav-bar>
+<view class="title">如果在使用中有遇到什么问题，请留言告诉我们。</view>
+<textarea class="input" name="" id="" cols="30" rows="10" bindinput="textInput"></textarea>
+
+<view class="button">
+  <button bindtap="submit">提交</button>
+</view>

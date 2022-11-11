@@ -1,0 +1,56 @@
+/* 顶部固定定位   标题要居中   自定义按钮和标题要和右边微信原生的胶囊上下对齐 */
+.nav {
+  position: fixed;
+  width: 100vw; // 可以改成 100vw 表示页面总宽度
+  top: 0;
+  left: 0;
+  z-index: 100;
+}
+// 调试的时候如果看不出来，可以加一个大红大绿的 background-color 来观察
+// margin / padding 尽量往五的倍数靠，有一点偏差也是没有关系的
+.title-container {
+   // 以 position 不为 static 的最近的父元素（即.nav）作为参照进行布局
+   // 与 bottom：0 搭配使用即：距离 .nav 底部为 0
+   // 然后再通过 margin 调整外边距，左边和下边都隔开一定距离。
+  position: absolute;
+  bottom:0; 
+  // 可以不用修改字体了，我统一引入吧（突然发现 PingFang 文件有点大，还是算了
+  // 微信小程序可以使用网络字体，只要把字体上传到 gitee 然后获取一个下载的 url 就可以引入了，见 task 的 less 文件
+  // 虽然但是不同手机的字体是不一样的，其实不用改字体的hhh
+  font-family: 'PingFang SC Medium';
+  font-size: 40rpx;
+  // flex 超级好用，可以看看这个教程： https://www.bilibili.com/video/BV1qJ411N7TA?spm_id_from=333.999.0.0
+  // 方向默认是横向排布，justify-content 即横轴上默认是 flex-start 靠左
+  // align-items:center 使容器内的元素垂直居中
+  display: inline-flex;
+  align-items: center;
+  // background-color: green;
+}
+
+/* 返回键 */
+// icon 最好使用 svg 格式的矢量图形，放大不会模糊，而且背景是透明的
+// 由于 微信小程序不支持 svg 标签，于是可以转成 base64 后
+// 作为 background-image 的 url 引入
+// 或者通过 image 标签的 src 属性引入
+.arrow {
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMi44MTEiIGhlaWdodD0iMTcuNzk4IiB2aWV3Qm94PSIwIDAgMTIuODExIDE3Ljc5OCI+DQogIDxnIGlkPSLnu4Tku7ZfMV85IiBkYXRhLW5hbWU9Iue7hOS7tiAxIOKAkyA5IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxLjQwNiAxLjQwNikiPg0KICAgIDxsaW5lIGlkPSLnm7Tnur9fMSIgZGF0YS1uYW1lPSLnm7Tnur8gMSIgeDE9IjEwIiB5Mj0iOCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMzMzIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS13aWR0aD0iMiIvPg0KICAgIDxsaW5lIGlkPSLnm7Tnur9fMiIgZGF0YS1uYW1lPSLnm7Tnur8gMiIgeDE9IjEwIiB5MT0iNyIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMCA4KSIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMzMzIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS13aWR0aD0iMiIvPg0KICA8L2c+DQo8L3N2Zz4NCg==");
+  height:15px;
+  width:10px;
+  padding:10px;
+  box-sizing: border-box;
+  margin-left: 20rpx;
+  // 暴力位移至与蓝湖一致
+
+  // background-color: cornsilk;
+}
+.title {
+  margin-left:10px;
+}
+
+.fill {
+  z-index: 50;
+  position:sticky; // nb
+  top:0;
+}

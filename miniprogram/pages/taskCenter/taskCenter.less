@@ -1,7 +1,152 @@
+.taskCenter {
+  background-color: #F6F6F6;
+  height:100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
 .main {
   background-color:#f6f6f6;
   width:100vw;
-  height:100vh;
+  
   padding:0 25px;
   box-sizing: border-box;
+}
+//main被注释了
+
+.titleBox {
+  background-color: #fff;
+  border-radius: 0 0 34rpx 34rpx;
+  margin-bottom: 9rpx;
+  margin-top:-40rpx;
+  z-index:100;
+}
+
+.title {
+  font-size: 48rpx;
+  font-weight: bold;
+  margin-left: 50rpx;
+  margin-bottom: 24rpx;
+  z-index:100;
+}
+
+.topBlock {
+  width: 100%;
+  height: 86rpx;
+  box-sizing: border-box;
+  padding:0 50rpx;
+}
+
+.jiantouImg {
+  width: 20rpx;
+  height: 13rpx;
+}
+
+.selectBox {
+  width: 100vw;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding:0 50rpx;
+}
+
+.selectBox::after {
+  clear: both;
+  display: block;
+  content: "";
+}
+
+// button实际上可以删掉,我一开始想拿button做的。。。
+.selectBox button,
+.selectBox picker {
+  width: fit-content;
+  /* display: inline-block; */
+}
+
+// 选择按钮的样式
+.parameter {
+  float: left;
+  padding: 16rpx 30rpx;
+  font-size: 32rpx;
+  /* 字体未知 */
+  // 好家伙，照抄数据就歪下来了一点
+  font-weight: 400;
+  color: rgb(140, 140, 140);
+  margin: 30rpx 10rpx 20rpx 10rpx;
+  border-radius: 20rpx;
+  background-color: rgb(243, 243, 243);
+}
+
+.checked_parameter {
+  color: #fff;
+  background-color: rgb(255, 207, 86);
+}
+
+.selectBox button {
+  padding: 22rpx 38rpx 22rpx 38rpx;
+  font-size: 30rpx;
+  font-weight: 400;
+  color: rgb(140, 140, 140);
+  margin: 42rpx 10rpx 26rpx 10rpx;
+  border-radius: 20rpx;
+}
+
+.picker {
+  font-size: 24rpx;
+  color: rgb(85, 85, 85);
+}
+
+
+.missions-container {
+  padding:0rpx 50rpx;
+  box-sizing: border-box;
+  margin-bottom:130rpx;
+  flex:1;
+  // 出现滚动条
+  overflow: auto;
+}
+.missions {
+  margin:20rpx 0;
+}
+
+.cook {
+  width:100vw;
+  height:100vh;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  padding:40rpx;
+  padding-top:200rpx;
+
+  .recipe {
+    height:200rpx;
+    background-color: rgb(255, 199, 94);
+    border-radius: 20rpx;
+    margin:10rpx 0;
+    padding: 30rpx 40rpx;
+    box-sizing: border-box;
+    color:#fff;
+    border: 1px solid #333;
+    display: flex;
+    flex-direction: column;
+    &:active {
+      background-color: #ffbd5b;
+    }
+  }
+  .food {
+    overflow: hidden;
+     white-space: nowrap;
+     text-overflow: ellipsis;/*溢出部分用...省略号代替*/
+  }
+  .name {
+    font-size: 40rpx;
+    font-weight: 800;
+    background-color: #333;
+    width:fit-content;
+    padding:10rpx 16rpx;
+    border-radius:20rpx;
+    margin-bottom: 10rpx;
+  }
 }

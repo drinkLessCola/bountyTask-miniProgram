@@ -1,0 +1,6 @@
+<!--pages/guide/guide.wxml-->
+<nav-bar 
+  showCapsule="{{true}}"
+  title="新手指引" 
+  nav-bgc-class='whiteBgc'
+></nav-bar>

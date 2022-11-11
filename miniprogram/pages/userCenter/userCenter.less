@@ -1,1 +1,153 @@
 /* miniprogram.wxss */
+page {
+  background: #f6f6f6;
+  height:100vh;
+  overflow: auto;
+  .bg {
+    position: absolute;
+    top:0;
+    left:0;
+    width:100vw;
+    height:660rpx;
+    background-image: -webkit-linear-gradient(#FFFEE6, #FFD7C0);
+    border-radius: 0 0 240rpx 240rpx;
+    z-index: -10;
+  }
+}
+
+.user-center {
+  width:100vw;
+  padding:0 50rpx;
+  margin-top:-40rpx;
+  box-sizing: border-box;
+  // padding 可以撑开盒子 margin 不可以
+  padding-bottom: 160rpx;
+  // 头像
+  .avatar {
+    width:200rpx;
+    height:200rpx;
+    border-radius: 50%;
+    background-color:#fff;
+    overflow: hidden;
+    image {
+      width:100%;
+      height:100%;
+    }
+  }
+}
+
+header {
+  margin-top:40rpx;
+  padding:10rpx;
+  width:100%;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .user-data {
+    display: flex;
+    color: #555;
+    .user-data-item {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      margin:0 40rpx;
+    }
+    .line {
+      height:90rpx;
+      width:2rpx;
+      background-color: #d5d5d5;
+      mix-blend-mode: multiply;
+    }
+    .data {
+      font-size: 50rpx;
+      font-weight: 500;
+      font-family: "Gilroy";
+    }
+    .title {
+      font-size: 24rpx;
+      margin-bottom: 18rpx;
+    }
+  }
+}
+
+.nickname {
+  margin:10rpx 20rpx;
+  font-size: 40rpx;
+  font-family: "PingFang SC SemiBold";
+  color:#555;
+}
+
+.tabbar {
+  width:100%;
+  background-color: #fff;
+  display: flex;
+  justify-content: space-between;
+  padding:30rpx 50rpx 70rpx 50rpx;
+  border-radius: 20rpx;
+  box-sizing: border-box;
+  margin:40rpx 0;
+  color:#515151;
+  .tabbar-item {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items:center;
+    &:active {
+      background-color: rgb(255, 237, 188);
+    }
+    &:active .title {
+      color:goldenrod;
+    }
+  }
+  .title {
+    word-break:keep-all;
+    position: absolute;
+    bottom:0;
+    transform: translateY(calc(100% + 10rpx));
+    overflow: visible;
+    font-size: 24rpx;
+  }
+  .icon {
+    width:60rpx;
+    height:60rpx;
+    background-size:auto 60rpx; 
+  }
+}
+
+.menubar {
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  color:#515151;
+  border-radius: 10rpx;
+  margin:40rpx 0;
+  .menubar-item{
+    display: flex;
+    align-items: center;
+    padding:20rpx 40rpx;
+    &:active{
+      background-color: #f5f5f5;
+    }
+  }
+  .title {
+    margin-left: 20rpx;
+    font-size: 32rpx;
+  }
+  .icon {
+    width:34rpx;
+    height:32rpx;
+    background-size:auto 32rpx; 
+  }
+}
+.logout {
+  background-color: #ff843d;
+  color:#fff;
+  .menubar-item {
+    justify-content: center;
+    &:active {
+      background-color: #ff7221;
+    }
+  }
+}

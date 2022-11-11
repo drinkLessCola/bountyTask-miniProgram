@@ -1,2 +1,96 @@
-<!--miniprogram.wxml-->
-<text>miniprogram.wxml</text>
+<view wx:if="{{show}}" class="taskDetail">
+  <nav-bar showCapsule="{{true}}" title="任务详情"></nav-bar>
+  <image class="topImg" wx:if="{{!isPublisher}}" mode="aspectFill"></image>
+  <view class="holder" wx:if="{{!isPublisher}}"></view>
+  <view class="{{isPublisher? 'background-publisher' : 'background-execute'}}">
+    <section class="main">
+      <!-- 这个是白色的背景,发布方状态时暴力位移到手机屏幕顶端 -->
+      <view class="taskInfo">
+        <view class="bounty">¥{{task.bounty}}</view>
+        <view class="taskTitle">{{task.title}}</view>
+
+        <view class="userInfo">
+          <!-- 任务发布者 -->
+          <userinfo avatarUrl="{{publisher.avatarUrl}}" nickname="{{publisher.nickName}}" mode="publisher"></userinfo>
+          <view class="remainTaskNum">剩余{{task.number}}份</view>
+        </view>
+        <view class="labelBox">
+          <view wx:for="{{task.labels}}" wx:key="index" class="label  {{item == '紧急' ? 'redlabel' : ''}}">{{item}}</view>
+          <!-- wx:for遍历 任务标签数组 -->
+          <!-- 额，我不想看到警告 哈哈哈哈 -->
+        </view>
+      </view>
+      <title title="任务说明" wx:if="{{!isPublisher}}"> {{task.illustrate}} </title>
+      <!-- 任务说明 执行方可见 -->
+      <!-- ddl盒子 两者可见 -->
+      <title title="截止时间">
+        <view class="timeBox">
+          <view class="time-icon"></view>
+          <view class="time">{{task.deadline}}</view>
+        </view>
+      </title>
+      <!-- 这个有wx:if 发布方可见-->
+      <title title="领取情况" wx:if="{{isPublisher}}">
+        <view class="perReceiver" wx:for="{{receiverInfo}}" wx:key="index" bindtap="confirmTask" data-info='{{item}}'>
+          <view class='userinfo'>
+            <userinfo avatarUrl="{{item.avatarUrl}}" nickname="{{item.nickName}}"></userinfo>
+          </view>
+          <view class="status">{{item.status}}</view>
+          <!-- 这里使用wx:for  遍历 领取任务的人-->
+        </view>
+      </title>
+      <!-- <view style="margin-top: 25rpx;"></view> -->
+      <!-- 这空盒子用来调整空隙因为上下两个都不方便处理 -->
+
+
+      <!-- 任务要求 执行方可见 -->
+      <title title="任务要求" wx:if="{{!isPublisher}}">{{task.request === '无' ? '无':'完成后' + task.request}}</title>
+
+      <title title="联系方式" 
+        wx:if="{{!isPublisher && (receiveStatus === '未提交' || receiveStatus === '已提交') }}"
+      >{{ task.contact }}</title>
+    </section>
+
+
+
+
+    <!-- 底部按钮 -->
+    <section class="bottomButtons">
+      <!--下线任务 发布方可见  -->
+      <view wx:if="{{isPublisher}}" class="receiverBtn">
+        <button wx:if="{{isOffline}}" class="disable-btn">已下线</button>
+        <button wx:if="{{!isOffline && isOutDate}}" class="disable-btn">已截止</button>
+        <button wx:if="{{!isOffline && !isOutDate}}" class="offline-btn" bindtap="offlineTask" >下线任务</button>
+      </view>
+
+      <!-- 收藏和接任务 接收方可见 -->
+      <view wx:if="{{!isPublisher}}" class="receiverBtn">
+        <section wx:if="{{!isOutDate || receiveStatus === '已提交'}}">
+          <view wx:if="{{!isCollect}}" class="collect collect-icon" bindtap="taskCollect"></view>
+          <view wx:else class="collect collect-icon-active" bindtap="delCollect"></view>
+        </section>
+
+        <button wx:if="{{!isOutDate && receiveStatus === '未接受'}}" class="receive-btn" bindtap="showDialog">接任务</button>
+        <button wx:if="{{!isOutDate && receiveStatus === '未提交'}}" class="submit-btn" bindtap="toFinish">完成任务</button>
+        <button wx:if="{{receiveStatus === '已提交'}}" class="finished-btn" bindtap="confirmTask">查看完成情况</button>
+        <button wx:if="{{isOutDate && receiveStatus !== '已提交'}}" class="disable-btn">已截止</button>
+
+      </view>
+    </section>
+
+  </view>
+
+  <!-- 遮罩 -->
+  <view class="mask" wx:if="{{showDialog}}"></view>
+  <view class="dialog" wx:if="{{showDialog}}">
+    <view class='title'>确定接受任务？</view>
+    <view class='text'>请在规定时间内完成任务，可在个人中心中放弃任务，此操作将释放任务资格。</view>
+    <view class="buttons">
+      <button class='btnNO' bindtap="hideDialog">取消</button>
+      <button class='btnYes' bindtap="receiveTask">确定</button>
+    </view>
+    <!-- 填充底部 -->
+    <view style="height:{{bottomBarHeight}}px"></view>
+  </view>
+  <view style="height:{{bottomBarHeight}}px"></view>
+</view>

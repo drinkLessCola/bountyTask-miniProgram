@@ -1,0 +1,14 @@
+<!--miniprogram.wxml-->
+<view class="home" wx:if="{{showComponent}}">
+  <h1 class="title">简洁备忘录</h1>
+  <textarea placeholder="今天有什么需要去做的事？" value="{{memo}}" bindinput="handleInput"></textarea>
+  <section class="emergent-container">
+    优先级：
+    <radio-group class="emergent" bindchange="handleChange">
+      <radio value="low" checked="{{emergent === 'low'}}">低</radio>
+      <radio value="medium" checked="{{emergent === 'medium'}}">中</radio>
+      <radio value="high" checked="{{emergent === 'high'}}">高</radio>
+    </radio-group>
+  </section>
+  <button class="primary button" bindtap="saveMemo">保存！</button>
+</view>

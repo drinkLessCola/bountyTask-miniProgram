@@ -1,0 +1,11 @@
+<!--component/userinfoBox/userinfoBOx.wxml-->
+
+<!-- 头像和昵称 -->
+<!-- 传入头像url和昵称string即可 -->
+<!-- fontCSS为外部样式 可自定义字体颜色 -->
+<!-- size为头像长宽 单位rpx -->
+<!-- 淦，外部样式怎么用不了，不知道哪写错了 先不管了-->
+
+<view class="Box {{mode === 'publisher'? 'publisher': ''}}">
+  <image src="{{avatarUrl}}"></image>{{nickname}}
+</view>

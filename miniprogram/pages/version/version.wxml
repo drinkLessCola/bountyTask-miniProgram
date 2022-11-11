@@ -1,0 +1,11 @@
+<!--pages/version/version.wxml-->
+<nav-bar 
+  showCapsule="{{true}}"
+  title="版本信息" 
+  nav-bgc-class='whiteBgc'
+></nav-bar>
+<image src="/images/version.svg" mode="aspectFill"></image>
+
+<view class="title">SCAU乌托帮</view>
+<view class="version">v 1.3.0</view>
+<view class="date">更新日期：2022-10-14</view>

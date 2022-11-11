@@ -1,0 +1,11 @@
+  <ul class="switch-container">
+    <li
+      wx:for="{{options}}" 
+      wx:key="{{item.value}}" 
+      class="switch-item {{item.isActive ? 'active': ''}}" 
+      data-value="{{item.value}}"
+      bindtap="switch"
+    >
+      {{item.label}}
+    </li>
+  </ul>

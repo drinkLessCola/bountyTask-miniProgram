@@ -1,0 +1,23 @@
+<view style="--color:{{mode === 'white'? '#fff' : '#f3f3f3'}}; --maskColor:{{mode === 'white'? '#f6f6f6' : '#fff'}};">
+  <view class="mask {{active && 'active'}}"></view>
+
+  <view class="search {{active && 'active'}}" style="--width:{{width}}rpx;">
+    <view class="input">
+      <image src="/images/taskCenter/search.png" mode="aspectFill" bindtap="search"></image>
+      <input id="input" type="text" value="{{keyword}}" 
+        placeholder="试试搜索任务" 
+        bindinput="handleInput" 
+        bindfocus="handleFocus" 
+        bindblur="handleBlur"
+        bindconfirm="handleConfirm"
+      />
+      <button class="search-btn" bindtap="search">搜索</button>
+    </view>
+
+    <view class="history">
+      <span wx:for="{{historyArr}}" bindtap="useKeyword" data-key="{{item}}">{{item}}</span>
+    </view>
+
+  </view>
+</view>
+<!-- 历史搜索记录 -->

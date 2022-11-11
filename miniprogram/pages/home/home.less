@@ -1,19 +1,103 @@
-/**index.wxss**/
-.userinfo {
+/* pages/page1/page1.wxss */
+/* page1/page1.wxss */
+
+// 接触小程序写的第一个css文件，比较繁杂
+
+page {
+  background-color: #F6F6F6;
+}
+
+.topBlock {
+  width: auto;
+  margin:0 50rpx;
+  height: 86rpx;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  color: #aaa;
+}
+.msg {
+  margin-left: 50rpx;
+}
+.titleText {
+  margin-left: 50rpx;
+  margin-top: 36rpx;
+  margin-bottom: 20rpx;
+  font-size: 40rpx;
+  font-weight: 700;
 }
 
-.userinfo-avatar {
-  overflow: hidden;
-  width: 128rpx;
-  height: 128rpx;
-  margin: 20rpx;
-  border-radius: 50%;
+.bigBox{
+  height:fit-content;
 }
 
-.usermotto {
-  margin-top: 200px;
+.typeBox {
+  display: flex;
+  justify-content: space-between;
+  margin:0 50rpx;
+}
+
+
+.typeBox .nav{
+  display:inline-block;
+  position:relative;
+  color: #FFF;
+  border-radius: 20rpx;
+  font-size: 52rpx;
+  font-weight: bold;
+  height: 200rpx;
+  box-sizing: border-box;
+  .img {
+    width:100%;
+    height:100%;
+    position:absolute;
+    left:0;
+    top:0;
+  }
+}
+
+.fetch {
+  width: 394rpx;
+  .label {
+    position:absolute;
+    left:32rpx;
+    top:20rpx;
+  }
+}
+
+.helpBuy{
+  width: 226rpx;
+  .label {
+    position:absolute;
+    right:16rpx;
+    top:20rpx;
+  }
+}
+
+.vote {
+  width: 260rpx;
+  margin-top: 40rpx;
+  .label {
+    position:absolute;
+    left:30rpx;
+    top:20rpx;
+  }
+}
+
+.other {
+  width: 350rpx;
+  margin-top: 40rpx;
+  .label {
+    position:absolute;
+    left:48rpx;
+    top:20rpx;
+  }
+}
+
+.missions {
+  margin-top: 20rpx;
+  margin-left: 50rpx;
+  margin-right: 48rpx;
+}
+
+.shift {
+  height: 240rpx;
 }

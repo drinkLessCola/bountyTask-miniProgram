@@ -1,0 +1,21 @@
+<view class="intro" wx:if="{{show}}">
+  <nav-bar showCapsule="{{true}}" title="新手指引"></nav-bar>
+  <section class="main">
+    <header class="header {{type}}">
+      <image src="/images/home/{{type}}.png" mode="aspectFit" class="img"></image>
+    </header>
+    <title title="{{label[type]}}">
+      <p class="p">{{intro[type]}}</p>
+    </title>
+
+    <span class="p">
+      在首页，点击下方导航栏中间的 “+” 按钮，即可进入发布任务界面。
+      或直接点击下方按钮，开始创建新的任务。
+
+      请在标签栏选择 【{{label[type]}}】，可以让你的需求更好被他人了解到。
+    </span>
+  </section>
+  <button class="btn" bindtap="toPublishTask">发布任务</button>
+  <view style="height:{{bottomBarHeight}}px" ></view>
+
+</view>

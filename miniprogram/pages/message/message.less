@@ -1,0 +1,80 @@
+page {
+  background-color: rgb(246,246,246);
+}
+
+.navbackground {
+  z-index: -1000;
+  background-color: #fff;
+  position: absolute;
+  width: 100vw;
+  height: 164rpx;
+  top: 0rpx;
+}
+
+.topBox {
+  box-sizing: border-box;
+  position: relative;
+  margin-top:-40rpx;
+  top: 0rpx;
+  z-index: 100;
+  height: 180rpx;
+  width: 100vw;
+  background-color: rgb(246,246,246);
+  padding-left: 50rpx ;
+  
+  border-radius:0 0 40rpx 40rpx;
+  .title {
+    font-size: 48rpx;
+    color: #333333;
+    // margin-left: 50rpx;
+    font-weight: bold;
+  }
+  
+}
+
+.label {
+  margin-left: 20rpx;
+  margin-top: 30rpx;
+  display: inline-block;
+  .labelTitle {
+    font-size: 32rpx;
+    color: rgba(136, 136, 136, 1);
+  }
+}
+
+.sel {
+  .labelTitle {
+    font-size: 40rpx;
+    color: rgba(51, 51, 51, 1);
+    font-weight: bold;
+  }
+  .decorate {
+    margin-top: 4rpx;
+    background-color: rgba(255, 151, 30, 1);
+    width: 160rpx;
+    height: 8rpx;
+    border-radius: 4rpx;
+    margin-left: 20rpx;
+  }
+}
+
+.shift {
+  position: sticky;
+  top: 400rpx;
+  height: 200rpx;
+}
+
+.msg {
+  margin-top: 20rpx;
+  margin-left: 50rpx;
+  position: relative;
+}
+// 空隙不知道怎么处理才看起来不诡异 直接在sel上加margin-right很诡异。。
+
+
+.empty-tip {
+  padding-top:40rpx;
+  width:fit-content;
+  color:#888;
+  margin:0 auto;
+}

@@ -1,0 +1,11 @@
+{
+  "usingComponents": {
+    "task":"/component/task/task",
+    "nav-bar":"/component/nav/nav"
+  },
+  "backgroundColor": "#fff",
+  "navigationBarBackgroundColor": "#fff",
+  "enablePullDownRefresh": true,
+  "navigationStyle": "custom"
+  
+}

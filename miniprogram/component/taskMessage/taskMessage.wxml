@@ -1,0 +1,10 @@
+<!--component/taskMessage/taskMessage.wxml-->
+<view class="message" >
+  <view class="time">{{msgTime}}</view>
+  <view class="title">{{title}}</view>
+  <view class="status">{{subTitle}}</view>
+</view>
+<!-- 不保证后端无法实现目前返回数据的要求，暂时搁置 bylzh -->
+<!-- 后端似乎能实现 -->
+
+<!-- 输入的东西均为字符串,组件内不做处理 -->

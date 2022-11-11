@@ -1,0 +1,14 @@
+<!--miniprogram.wxml-->
+<view class="processing-task" wx:if="{{show}}">
+  <nav-bar showCapsule="{{true}}" bgColor="#fff" title="领取的任务" ></nav-bar>
+  <header class="switch-container">
+    <switch options="{{switchOptions}}" activeIdx="{{switchIdx}}" bind:switch="handleSwitch"></switch>
+  </header>
+
+  <main class="task-container">
+    <view class="task-item" wx:for="{{taskList}}">
+      <task taskData="{{item}}"></task>
+    </view>
+  </main>
+  <view style="height:{{bottomBarHeight}}px"></view>
+</view>

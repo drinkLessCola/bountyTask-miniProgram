@@ -1,2 +1,66 @@
-<!--miniprogram.wxml-->
-<text>miniprogram.wxml</text>
+<nav-bar showCapsule="{{false}}" title=""></nav-bar>
+<view class="bg"></view>
+<view class="user-center">
+  <view class="primary-title">个人中心</view>
+  <header>
+    <view class="avatar" bindtap="handleLogin">
+      <image src="{{avatarUrl}}" mode="aspectFit"></image>
+    </view>
+    <ul class="user-data" wx:if="{{show}}">
+      <li class="user-data-item">
+        <span class="title">发布任务</span>
+        <view class="data">{{publishNum === -1 ? '-' : publishNum}}</view>
+      </li>
+      <li class="line"></li>
+      <li class="user-data-item">
+        <span class="title">余额</span>
+        <view class="data">{{money === -1 ? '-' : money}}</view>
+      </li>
+    </ul>
+  </header>
+  <view class="nickname" bindtap="handleLogin">{{nickName || '点击登录'}}</view>
+
+  <!-- 中间的那一栏 -->
+  <ul class="tabbar" wx:if="{{show}}">
+    <li class="tabbar-item" bindtap="toPublished" data-option="{{1}}">
+      <view class="icon processing-icon"></view>
+      <span class="title">进行中</span>
+    </li>
+    <li class="tabbar-item" bindtap="toPublished" data-option="{{3}}">
+      <view class="icon finished-icon"></view>
+      <span class="title">已完成</span>
+    </li>
+    <li class="tabbar-item" bindtap="toProcessingTask">
+      <view class="icon received-task-icon"></view>
+      <span class="title">领取的任务</span>
+    </li>
+    <li class="tabbar-item" bindtap="toFinishedTask">
+      <view class="icon finished-task-icon"></view>
+      <span class="title">完成的任务</span>
+    </li>
+  </ul>
+
+  <!-- 下面的一栏 -->
+  <ul class="menubar">
+    <li class="menubar-item" bindtap="toTaskCollect" wx:if="{{show}}">
+      <view class="icon star-icon"/>
+      <span class="title">任务收藏夹</span>
+    </li>
+    <li class="menubar-item" wx:if="{{show}}">
+      <view class="icon service-icon"/>
+      <span class="title">联系客服</span>
+    </li>
+    <li class="menubar-item" bindtap="toFeedBack">
+      <view class="icon feedback-icon"/>
+      <span class="title">意见反馈</span>
+    </li>
+    <li class="menubar-item" bindtap="toVersionInfo">
+      <view class="icon info-icon"/>
+      <span class="title">版本信息</span>
+    </li>
+  </ul>
+
+  <ul class="menubar logout">
+    <li class="menubar-item" bindtap="logout">退出登录</li>
+  </ul>
+</view>

@@ -1,0 +1,7 @@
+<section class="formItem">
+  <!-- 标题 -->
+  <view class="generalTitle">{{title}}</view>
+  <!-- 插槽 -->
+  <section> <slot></slot> </section>
+  <view class="tip" wx:if="{{!valid}}">{{tip}}</view>
+</section>

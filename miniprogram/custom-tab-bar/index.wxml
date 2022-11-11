@@ -1,0 +1,35 @@
+<!--miniprogram.wxml-->
+<view class="TabBar" wx:if="{{show}}">
+  <view class="tab">
+    <ul class="tab-group">
+      <li class="icon {{selected === 1? 'home-icon-active' : 'home-icon'}}" bindtap="switchTab" data-idx="1" ></li>
+      <li class="icon {{selected === 2? 'task-icon-active' : 'task-icon'}}" bindtap="switchTab" data-idx="2"></li>
+    </ul>
+    <ul class="tab-group">
+      <li class="icon {{selected === 3? 'msg-icon-active' : 'msg-icon'}}" bindtap="switchTab" data-idx="3">
+       
+        <i class="hasMsg {{hasMessage ? '' : 'hide'}}"></i>
+      </li>
+      <li class="icon {{selected === 4? 'user-icon-active' : 'user-icon'}}" bindtap="switchTab" data-idx="4"></li>
+    </ul>
+    <button class="btn" type="primary" bindtap="switchPage">
+      <view class="add-icon"></view>
+    </button>
+  </view>
+
+  <!-- 占位 -->
+  <view class="danger-zone" style="height:{{tabBarBottom}}px" >
+    <view class="bg"></view>
+  </view>
+</view>
+
+<view class="TabBar temp" wx:else>
+  <view class="tab">
+    <ul class="tab-group" style="width:100%;background-color: #fff;">
+      <li class="{{selected === 1? 'active' : ''}}" bindtap="switchTab" data-idx="1">首页</li>
+      <li class="{{selected === 2? 'active' : ''}}" bindtap="switchTab" data-idx="2">我的备忘</li>
+      <li class="{{selected === 4? 'active' : ''}}" bindtap="switchTab" data-idx="4">个人中心</li>
+    </ul>
+  </view>
+  <view class="danger-zone" style="height:{{tabBarBottom}}px"></view>
+</view>

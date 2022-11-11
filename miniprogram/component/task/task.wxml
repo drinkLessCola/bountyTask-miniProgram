@@ -1,8 +1,9 @@
 <!--miniprogram.wxml-->
-<view class="task">
+<view class="task {{isOutDate ? 'outdate' : ''}}" bindtap="toTaskDetail" data-id="{{taskData.id}}">
   <header class="task-header">
-    <span>{{title}}</span>
-    <span class="bounty">¥{{bounty}}</span>
+    <span>{{taskData.title}}</span>
+    <span class="outdate-tip" wx:if="{{isOutDate}}">已截止</span>
+    <span class="bounty" wx:else>¥{{taskData.bounty}}</span>
   </header>
   <main class="task-main">
     <ul class="task-info">
@@ -10,7 +11,7 @@
         <span class="icon icon-address"></span>{{area}}
       </li>
       <li class="info">
-      <span class="icon icon_time"></span>
+      <span class="icon icon-time"></span>
       {{deadline}}</li>
     </ul>
     <span>{{publishTime}}</span>
